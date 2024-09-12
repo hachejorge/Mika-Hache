@@ -121,10 +121,8 @@ int main (void) {
 	
 	while(1); //no hay S.O., no se retorna
 	
-	return 0;
 }
 
 /**
  *@}
  **/
-
