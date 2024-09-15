@@ -29,16 +29,18 @@ uint8_t matrizNxN_verificar(int A[N][N], int B[N][N], int C[N][N], int D[N][N], 
 
 
 void matrizNxN_transponer(int A[N][N], int Transpuesta[N][N]){
-	for(unsigned i = 0; i < N; i++){
-		for(unsigned j = 0; j < N; j++){
+	int i,j;
+	for(i = 0; i < N; i++){
+		for(j = 0; j < N; j++){
 			Transpuesta[j][i] = A[i][j];
 		}
 	}
 }
 
 void matrizNxN_sumar(int A[N][N], int B[N][N], int Resultado[N][N] ){
-	for(unsigned i = 0; i < N; i++){
-		for(unsigned j = 0; j < N; j++){
+	int i,j;
+	for(i = 0; i < N; i++){
+		for(j = 0; j < N; j++){
 			Resultado[i][j] = A[i][j] + B[i][j];
 		}
 	}
@@ -50,9 +52,10 @@ void matrizNxN_sumar(int A[N][N], int B[N][N], int Resultado[N][N] ){
  */
 		
 void matrizNxN_multiplicar_C(int A[N][N], int B[N][N], int Resultado[N][N]){
-	for(unsigned i = 0; i < N; i++){
-		for(unsigned j = 0; j < N; j++){
-			for(unsigned k = 0; k < N; k++){
+	int i,j,k;
+	for(i = 0; i < N; i++){
+		for(j = 0; j < N; j++){
+			for(k = 0; k < N; k++){
 				Resultado[i][j] += A[i][k] * B[k][j];
 			}
 		}
@@ -63,10 +66,29 @@ void matrizNxN_multiplicar_C(int A[N][N], int B[N][N], int Resultado[N][N]){
 //ayudandose de funcion matrizNxN_multiplicar_C que calcula A*B de NxN
 uint8_t matrizNxN_operar_C(int A[N][N], int B[N][N], int C[N][N], int D[N][N], int Resultado[N][N]){
 	uint8_t terminos_no_cero;
-	
+	int E[N][N],F[N][N];
+	int i,j;
+	for(i = 0; i < N; i++){
+		for(j = 0; j < N; j++){
+			E[i][j] = 0;
+			Resultado[i][j] = 0;
+		}
+	}	
+
 	matrizNxN_multiplicar_C(A, B, Resultado);
-	//TODO
-	//....
+	matrizNxN_multiplicar_C(C, D, E);
+	matrizNxN_transponer(E,F);
+	matrizNxN_sumar(Resultado,F,Resultado);
+
+	terminos_no_cero = 9;
+
+	for(i = 0; i < N; i++){
+		for(j = 0; j < N; j++){
+			if(Resultado[i][j] == 0) { 
+				terminos_no_cero--;
+			}
+		}
+	}
 	return terminos_no_cero;
 }
 		
@@ -89,35 +111,30 @@ uint8_t matrizNxN_verificar(int A[N][N], int B[N][N], int C[N][N], int D[N][N], 
 int main (void) {
 	int Resultado_E[N][N];
 	int error;
-
-	for(unsigned i = 0; i < N; i++){
-		for(unsigned j = 0; j < N; j++){
-			Resultado_E[i][j] = 0;
-		}
-	}
+	uint8_t terminos_no_cero;
+	int i,j;
 
 	int Test_C[N][N]  = {
 		{1, 0, 2},
 		{0, 1, 2},
 		{2, 0, 1}
 	};
-
+	     
 	int Test_D[N][N]  = {
 		{2, 1, 0},
 		{1, 2, 0},
 		{0, 0, 2}
 	};
 
-	matrizNxN_multiplicar_C(Test_C, Test_D, Resultado_E);
-
-	for(unsigned i = 0; i < N; i++){
-		for(unsigned j = 0; j < N; j++){
-			printf("%i",Resultado_E[i][j]);
-			if(j == N-1) printf("\n");
+	for(i = 0; i < N; i++){
+		for(j = 0; j < N; j++){
+			Resultado_E[i][j] = 0;
 		}
 	}
 
-	error = matrizNxN_verificar(Test_A, Test_B, Test_C, Test_D, Resultado_E);
+	terminos_no_cero = matrizNxN_operar_C(Test_A,Test_B,Test_C, Test_D, Resultado_E);
+
+	//error = matrizNxN_verificar(Test_A, Test_B, Test_C, Test_D, Resultado_E);
 	
 	while(1); //no hay S.O., no se retorna
 	
