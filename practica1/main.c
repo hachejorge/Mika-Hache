@@ -2,7 +2,6 @@
 // version 0.1
 
 #include "matriz_3x3.h"
-#include <stdio.h>
 
     // Inicializaci�n de matrices usando el tipo de datos Matriz3x3
 static int Test_A[N][N] = {
@@ -126,13 +125,9 @@ int main (void) {
 		{0, 0, 2}
 	};
 
-	for(i = 0; i < N; i++){
-		for(j = 0; j < N; j++){
-			Resultado_E[i][j] = 0;
-		}
-	}
+	//terminos_no_cero = matrizNxN_operar_C(Test_A,Test_B,Test_C, Test_D, Resultado_E);
 
-	terminos_no_cero = matrizNxN_operar_C(Test_A,Test_B,Test_C, Test_D, Resultado_E);
+	terminos_no_cero = matriz3x3_operar_ARM_C(Test_A,Test_B,Test_C, Test_D, Resultado_E);
 
 	//error = matrizNxN_verificar(Test_A, Test_B, Test_C, Test_D, Resultado_E);
 	
