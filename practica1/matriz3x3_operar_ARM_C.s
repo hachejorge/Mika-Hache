@@ -6,7 +6,7 @@
 
 		ENTRY
 matriz3x3_operar_ARM_C
-			; PR”LOGO
+			; PR√ìLOGO
 			STMDB 	SP!,{R4-R12,LR}	   ; Se guardan los registros antiguos y el link register para volver
 			SUB 	SP, SP, #72		   ; Se almacena espacio para las variables E y F, 36 bytes respectivamente
 
@@ -98,7 +98,7 @@ ini_f_suma	CMP 	R2, #9
 			B ini_f_suma
 
 end_f_suma				
-			; EPÕLOGO
+			; EP√çLOGO
 			ADD 	SP, SP, #72
 			LDMIA	SP!,{R4-R12,LR}
 			BX		LR 
