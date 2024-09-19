@@ -1,5 +1,8 @@
 // fuentes Proyecto Hardware 2024
 // version 0.1
+//	Nekane Díaz Montoya	  870795	
+//	Jorge Hernández Aznar 872838
+
 
 #include "matriz_3x3.h"
 
@@ -99,10 +102,15 @@ uint8_t matrizNxN_verificar(int A[N][N], int B[N][N], int C[N][N], int D[N][N], 
 	uint8_t resultado;
 	
 	terminos_no_cero_C = matrizNxN_operar_C(A, B, C, D, Resultado);
+	terminos_no_cero_ARM_C = matriz3x3_operar_ARM_C(A, B, C, D, Resultado);
+	terminos_no_cero_ARM = matriz3x3_operar_ARM(A, B, C, D, Resultado);
 		
 	//TODO llamar al resto de implementaciones en ensamblador
 	
 	//TODO resultado = (terminos_no_cero_C ! = al resto....
+	
+	resultado = (terminos_no_cero_C == terminos_no_cero_ARM_C);
+
 	return resultado;
 }
 
@@ -125,11 +133,7 @@ int main (void) {
 		{0, 0, 2}
 	};
 
-	//terminos_no_cero = matrizNxN_operar_C(Test_A,Test_B,Test_C, Test_D, Resultado_E);
-
-	terminos_no_cero = matriz3x3_operar_ARM_C(Test_A,Test_B,Test_C, Test_D, Resultado_E);
-
-	//error = matrizNxN_verificar(Test_A, Test_B, Test_C, Test_D, Resultado_E);
+	error = matrizNxN_verificar(Test_A, Test_B, Test_C, Test_D, Resultado_E);
 	
 	while(1); //no hay S.O., no se retorna
 	
