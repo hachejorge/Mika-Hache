@@ -10,8 +10,6 @@ matriz3x3_operar_ARM
 			STMDB 	SP!,{R4-R12,LR}	   ; Se guardan los registros antiguos y el link register para volver
 			SUB 	SP, SP, #72		   ; Se almacena espacio para las variables E y F, 36 bytes respectivamente
 
-			MOV 	R6, R2		 ; r6 = @C
-			MOV 	R7, R3  	 ; r7 = @D
 			LDR 	R4,[SP,#112] ; R4 = @Resultado 
 			ADD 	R5, SP, #40	 ; R5 = @E
 			
@@ -32,20 +30,20 @@ end_for
 			MOV 	R10, #12
 			; for (i = 2; i >= 0; i--)
 			MOV		R6, #2		; R6 = i = 2			
-ini_f_i_m	
+ini_f_i_m1	
 			; for (j = 2; j >= 0; j--)
 			MOV		R7, #2		; R7 = j = 2
-ini_f_j_m
+ini_f_j_m1
 			; for (k = 2; k >= 0; k--)
 			MOV		R8, #2
-ini_f_k_m
+ini_f_k_m1
 			; A(r9) = i(r6) * 12 + k(r8) * 4 + @A(r0)
 			MLA		R9, R10, R6, R0
 			LDR 	R9, [R9, R8, LSL #2]
 			; B(r11) = k(r8) * 12 + j(r7) * 4 + @B [r1] 
 			MLA		R11, R10, R8, R1
 			LDR		R11, [R11, R7, LSL #2]
-			; Resultado
+			; Resultado(r4) = i(r6) * 12 + j(r7) * 4 + @Resultado(r4) 
 			MLA		R12, R10, R6, R4
 			LDR 	R12, [R12, R7, LSL #2]
 
@@ -56,31 +54,71 @@ ini_f_k_m
 
 	   		SUB 	R8, R8, #1	; R8--
 			CMP		R8, #0
-			BGE		ini_f_k_m
+			BGE		ini_f_k_m1
 			; BPL		ini_f_k_m
 			; fin_for_k
 			SUB 	R7, R7, #1	; R7--
 			CMP 	R7, #0
-			BGE		ini_f_j_m
+			BGE		ini_f_j_m1
 			; BPL		ini_f_j_m
 			; fin_for_j			
 			SUB 	R6, R6, #1	; R6--
 			CMP 	R6, #0
-			BGE		ini_f_i_m	
+			BGE		ini_f_i_m1	
 			; BPL		ini_f_i_m	
 			; fin_for_i
 
 			; end-multiplicar(A,B,Resultado)
 
-			MOV 	R0, R6	 ; R0 = @C
-			MOV 	R1, R7	 ; R1 = @D
-			MOV 	R2, R4	 ; R2 = @E
 
 		    ; llamada a multiplicar(C,D,E)	
+			
+			; for (i = 2; i >= 0; i--)
+			MOV		R6, #2		; R6 = i = 2			
+ini_f_i_m2	
+			; for (j = 2; j >= 0; j--)
+			MOV		R7, #2		; R7 = j = 2
+ini_f_j_m2
+			; for (k = 2; k >= 0; k--)
+			MOV		R8, #2
+ini_f_k_m2
+			; C(r9) = i(r6) * 12 + k(r8) * 4 + @C(r2)
+			MLA		R9, R10, R6, R2
+			LDR 	R9, [R9, R8, LSL #2]
+			; D(r11) = k(r8) * 12 + j(r7) * 4 + @D(r3) 
+			MLA		R11, R10, R8, R3
+			LDR		R11, [R11, R7, LSL #2]
+			; E(r5) = i(r6) * 12 + j(r7) * 4 + @E(r5)
+			MLA		R12, R10, R6, R5
+			LDR 	R12, [R12, R7, LSL #2]
+
+			; Se obtiene el nuevo valor a guardar 
+			MLA		R12, R9, R11, R12
+			; GUARDAR R12 EN E
+			MLA		R11, R10, R6, R5
+			STR 	R12, [R11, R7, LSL #2]
+
+	   		SUB 	R8, R8, #1	; R8--
+			CMP		R8, #0
+			BGE		ini_f_k_m2
+			; BPL		ini_f_k_m
+			; fin_for_k
+			SUB 	R7, R7, #1	; R7--
+			CMP 	R7, #0
+			BGE		ini_f_j_m2
+			; BPL		ini_f_j_m
+			; fin_for_j			
+			SUB 	R6, R6, #1	; R6--
+			CMP 	R6, #0
+			BGE		ini_f_i_m2	
+			; BPL		ini_f_i_m	
+			; fin_for_i
+
+			; end-multiplicar(A,B,Resultado)
+
 
 			; Trasponer (E, F) 
 			MOV 	R5, SP	 ; R5 = @F
-			MOV		R11, #12	
 			
 			; R0 = i = 0
 			MOV 	R0, #0
@@ -96,12 +134,12 @@ trans_j_ini ; j < 3
 			BGE 	trans_j_end
 
 			; @E = E + j*4 + i*12
-			MUL 	R12, R11 ,R0 
+			MUL 	R12, R10 ,R0 
 			ADD 	R2, R12, R1, LSL #2
 			LDR 	R3, [R4, R2]
 
 			; @F = F + i*4 + j*12
-			MUL		R12, R11, R1
+			MUL		R12, R10, R1
 			ADD 	R2, R12, R0, LSL #2
 			STR 	R3, [R5, R2]
 
