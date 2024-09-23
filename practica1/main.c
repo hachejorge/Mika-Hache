@@ -109,7 +109,7 @@ uint8_t matrizNxN_verificar(int A[N][N], int B[N][N], int C[N][N], int D[N][N], 
 	
 	//TODO resultado = (terminos_no_cero_C ! = al resto....
 	
-	resultado = (terminos_no_cero_C == terminos_no_cero_ARM_C);
+	resultado = (terminos_no_cero_C != terminos_no_cero_ARM_C) && (terminos_no_cero_ARM_C != terminos_no_cero_ARM);
 
 	return resultado;
 }
@@ -118,8 +118,6 @@ uint8_t matrizNxN_verificar(int A[N][N], int B[N][N], int C[N][N], int D[N][N], 
 int main (void) {
 	int Resultado_E[N][N];
 	int error;
-	uint8_t terminos_no_cero;
-	int i,j;
 
 	int Test_C[N][N]  = {
 		{1, 0, 2},
