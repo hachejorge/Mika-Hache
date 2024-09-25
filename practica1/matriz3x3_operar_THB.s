@@ -1,16 +1,16 @@
-;	Nekane D�az Montoya	  870795	
-		;	Jorge Hern�ndez Aznar 872838
+;	Nekane Dï¿½az Montoya	  870795	
+		;	Jorge Hernï¿½ndez Aznar 872838
 		AREA codigo, CODE,READONLY
 		EXPORT matriz3x3_operar_THB
 		PRESERVE8 {TRUE}
 		THUMB
 		ENTRY
 matriz3x3_operar_THB
-			; PR�LOGO
+			; PRÓLOGO
 			STMDB 	SP!,{R4-R7,LR}	   ; Se guardan los registros antiguos y el link register para volver
 			SUB 	SP, SP, #36		   ; Se almacena espacio para las variables E, 36 bytes 
 
-			LDR 	R4, [SP,#76] 	   ; R12 = @Resultado 
+			LDR 	R4, [SP,#96] 	   ; R12 = @Resultado , #96
 			MOV		R12, R4			
 
 			; No hace falta inicializar Resultado ni E si solo vamos a hacer stores en memoria
@@ -122,7 +122,7 @@ ini_f_k_m
 			; R12 = @Resultado 	SP = @E
 
 			MOVS 	R0, #9	; R0 = terminos_no_cero
-			MOVS	R1, #9	; R1 = i
+			MOVS	R1, #8	; R1 = i
 			MOV		R4, R12	; R4 = @Resultado
 			MOV		R5, SP
 
@@ -136,13 +136,13 @@ ini_f_suma
 			;IT EQ
 			SUBS	R0, R0, #1			    ; 		terminos_no_cero--
 end_if		
-			STR 	R6, [R4, R6]
+			STR 	R3, [R4, R6]
 
-			SUBS 	R2, R2, #1
-			BNE		ini_f_suma
+			SUBS 	R1, R1, #1
+			BGE		ini_f_suma
 
 end_f_suma				
-			; EP�LOGO
+			; EPÍLOGO
 			ADD 	SP, SP, #36
 			LDMIA	SP!,{R4-R7}
 			; FALTA CARGAR LR
