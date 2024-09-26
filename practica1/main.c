@@ -64,6 +64,25 @@ void matrizNxN_multiplicar_C(int A[N][N], int B[N][N], int Resultado[N][N]){
 	}
 }
 
+uint8_t matrizNxN_operar_C_equivalenteARM(int A[N][N], int B[N][N], int C[N][N], int D[N][N], int Resultado[N][N]){
+	uint8_t terminos_no_cero = 9;
+	int suma;
+	int i,j,k;
+	for(i = 0; i < N; i++){
+		for(j = 0; j < N; j++){
+			suma = 0;
+			for(k = 0; k < N; k++){
+				suma += A[i][k] * B[k][j] + C[j][k] * D[k][i];
+			}
+			Resultado[i][j] = suma;
+			if (suma != 0) {
+				terminos_no_cero--;
+			}
+		}
+	}
+	return terminos_no_cero;
+}
+
 //funcion que calcula Resultado = A*B + transpuesta(C*D) y devuelva el numero de terminos distintos de cero en el Resultado
 //ayudandose de funcion matrizNxN_multiplicar_C que calcula A*B de NxN
 uint8_t matrizNxN_operar_C(int A[N][N], int B[N][N], int C[N][N], int D[N][N], int Resultado[N][N]){
@@ -99,18 +118,20 @@ uint8_t matrizNxN_verificar(int A[N][N], int B[N][N], int C[N][N], int D[N][N], 
 	uint8_t terminos_no_cero_ARM_C;
 	uint8_t terminos_no_cero_ARM;
 	uint8_t terminos_no_cero_THB;
+	uint8_t	terminos_no_cero_C_equivalenteARM;
 	uint8_t resultado;
 	
 	terminos_no_cero_C = matrizNxN_operar_C(A, B, C, D, Resultado);
 	terminos_no_cero_ARM_C = matriz3x3_operar_ARM_C(A, B, C, D, Resultado);
 	terminos_no_cero_ARM = matriz3x3_operar_ARM(A, B, C, D, Resultado);
 	terminos_no_cero_THB = matriz3x3_operar_THB(A, B, C, D, Resultado);
+	terminos_no_cero_C_equivalenteARM = matrizNxN_operar_C_equivalenteARM(A, B, C, D, Resultado);
 		
 	//TODO llamar al resto de implementaciones en ensamblador
 	
 	//TODO resultado = (terminos_no_cero_C ! = al resto....
 	
-	resultado = (terminos_no_cero_C != terminos_no_cero_ARM_C) && (terminos_no_cero_ARM_C != terminos_no_cero_ARM);
+	resultado = (terminos_no_cero_C != terminos_no_cero_ARM_C != terminos_no_cero_ARM != terminos_no_cero_THB != terminos_no_cero_C_equivalenteARM);
 
 	return resultado;
 }

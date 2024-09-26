@@ -15,7 +15,7 @@ matriz3x3_operar_THB
 
 			THUMB
 ini_thumb
-			LDR 	R4, [SP, #76] 	   ; R12 = @Resultado , #96
+			LDR 	R4, [SP, #76] 	   ; R4 = @Resultado 
 			MOV		R12, R4			
 
 			; No hace falta inicializar Resultado ni E si solo vamos a hacer stores en memoria
