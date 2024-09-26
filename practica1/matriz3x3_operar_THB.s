@@ -3,14 +3,19 @@
 		AREA codigo, CODE,READONLY
 		EXPORT matriz3x3_operar_THB
 		PRESERVE8 {TRUE}
-		THUMB
 		ENTRY
 matriz3x3_operar_THB
 			; PRÓLOGO
-			STMDB 	SP!,{R4-R7,LR}	   ; Se guardan los registros antiguos y el link register para volver
+			ARM
+			STMDB 	SP!,{R4-R12,LR}	   ; Se guardan los registros antiguos y el link register para volver
 			SUB 	SP, SP, #36		   ; Se almacena espacio para las variables E, 36 bytes 
 
-			LDR 	R4, [SP,#96] 	   ; R12 = @Resultado , #96
+			ADR		R4, ini_thumb + 1
+			BX		R4
+
+			THUMB
+ini_thumb
+			LDR 	R4, [SP, #76] 	   ; R12 = @Resultado , #96
 			MOV		R12, R4			
 
 			; No hace falta inicializar Resultado ni E si solo vamos a hacer stores en memoria
@@ -141,11 +146,15 @@ end_if
 			SUBS 	R1, R1, #1
 			BGE		ini_f_suma
 
-end_f_suma				
+end_f_suma	
+
+			ADR 	R1, ini_arm
+			BX		R1
+			ARM
+ini_arm			
 			; EPÍLOGO
 			ADD 	SP, SP, #36
-			LDMIA	SP!,{R4-R7}
-			; FALTA CARGAR LR
+			LDMIA	SP!,{R4-R12, LR}
 			BX		LR 
 
 		END
