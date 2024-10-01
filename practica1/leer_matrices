@@ -1,0 +1,32 @@
+
+int leer_matrices(int A[N][N], int B[N][N], int C[N][N], int D[N][N]){
+        FILE *file = fopen("prueba.txt", "r");  // Abre el archivo en modo lectura
+    if (file == NULL) {
+        printf("No se pudo abrir el archivo.\n");
+        return 1;
+    }
+ 
+    // Leer los números del archivo y almacenarlos en la matriz
+
+    for (int k = 0; k < N+1; k++) { 
+        for(int i = 0; i < N; i++ ){
+            for (int j = 0; j < N; j++) {   
+                // Leer cada número y almacenarlo en la matriz
+               switch (k) {
+                    case 0 :
+                        fscanf(file, "%d", &A[i][j]);
+                        break;
+                    case 1 :
+                        fscanf(file, "%d", &B[i][j]);
+                        break; 
+                    case 2 :
+                        fscanf(file, "%d", &C[i][j]);
+                        break;
+                    case 3 :
+                        fscanf(file, "%d", &D[i][j]);
+                        break;
+                    default :
+               }  
+            }
+        }
+    }
