@@ -5,6 +5,9 @@
 
 
 #include "matriz_3x3.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
     // Inicializaci�n de matrices usando el tipo de datos Matriz3x3
 static int Test_A[N][N] = {
@@ -136,6 +139,50 @@ uint8_t matrizNxN_verificar(int A[N][N], int B[N][N], int C[N][N], int D[N][N], 
 	return resultado;
 }
 
+uint8_t matrizNxN_compararResultados(int rC[N][N], int rCArm[N][N], int rArm[N][N], int rThumb[N][N], int rCOptimizado[N][N]){
+
+	uint8_t resultado = 1;
+	int i, j;
+	for(i = 0; i < N && resultado == 1; i++){
+		for(j = 0; j < N && resultado == 1; j++){
+			if( rC[i][j] != rCArm[i][j] || rCArm[i][j] != rArm[i][j] || rArm[i][j] != rThumb[i][j] || rThumb[i][j] != rCOptimizado[i][j]){
+				 resultado = 0;
+			}
+		}
+	}
+	return resultado;
+}
+
+int randInt(int min, int max) {
+	return min + rand() % (max - min +1);
+}
+
+int leerMatrices(int A[N][N], int B[N][N], int C[N][N], int D[N][N]){
+	int i, j;
+    for(i = 0; i < N; i++ ){
+    	for(j = 0; j < N; j++) {   
+			A[i][j] = randInt(1,10);
+            B[i][j] = randInt(1,10);
+			C[i][j] = randInt(1,10);
+			D[i][j] = randInt(1,10);  
+    	}  
+    }
+	return 0;
+}
+
+uint8_t verificar_resultados(){
+	int A[N][N], B[N][N], C[N][N], D[N][N];
+	int rC[N][N], rCArm[N][N], rArm[N][N], rThumb[N][N], rCOptimizado[N][N];
+	leerMatrices(A,B,C,D);
+	matrizNxN_operar_C(A, B, C, D, rC);
+	matriz3x3_operar_ARM_C(A, B, C, D, rCArm);
+	matriz3x3_operar_ARM(A, B, C, D, rArm);
+	matriz3x3_operar_THB(A, B, C, D, rThumb);
+	matrizNxN_operar_C_equivalenteARM(A, B, C, D, rCOptimizado);	
+	return matrizNxN_compararResultados(rC, rCArm, rArm, rThumb, rCOptimizado);
+
+}
+
 // MAIN 
 int main (void) {
 	int Resultado_E[N][N];
@@ -153,8 +200,10 @@ int main (void) {
 		{0, 0, 2}
 	};
 
-	error = matrizNxN_verificar(Test_A, Test_B, Test_C, Test_D, Resultado_E);
-	
+	//error = matrizNxN_verificar(Test_A, Test_B, Test_C, Test_D, Resultado_E);
+
+	error = verificar_resultados();	
+
 	while(1); //no hay S.O., no se retorna
 	
 }
