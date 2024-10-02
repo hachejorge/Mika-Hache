@@ -66,13 +66,13 @@ ini_f_k_m
 			ADDS	R5, R5, R4			; r5 = A[i][j](r3) * B[i][j](r4) + Resultado[i][j]
 
 			MOVS 	R7, #12
-			; C(r3) = i(r0) * 12 + k(r2) * 4 + @C(r10)
+			; C(r3) = j(r1) * 12 + k(r2) * 4 + @C(r10)
 			;MLA		R9, R0, R6, R2
 			;LDR 	R9, [R9, R2, LSL #2]
-			MOVS	R3, R0				 
+			MOVS	R3, R1				 
 			MULS 	R3, R7, R3			; r3 = i(r3, r0) * 12(r7)
 			
-			; D(r11) = k(r8) * 12 + j(r7) * 4 + @D(r3) 
+			; D(r11) = k(r2) * 12 + i(r0) * 4 + @D(r11) 
 			;MLA		R11, R0, R2, R3
 			;LDR		R11, [R11, R7, LSL #2]
 			MOVS	R4, R2
@@ -83,7 +83,7 @@ ini_f_k_m
 			LDR		R3, [R3, R7]		; guarda lo que hay en la direccion de C apuntada en r3
 			
 			ADD		R4, R4, R11			; k(r4, r2) * 12(r7) + @D
-			LSLS 	R7, R1, #2			; r7 = 4 * j(r1)
+			LSLS 	R7, R0, #2			; r7 = 4 * j(r1)
 			LDR 	R4, [R4, R7]		; guarda lo que hay en la direccion de D apuntada en r4
 
 			; E[i][j] += C[i][k] * D[k][j]	+ E[i][j]
