@@ -9,11 +9,12 @@
 matriz3x3_operar_ARM_C
 			; PRÓLOGO
 			STMDB 	SP!,{R4-R12,LR}	   ; Se guardan los registros antiguos y el link register para volver
+			MOV		FP, SP
 			SUB 	SP, SP, #72		   ; Se almacena espacio para las variables E y F, 36 bytes respectivamente
 
 			MOV 	R6, R2		 ; r6 = @C
 			MOV 	R7, R3  	 ; r7 = @D
-			LDR 	R2,[SP,#112] ; R2 = @Resultado 
+			LDR 	R2,[FP,#40] ; R2 = @Resultado 
 			ADD 	R4, SP, #40	 ; R4 = @E
 			
 			MOV 	R8, #0		 ; i = r8

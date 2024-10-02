@@ -36,6 +36,8 @@ ini_f_k_m
 			; Resultado[i][j] += A[i][k] * B[k][j] + Resultado[i][j]
 			MLA		R5, R9, R11, R5
 
+			; C y D se calculan directamente transpuestas para que al multiplicarlas se obtenga E transpuesta 
+			; Para ello en vez de hacer E[i][j] += C[j][k] * D[k][i] + E[i][j] en vez de E[i][j] += C[i][k] * D[k][j] + E[i][j] 
 			; C(r9) = j(r7) * 12 + k(r8) * 4 + @C(r2)
 			MLA		R9, R10, R7, R2
 			LDR 	R9, [R9, R8, LSL #2]

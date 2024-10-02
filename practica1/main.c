@@ -129,34 +129,34 @@ uint8_t matrizNxN_verificar(int A[N][N], int B[N][N], int C[N][N], int D[N][N], 
 	terminos_no_cero_ARM = matriz3x3_operar_ARM(A, B, C, D, Resultado);
 	terminos_no_cero_THB = matriz3x3_operar_THB(A, B, C, D, Resultado);
 	terminos_no_cero_C_equivalenteARM = matrizNxN_operar_C_equivalenteARM(A, B, C, D, Resultado);
-		
-	//TODO llamar al resto de implementaciones en ensamblador
 	
-	//TODO resultado = (terminos_no_cero_C ! = al resto....
-	
-	resultado = (terminos_no_cero_C != terminos_no_cero_ARM_C != terminos_no_cero_ARM != terminos_no_cero_THB != terminos_no_cero_C_equivalenteARM);
+	resultado = !((terminos_no_cero_C != terminos_no_cero_ARM_C) || (terminos_no_cero_ARM_C != terminos_no_cero_ARM) || (terminos_no_cero_ARM != terminos_no_cero_THB) || (terminos_no_cero_THB != terminos_no_cero_C_equivalenteARM));
 
 	return resultado;
 }
 
+// Compara todas las componentes de las matrices rC, rCArm,	rArm, rThumb y rCOptimizado y devuelve fales(0) si solo si todas la matrices son iguales, 
+// y devuelve true(1) en caso contrario
 uint8_t matrizNxN_compararResultados(int rC[N][N], int rCArm[N][N], int rArm[N][N], int rThumb[N][N], int rCOptimizado[N][N]){
 
-	uint8_t resultado = 1;
+	uint8_t resultado = 0;
 	int i, j;
 	for(i = 0; i < N && resultado == 1; i++){
 		for(j = 0; j < N && resultado == 1; j++){
 			if( rC[i][j] != rCArm[i][j] || rCArm[i][j] != rArm[i][j] || rArm[i][j] != rThumb[i][j] || rThumb[i][j] != rCOptimizado[i][j]){
-				 resultado = 0;
+				 resultado = 1;
 			}
 		}
 	}
 	return resultado;
 }
 
+// Devuelve un número aleatorio en el rango (a,b)
 int randInt(int min, int max) {
 	return min + rand() % (max - min +1);
 }
 
+// Asigna valores aleatorios a las matrices A, B, C y D
 int leerMatrices(int A[N][N], int B[N][N], int C[N][N], int D[N][N]){
 	int i, j;
     for(i = 0; i < N; i++ ){
@@ -170,6 +170,8 @@ int leerMatrices(int A[N][N], int B[N][N], int C[N][N], int D[N][N]){
 	return 0;
 }
 
+// Compara los resultados de operar una matriz 3x3 en distintas formas, C, Arm y Thumb y devuelve false(0) en caso de que 
+// todas las funciones calculen el mismo resultado, y true(1) en caso contrario
 uint8_t verificar_resultados(){
 	int A[N][N], B[N][N], C[N][N], D[N][N];
 	int rC[N][N], rCArm[N][N], rArm[N][N], rThumb[N][N], rCOptimizado[N][N];
@@ -180,7 +182,6 @@ uint8_t verificar_resultados(){
 	matriz3x3_operar_THB(A, B, C, D, rThumb);
 	matrizNxN_operar_C_equivalenteARM(A, B, C, D, rCOptimizado);	
 	return matrizNxN_compararResultados(rC, rCArm, rArm, rThumb, rCOptimizado);
-
 }
 
 // MAIN 
@@ -200,9 +201,9 @@ int main (void) {
 		{0, 0, 2}
 	};
 
-	//error = matrizNxN_verificar(Test_A, Test_B, Test_C, Test_D, Resultado_E);
+	error = matrizNxN_verificar(Test_A, Test_B, Test_C, Test_D, Resultado_E);
 
-	error = verificar_resultados();	
+	//error = verificar_resultados();	
 
 	while(1); //no hay S.O., no se retorna
 	
