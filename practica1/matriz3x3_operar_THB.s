@@ -15,7 +15,7 @@ matriz3x3_operar_THB
 
 			THUMB
 ini_thumb
-			LDR 	R4, [SP, #76] 	   ; R4 = @Resultado 
+			LDR 	R4, [SP, #76] 	   ; R12 = @Resultado , #96
 			MOV		R12, R4			
 
 			; No hace falta inicializar Resultado ni E si solo vamos a hacer stores en memoria
@@ -45,74 +45,72 @@ ini_f_k_m
 			;MLA	R9, R0, R6, R0
 			;LDR 	R9, [R9, R2, LSL #2]
 			MOVS	R3, R0
-			MULS 	R3, R7, R3
+			MULS 	R3, R7, R3			; r3 = i(r0, r3)*12(r7)
 			; B(r4) = k(r8) * 12 + j(r7) * 4 + @B(r9) 
 			;MLA		R11, R0, R2, R1
 			;LDR		R11, [R11, R7, LSL #2]
 			MOVS	R4, R2
-			MULS	R4, R7, R4
+			MULS	R4, R7, R4			; r4 = k(r2, r4)*12(r7)
 
-			ADD 	R3, R3, R8
-			LSLS	R7, R2, #2
-			LDR		R3, [R3, R7]
-			
-			ADD		R4, R4, R9
-			LSLS 	R7, R1, #2
-			LDR 	R4, [R4, R7]
+			ADD 	R3, R3, R8			; r3 = i(r3)*12(r7) + @A(r8)
+			LSLS	R7, R2, #2			; r7 = 4 * k(r2)
+			LDR		R3, [R3, R7]		; guarda lo que hay en la direccion de A apuntada en r3
+
+			ADD		R4, R4, R9			; r4 = k(r2, r4)*12(r7)
+			LSLS 	R7, R1, #2			; r7 = 4 * j(r1)
+			LDR 	R4, [R4, R7]		; guarda lo que hay en la direccion de B apuntada en r4
 
 			; Resultado[i][j] += A[i][k] * B[k][j] + Resultado[i][j]
 			;MLA		R5, R9, R11, R5
-			MULS 	R4, R3, R4
-			ADDS	R5, R5, R4
+			MULS 	R4, R3, R4			; r4 = A[i][j](r3) * B[i][j](r4)
+			ADDS	R5, R5, R4			; r5 = A[i][j](r3) * B[i][j](r4) + Resultado[i][j]
 
 			MOVS 	R7, #12
 			; C(r3) = i(r0) * 12 + k(r2) * 4 + @C(r10)
 			;MLA		R9, R0, R6, R2
 			;LDR 	R9, [R9, R2, LSL #2]
-			MOVS	R3, R0
-			MULS 	R3, R7, R3
+			MOVS	R3, R0				 
+			MULS 	R3, R7, R3			; r3 = i(r3, r0) * 12(r7)
 			
 			; D(r11) = k(r8) * 12 + j(r7) * 4 + @D(r3) 
 			;MLA		R11, R0, R2, R3
 			;LDR		R11, [R11, R7, LSL #2]
 			MOVS	R4, R2
-			MULS	R4, R7, R4
+			MULS	R4, R7, R4			; r4 = k(r4, r2) * 12(r7)
 					
-			ADD 	R3, R3, R10
-			LSLS	R7, R2, #2
-			LDR		R3, [R3, R7]
+			ADD 	R3, R3, R10			; i(r3, r0) * 12(r7) + @C (r10)
+			LSLS	R7, R2, #2			; r7 = 4 * k(r2)
+			LDR		R3, [R3, R7]		; guarda lo que hay en la direccion de C apuntada en r3
 			
-			ADD		R4, R4, R11
-			LSLS 	R7, R1, #2
-			LDR 	R4, [R4, R7]
+			ADD		R4, R4, R11			; k(r4, r2) * 12(r7) + @D
+			LSLS 	R7, R1, #2			; r7 = 4 * j(r1)
+			LDR 	R4, [R4, R7]		; guarda lo que hay en la direccion de D apuntada en r4
 
 			; E[i][j] += C[i][k] * D[k][j]	+ E[i][j]
 			;MLA		R1, R9, R11, R1
-			MULS 	R4, R3, R4
-			ADDS	R6, R6, R4			
+			MULS 	R4, R3, R4			; r4 = C[i][j](r3) * D[i][j](r4)
+			ADDS	R6, R6, R4			; r6 = C[i][j](r3) * D[i][j](r4) + E[i][j]
 
 	   		SUBS 	R2, R2, #1	; R2--
 			BPL		ini_f_k_m
 			; fin_for_k
+			MOVS 	R2, #9				; R0 = terminos_no_cero
 			MOVS 	R7, #12
-			; Se guarda r5 con la suma total de Resultado
-			;MLA	R11, R10, R6, R4
-			;STR 	R5, [R11, R7, LSL #2]
-			MOVS	R3, R0
-			MULS	R3, R7, R3
-			ADD		R3, R3, R12
-			LSLS	R4, R1, #2
-			STR		R5, [R3, R4]
-			; Se guarda r12 con la suma total de E
-			; En vez de guardar el resultado en E[i][j] se guarda en E[j][i] para que se almacena ya transpuesta 
-			;MLA		R11, R0, R7, SP
-			;STR 	R1, [R11, R6, LSL #2]
-			MOVS	R3, R1
-			MULS	R3, R7, R3
-			ADD		R3, R3, SP
-			LSLS	R4, R0, #2
-			STR		R6, [R3, R4]
+			
+			ADDS	R5, R5, R6 			; Resultado[i][j] + E[i][j]
+			CMP 	R5, #0				; if (Resultado[i][j] == 0){
+			BNE		no_es_cero
+			SUBS	R2, R2, #1			; terminos_no_cero--}
 
+			;MLA		R11, R10, R6, R4
+			;STR 		R5, [R11, R7, LSL #2]
+no_es_cero	MULS    R7, R0, R7			; R7 = i * 12 (porque cada fila tiene 12 bytes, 3 enteros de 4 bytes)
+    		ADD     R7, R7, R12			; R7 = i * 12 + @Resultado (R12)
+
+    		LSLS    R4, R1, #2			; R4 = j * 4 (columna multiplicada por 4 bytes por elemento)
+   			ADDS    R7, R7, R4			; R7 = i * 12 + @Resultado + j * 4
+    		STR     R5, [R7]			; Almacena el valor en la dirección calculada
+			
 			SUBS 	R1, R1, #1			; R1--
 			BPL		ini_f_j_m
 			; fin_for_j			
@@ -126,27 +124,7 @@ ini_f_k_m
 
 			; R12 = @Resultado 	SP = @E
 
-			MOVS 	R0, #9				; R0 = terminos_no_cero
-			MOVS	R1, #8				; R1 = i
-			MOV		R4, R12				; R4 = @Resultado
-			MOV		R5, SP
-
-ini_f_suma	
-			LSLS	R6, R1, #2	
-			LDR 	R2, [R5, R6]		; R5 = E[i][j]
-			LDR		R3, [R4, R6]		; R6 = Resultado[i][j]
-			ADDS	R3, R3, R2				
-			CMP 	R3, #0				; if (Resultado[i][j] == 0)
-			BNE		end_if
-			;IT EQ
-			SUBS	R0, R0, #1			; terminos_no_cero--
-end_if		
-			STR 	R3, [R4, R6]
-
-			SUBS 	R1, R1, #1
-			BGE		ini_f_suma
-
-end_f_suma	
+			MOVS 	R0, R5				; R0 = terminos_no_cero
 
 			ADR 	R1, ini_arm
 			BX		R1
