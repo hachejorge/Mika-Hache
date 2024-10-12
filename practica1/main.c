@@ -33,6 +33,7 @@ static int Test_B[N][N] = {
 uint8_t matrizNxN_verificar(int A[N][N], int B[N][N], int C[N][N], int D[N][N], int Resultado[N][N]);
 
 
+// Dada una matriz A y devuelve en la matriz Transpuesta, el restultado de transporner A
 void matrizNxN_transponer(int A[N][N], int Transpuesta[N][N]){
 	int i,j;
 	for(i = 0; i < N; i++){
@@ -42,6 +43,7 @@ void matrizNxN_transponer(int A[N][N], int Transpuesta[N][N]){
 	}
 }
 
+// Dada una matriz A y otra B devuelve en Resultado la suma de estas
 void matrizNxN_sumar(int A[N][N], int B[N][N], int Resultado[N][N] ){
 	int i,j;
 	for(i = 0; i < N; i++){
@@ -55,7 +57,7 @@ void matrizNxN_sumar(int A[N][N], int B[N][N], int Resultado[N][N] ){
 /* *****************************************************************************
  * IMPLEMENTACIONES 
  */
-		
+// Dada una matriz A y otra B devuelve en Resultado la multiplicación de estas	
 void matrizNxN_multiplicar_C(int A[N][N], int B[N][N], int Resultado[N][N]){
 	int i,j,k;
 	for(i = 0; i < N; i++){
@@ -67,6 +69,7 @@ void matrizNxN_multiplicar_C(int A[N][N], int B[N][N], int Resultado[N][N]){
 	}
 }
 
+// función equivalente a matrizNxN_operar_C pero con un diseño monolítico equivalente al implementado en la versión ARM
 uint8_t matrizNxN_operar_C_equivalenteARM(int A[N][N], int B[N][N], int C[N][N], int D[N][N], int Resultado[N][N]){
 	uint8_t terminos_no_cero = 9;
 	int suma;
@@ -115,7 +118,9 @@ uint8_t matrizNxN_operar_C(int A[N][N], int B[N][N], int C[N][N], int D[N][N], i
 	}
 	return terminos_no_cero;
 }
-		
+
+// Compara los resultados de operar una matriz 3x3 en distintas formas, C, Arm y Thumb y devuelve false(0) en caso de que 
+// todas las funciones devuelvan el mismo número de terminos no cero , y true(1) en caso contrario 	
 uint8_t matrizNxN_verificar(int A[N][N], int B[N][N], int C[N][N], int D[N][N], int Resultado[N][N]){
 	uint8_t terminos_no_cero_C;
 	uint8_t terminos_no_cero_ARM_C;
@@ -175,12 +180,15 @@ int leerMatrices(int A[N][N], int B[N][N], int C[N][N], int D[N][N]){
 uint8_t verificar_resultados(){
 	int A[N][N], B[N][N], C[N][N], D[N][N];
 	int rC[N][N], rCArm[N][N], rArm[N][N], rThumb[N][N], rCOptimizado[N][N];
+	// Se incializan las matrices A, B, C y D de forma aleatoria
 	leerMatrices(A,B,C,D);
+	// Se calculan sus resultados en distintas versiones
 	matrizNxN_operar_C(A, B, C, D, rC);
 	matriz3x3_operar_ARM_C(A, B, C, D, rCArm);
 	matriz3x3_operar_ARM(A, B, C, D, rArm);
 	matriz3x3_operar_THB(A, B, C, D, rThumb);
-	matrizNxN_operar_C_equivalenteARM(A, B, C, D, rCOptimizado);	
+	matrizNxN_operar_C_equivalenteARM(A, B, C, D, rCOptimizado);
+	// Se devuelve el resultado de comparar los resultados de distintas versiones
 	return matrizNxN_compararResultados(rC, rCArm, rArm, rThumb, rCOptimizado);
 }
 
@@ -201,14 +209,12 @@ int main (void) {
 		{0, 0, 2}
 	};
 
+	// Verificar resultados con terminos no cero original
 	error = matrizNxN_verificar(Test_A, Test_B, Test_C, Test_D, Resultado_E);
 
+	// Nueva función de verificación validando la igualdad de los resultados
 	//error = verificar_resultados();	
 
 	while(1); //no hay S.O., no se retorna
 	
 }
-
-/**
- *@}
- **/
