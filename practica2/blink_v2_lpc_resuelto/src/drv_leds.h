@@ -9,7 +9,7 @@
 #include <stdint.h>
 
 /**
- * inicializa los led, los deja apagados y devuelve el numero de leds disponibles en la plataforma
+ * nicializa los led, los deja apagados y devuelve el numero de leds disponibles en la plataforma
  */
 uint32_t drv_leds_iniciar(void);
 

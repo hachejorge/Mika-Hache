@@ -338,7 +338,7 @@
               <MiscControls></MiscControls>
               <Define>BOARD_PCA10056 NRF52840_XXAA CONFIG_GPIO_AS_PINRESET FLOAT_ABI_HARD  __HEAP_SIZE=8192 __STACK_SIZE=8192</Define>
               <Undefine></Undefine>
-              <IncludePath>../src_nrf;../../src</IncludePath>
+              <IncludePath>../src_nrf</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
