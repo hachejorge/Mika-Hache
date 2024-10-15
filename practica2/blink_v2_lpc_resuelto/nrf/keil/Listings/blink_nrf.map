@@ -1,0 +1,253 @@
+Component: ARM Compiler 5.06 update 6 (build 750) Tool: armlink [4d35ed]
+
+==============================================================================
+
+Section Cross References
+
+    main.o(i.blink_v1) refers to drv_leds.o(i.drv_led_conmutar) for drv_led_conmutar
+    main.o(i.blink_v2) refers to drv_leds.o(i.drv_led_encender) for drv_led_encender
+    main.o(i.blink_v2) refers to drv_tiempo.o(i.drv_tiempo_actual_ms) for drv_tiempo_actual_ms
+    main.o(i.blink_v2) refers to drv_tiempo.o(i.drv_tiempo_esperar_hasta_ms) for drv_tiempo_esperar_hasta_ms
+    main.o(i.blink_v2) refers to drv_leds.o(i.drv_led_conmutar) for drv_led_conmutar
+    main.o(i.main) refers to hal_gpio_nrf.o(i.hal_gpio_iniciar) for hal_gpio_iniciar
+    main.o(i.main) refers to drv_leds.o(i.drv_leds_iniciar) for drv_leds_iniciar
+    main.o(i.main) refers to drv_leds.o(i.drv_led_encender) for drv_led_encender
+    main.o(i.main) refers to main.o(i.blink_v1) for blink_v1
+    drv_leds.o(i.drv_led_apagar) refers to drv_leds.o(.constdata) for led_list
+    drv_leds.o(i.drv_led_conmutar) refers to drv_leds.o(.constdata) for led_list
+    drv_leds.o(i.drv_led_encender) refers to drv_leds.o(.constdata) for led_list
+    drv_leds.o(i.drv_leds_iniciar) refers to drv_leds.o(i.drv_led_apagar) for drv_led_apagar
+    drv_leds.o(i.drv_leds_iniciar) refers to drv_leds.o(.constdata) for led_list
+    arm_startup_nrf52840.o(RESET) refers to arm_startup_nrf52840.o(STACK) for __initial_sp
+    arm_startup_nrf52840.o(RESET) refers to arm_startup_nrf52840.o(.text) for Reset_Handler
+    arm_startup_nrf52840.o(.text) refers to system_nrf52.o(i.SystemInit) for SystemInit
+    arm_startup_nrf52840.o(.text) refers to entry.o(.ARM.Collect$$$$00000000) for __main
+    system_nrf52.o(i.SystemCoreClockUpdate) refers to system_nrf52.o(.data) for SystemCoreClock
+    system_nrf52.o(i.SystemInit) refers to system_nrf52.o(i.nrf52_errata_36) for nrf52_errata_36
+    system_nrf52.o(i.SystemInit) refers to system_nrf52.o(i.nrf52_errata_66) for nrf52_errata_66
+    system_nrf52.o(i.SystemInit) refers to system_nrf52.o(i.nrf52_errata_98) for nrf52_errata_98
+    system_nrf52.o(i.SystemInit) refers to system_nrf52.o(i.nrf52_errata_103) for nrf52_errata_103
+    system_nrf52.o(i.SystemInit) refers to system_nrf52.o(i.nrf52_errata_115) for nrf52_errata_115
+    system_nrf52.o(i.SystemInit) refers to system_nrf52.o(i.nrf52_errata_120) for nrf52_errata_120
+    system_nrf52.o(i.SystemInit) refers to system_nrf52.o(i.nrf52_errata_136) for nrf52_errata_136
+    system_nrf52.o(i.SystemInit) refers to system_nrf52.o(i.nrf52_configuration_249) for nrf52_configuration_249
+    system_nrf52.o(i.SystemInit) refers to system_nrf52.o(i.nvmc_config) for nvmc_config
+    system_nrf52.o(i.SystemInit) refers to system_nrf52.o(i.nvmc_wait) for nvmc_wait
+    system_nrf52.o(i.SystemInit) refers to system_nrf52.o(i.SystemCoreClockUpdate) for SystemCoreClockUpdate
+    system_nrf52.o(i.nvmc_config) refers to system_nrf52.o(i.nvmc_wait) for nvmc_wait
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry10a.o(.ARM.Collect$$$$0000000D) for __rt_final_cpp
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry11a.o(.ARM.Collect$$$$0000000F) for __rt_final_exit
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry7b.o(.ARM.Collect$$$$00000008) for _main_clock
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry8b.o(.ARM.Collect$$$$0000000A) for _main_cpp_init
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry9a.o(.ARM.Collect$$$$0000000B) for _main_init
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry5.o(.ARM.Collect$$$$00000004) for _main_scatterload
+    entry.o(.ARM.Collect$$$$00000000) refers (Special) to entry2.o(.ARM.Collect$$$$00000001) for _main_stk
+    entry2.o(.ARM.Collect$$$$00000001) refers to entry2.o(.ARM.Collect$$$$00002712) for __lit__00000000
+    entry2.o(.ARM.Collect$$$$00002712) refers to arm_startup_nrf52840.o(STACK) for __initial_sp
+    entry2.o(__vectab_stack_and_reset_area) refers to arm_startup_nrf52840.o(STACK) for __initial_sp
+    entry2.o(__vectab_stack_and_reset_area) refers to entry.o(.ARM.Collect$$$$00000000) for __main
+    entry5.o(.ARM.Collect$$$$00000004) refers to init.o(.text) for __scatterload
+    entry9a.o(.ARM.Collect$$$$0000000B) refers to main.o(i.main) for main
+    entry9b.o(.ARM.Collect$$$$0000000C) refers to main.o(i.main) for main
+    init.o(.text) refers to entry5.o(.ARM.Collect$$$$00000004) for __main_after_scatterload
+
+
+==============================================================================
+
+Removing Unused input sections from the image.
+
+    Removing main.o(i.blink_v2), (34 bytes).
+    Removing drv_tiempo.o(i.drv_tiempo_actual_ms), (4 bytes).
+    Removing drv_tiempo.o(i.drv_tiempo_actual_us), (6 bytes).
+    Removing drv_tiempo.o(i.drv_tiempo_esperar_hasta_ms), (6 bytes).
+    Removing drv_tiempo.o(i.drv_tiempo_esperar_ms), (2 bytes).
+    Removing drv_tiempo.o(i.drv_tiempo_iniciar), (2 bytes).
+    Removing hal_gpio_nrf.o(.rev16_text), (4 bytes).
+    Removing hal_gpio_nrf.o(.revsh_text), (4 bytes).
+    Removing hal_gpio_nrf.o(.rrx_text), (6 bytes).
+    Removing arm_startup_nrf52840.o(HEAP), (16384 bytes).
+    Removing system_nrf52.o(.rev16_text), (4 bytes).
+    Removing system_nrf52.o(.revsh_text), (4 bytes).
+    Removing system_nrf52.o(.rrx_text), (6 bytes).
+    Removing system_nrf52.o(i.nrf52_configuration_254), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_configuration_255), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_configuration_256), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_configuration_257), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_1), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_10), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_101), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_102), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_104), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_106), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_107), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_108), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_109), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_11), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_110), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_111), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_112), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_113), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_116), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_117), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_118), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_119), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_12), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_121), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_122), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_127), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_128), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_131), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_132), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_133), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_134), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_135), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_138), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_140), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_141), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_142), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_143), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_144), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_145), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_146), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_147), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_149), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_15), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_150), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_151), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_153), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_154), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_155), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_156), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_158), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_16), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_160), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_162), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_163), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_164), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_166), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_17), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_170), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_171), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_172), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_173), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_174), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_176), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_178), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_179), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_180), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_181), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_182), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_183), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_184), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_186), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_187), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_189), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_190), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_191), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_192), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_193), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_194), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_195), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_196), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_197), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_198), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_199), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_2), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_20), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_200), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_201), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_202), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_204), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_208), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_209), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_210), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_211), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_212), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_213), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_214), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_215), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_216), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_217), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_218), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_219), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_220), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_223), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_225), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_228), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_23), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_230), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_231), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_232), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_233), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_236), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_237), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_24), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_242), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_243), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_244), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_245), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_246), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_248), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_25), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_250), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_26), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_27), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_28), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_29), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_3), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_30), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_31), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_32), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_33), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_34), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_35), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_37), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_38), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_39), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_4), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_40), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_41), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_42), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_43), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_44), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_46), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_47), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_48), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_49), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_51), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_54), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_55), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_57), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_58), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_62), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_63), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_64), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_65), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_67), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_68), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_7), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_70), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_71), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_72), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_73), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_74), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_75), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_76), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_77), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_78), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_79), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_8), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_81), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_83), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_84), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_86), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_87), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_88), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_89), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_9), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_91), (4 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_94), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_96), (68 bytes).
+    Removing system_nrf52.o(i.nrf52_errata_97), (68 bytes).
+
+193 unused section(s) (total 23458 bytes) removed from the image.
