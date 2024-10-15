@@ -33,19 +33,24 @@ Tiempo_us_t drv_tiempo_actual_us(void){
  * tiempo desde que se inicio el temporizador en milisegundos
  */
 Tiempo_ms_t drv_tiempo_actual_ms(void){
-	return TODO;
+	uint64_t ticks = hal_tiempo_actual_tick();
+	Tiempo_ms_t tiempo_ms = (Tiempo_ms_t)(ticks / HAL_TICKS2US);
+	return tiempo_ms;
 }
 
 /**
  * retardo: esperar un cierto tiempo en milisegundos
  */
 void drv_tiempo_esperar_ms(Tiempo_ms_t ms){
-	
+	Tiempo_ms_t tIni = hal_tiempo_actual_tick();
+	while((drv_tiempo_actual_ms() - tIni) < ms);
 }
 
 /**
  * esperar hasta un determinado tiempo (en ms), devuelve el tiempo actual
  */
 Tiempo_ms_t drv_tiempo_esperar_hasta_ms(Tiempo_ms_t ms){
-	return TODO;
+	Tiempo_ms_t tIni = hal_tiempo_actual_tick();
+	while(drv_tiempo_actual_ms() < ms);
+	return tIni;
 }
