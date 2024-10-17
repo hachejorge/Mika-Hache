@@ -5,6 +5,18 @@
 #ifndef HAL_GPIO
 #define HAL_GPIO
 
+#include <stdint.h>
+
+enum {
+	HAL_GPIO_PIN_DIR_INPUT = 0, 
+	HAL_GPIO_PIN_DIR_OUTPUT = 1,
+} typedef hal_gpio_pin_dir_t;
+
+/**
+ * Tipo de datos para los pines
+ */
+typedef uint32_t HAL_GPIO_PIN_T; 
+
 /**
  * Permite emplear el GPIO y debe ser invocada antes
  * de poder llamar al resto de funciones de la biblioteca.

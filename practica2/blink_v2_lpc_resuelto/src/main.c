@@ -61,13 +61,14 @@ int main(void){
 //	drv_tiempo_iniciar(); // para la sesion 2 de practica 2
 	
 	hal_gpio_iniciar();	// llamamos a iniciar gpio antesde que lo hagan los drivers
-	
+	drv_tiempo_iniciar();
+
 	/* Configure LED */
 	Num_Leds = drv_leds_iniciar();
 	
 	if (Num_Leds > 0){
 		drv_led_encender(1);
-		blink_v1(1);			// sesion 1 de practica 2
-//		blink_v2(2);			// para la sesion 2 de practica 2
+		//blink_v1(1);			// sesion 1 de practica 2
+		blink_v2(2);			// para la sesion 2 de practica 2
 	}
 }

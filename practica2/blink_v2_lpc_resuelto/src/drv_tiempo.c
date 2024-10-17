@@ -8,15 +8,14 @@
 #include "drv_tiempo.h"
 #include "hal_tiempo.h"
 
-#define HAL_TICKS2US	  15 							// funcionamos PCLK a 15 MHz de un total de 60 MHz CPU Clock
+static volatile uint32_t HAL_TICKS2US = 0;	// factor de conversión para transformar el número de ticks a milisegundos						
+#define US2MS	1000						// constante de microsegundos a milisegundos
 
-
-#define TODO 0	//pa que no de error de compilacion con el proyecto vacio, modicicar
 /**
- * nicializa el reloj y empieza a contar
+ * inicializa el reloj y empieza a contar
  */
 void drv_tiempo_iniciar(void){
-	hal_tiempo_iniciar_tick();
+	HAL_TICKS2US = hal_tiempo_iniciar_tick();
 }
 
 /**
@@ -25,7 +24,7 @@ void drv_tiempo_iniciar(void){
 Tiempo_us_t drv_tiempo_actual_us(void){
 	// Obtener el tiempo actual en ticks y convertir a microsegundos
     uint64_t ticks = hal_tiempo_actual_tick();
-    Tiempo_us_t tiempo_us = (Tiempo_us_t)(ticks * HAL_TICKS2US);  // Convertir ticks a microsegundos
+    Tiempo_us_t tiempo_us = (ticks / HAL_TICKS2US);  // Convertir ticks a microsegundos
     return tiempo_us;
 }
 
@@ -34,7 +33,7 @@ Tiempo_us_t drv_tiempo_actual_us(void){
  */
 Tiempo_ms_t drv_tiempo_actual_ms(void){
 	uint64_t ticks = hal_tiempo_actual_tick();
-	Tiempo_ms_t tiempo_ms = (Tiempo_ms_t)(ticks / HAL_TICKS2US);
+	Tiempo_ms_t tiempo_ms = (ticks / (HAL_TICKS2US * US2MS));
 	return tiempo_ms;
 }
 
@@ -42,15 +41,14 @@ Tiempo_ms_t drv_tiempo_actual_ms(void){
  * retardo: esperar un cierto tiempo en milisegundos
  */
 void drv_tiempo_esperar_ms(Tiempo_ms_t ms){
-	Tiempo_ms_t tIni = hal_tiempo_actual_tick();
-	while((drv_tiempo_actual_ms() - tIni) < ms);
+	Tiempo_ms_t tIni = hal_tiempo_actual_tick(); // Se obtiene el tiempo actual tIni
+	while((drv_tiempo_actual_ms() - tIni) < ms); // Espera hasta que el tiempo Actual menos el inicial sea menor que el dado
 }
 
 /**
  * esperar hasta un determinado tiempo (en ms), devuelve el tiempo actual
  */
 Tiempo_ms_t drv_tiempo_esperar_hasta_ms(Tiempo_ms_t ms){
-	Tiempo_ms_t tIni = hal_tiempo_actual_tick();
-	while(drv_tiempo_actual_ms() < ms);
-	return tIni;
+	while(drv_tiempo_actual_ms() < ms);	// Mientras que el tiempo actual sea menor que el dado espera
+	return drv_tiempo_actual_ms();
 }

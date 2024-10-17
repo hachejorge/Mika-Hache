@@ -3,49 +3,51 @@
  * implementacion para cumplir el hal_tiempo.h
  */
  
- #include <nrf.h>
-
-NRF_TIMER_Type
+#ifndef HAL_TIEMPO
+#define HAL_TIEMPO
+ 
+#include <nrf.h>
 
 #include <stdint.h>
 
 #define MAX_COUNTER_VALUE 0xFFFFFFFE			// Maximo valor del contador de 32 bits
-#define HAL_TICKS2US	  15 							// funcionamos PCLK a 15 MHz de un total de 60 MHz CPU Clock
-//#define US2MS							1000						//milisegundos por microsogundos
+#define HAL_TICKS2US	  16 					// frecuencia en MHz a la que funciona nrf52840 según si preserve es 0  (16 MHz / 2^Preserve)
 
 /* *****************************************************************************
  * Timer0 contador de ticks
  */
 
-static volatile uint32_t timer0_int_count = 0;	// contador de 32 bits de veces que ha saltado la RSI Timer0
+static volatile uint32_t timer0_int_count;	// contador de 32 bits de veces que ha saltado la RSI Timer0
 
 /* *****************************************************************************
  * Timer 0 Interrupt Service Routine
  */
 void TIMER0_IRQHandler(void) {
-    if (NRF_TIMER0->EVENTS_COMPARE[0]) {
+    if (NRF_TIMER0->EVENTS_COMPARE[0]) {    
         NRF_TIMER0->EVENTS_COMPARE[0] = 0;  // Limpiar la interrupción
-        timer0_int_count++;
+        timer0_int_count++;                 // Cada vez que llega el evento se aumenta el contador para poder almacenar los ticks
     }
 }
 
-
 /* *****************************************************************************
- * Programa un contador de tick sobre Timer0, con maxima precisi�n y minimas interrupciones
+ * Programa un contador de tick sobre Timer0, con maxima precisión y minimas interrupciones
  */
 uint32_t hal_tiempo_iniciar_tick() {
-    timer0_int_count = 0;
+    timer0_int_count = 0;                       // Inicialmente no ha recibido interrupciones
 
     NRF_TIMER0->TASKS_STOP = 1;                 // Detener el temporizador
-    NRF_TIMER0->MODE = TIMER_MODE_MODE_Timer;   // Modo temporizador ??????????????????
-    NRF_TIMER0->BITMODE = TIMER_BITMODE_BITMODE_32Bit << TIMER_BITMODE_BITMODE_Pos; // 32 bits
+    NRF_TIMER0->MODE = TIMER_MODE_MODE_Timer;   // Modo temporizador 
+    NRF_TIMER0->BITMODE = TIMER_BITMODE_BITMODE_32Bit << TIMER_BITMODE_BITMODE_Pos; // 32 bits para máxima precisión
     
-    // ftimer = 16 MHz / (2^prescaler) ??
-    NRF_TIMER0->PRESCALER = 0;                  // Divisor de frecuencia a 1 MHz (16 MHz / 2^4 = 1 MHz)
+    // ftimer = 16 MHz / (2^prescaler) 
+    NRF_TIMER0->PRESCALER = 0;                  // Divisor de frecuencia a 1 MHz (16 MHz / 2^0 = 16 MHz)
 
     NRF_TIMER0->CC[0] = MAX_COUNTER_VALUE;      // Configurar el valor máximo de comparación
-    NRF_TIMER0->SHORTS = TIMER_SHORTS_COMPARE0_CLEAR_Enabled << TIMER_SHORTS_COMPARE0_CLEAR_Pos;
-    NRF_TIMER0->INTENSET = TIMER_INTENSET_COMPARE0_Enabled << TIMER_INTENSET_COMPARE0_Pos; // Habilitar interrupción
+   
+	NRF_TIMER0->INTENSET = TIMER_INTENSET_COMPARE0_Enabled << TIMER_INTENSET_COMPARE0_Pos;  // IRQ's habilitadas para COMPARE0
+
+	// Clear the timer when COMPARE0 event is triggered
+	NRF_TIMER0->SHORTS = TIMER_SHORTS_COMPARE0_CLEAR_Enabled << TIMER_SHORTS_COMPARE0_CLEAR_Pos;
     
     NVIC_EnableIRQ(TIMER0_IRQn);                // Habilitar la interrupción en el NVIC
 
@@ -61,7 +63,8 @@ uint32_t hal_tiempo_iniciar_tick() {
 uint64_t hal_tiempo_actual_tick() { 
 	uint64_t time;
     NRF_TIMER0->TASKS_CAPTURE[0] = 1;  // Captura el valor actual del contador en CC[0]
-    time = ((MAX_COUNTER_VALUE+1) * timer0_int_count) + (uint32_t)TIMER0->CC[0]; 
+    // Multiplica por el valor máximo del contador por las veces que ha llegado al tope más el ticks actuales
+    time = ((MAX_COUNTER_VALUE + 1) * timer0_int_count) + (uint32_t)NRF_TIMER0->CC[0]; 
 	return time;
 }
 
@@ -96,7 +99,7 @@ void hal_tiempo_reloj_periodico_tick(uint32_t periodo_en_tick, void (*funcion_ca
         NRF_TIMER1->TASKS_STOP = 1;                 // Detener el temporizador
         NRF_TIMER1->MODE = TIMER_MODE_MODE_Timer;   // Modo temporizador
         NRF_TIMER1->BITMODE = TIMER_BITMODE_BITMODE_32Bit << TIMER_BITMODE_BITMODE_Pos; // 32 bits
-        NRF_TIMER1->PRESCALER = 0;                  // Prescaler para 16 MHz ???
+        NRF_TIMER1->PRESCALER = 0;                  // Prescaler para 16 MHz 
 
         NRF_TIMER1->CC[0] = periodo_en_tick - 1;    // Configurar el periodo
 
@@ -113,3 +116,4 @@ void hal_tiempo_reloj_periodico_tick(uint32_t periodo_en_tick, void (*funcion_ca
     }
 }
 
+#endif

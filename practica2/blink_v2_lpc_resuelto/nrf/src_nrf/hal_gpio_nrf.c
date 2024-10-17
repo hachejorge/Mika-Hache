@@ -32,11 +32,21 @@ void hal_gpio_sentido_n(HAL_GPIO_PIN_T gpio_inicial, uint8_t num_bits, hal_gpio_
 	uint32_t masc = ((1 << num_bits) - 1) << gpio_inicial;
 	if (direccion == HAL_GPIO_PIN_DIR_INPUT)
 	{
+		//for(int i = 0; i < 32; i++){
+			//NRF_GPIO->PIN_CNF[i] = (GPIO_PIN_CNF_INPUT_Connect << GPIO_PIN_CNF_INPUT_Pos);
+		//}
 		NRF_GPIO->DIR = NRF_GPIO->DIR & ~masc;
 	}
 	else if (direccion == HAL_GPIO_PIN_DIR_OUTPUT)
 	{
-		NRF_GPIO->DIR = NRF_GPIO->DIR | masc;
+		for(int i = 0; i < 32; i++){
+			NRF_GPIO->PIN_CNF[i] = (GPIO_PIN_CNF_DIR_Output << GPIO_PIN_CNF_DIR_Pos) |
+                              (GPIO_PIN_CNF_DRIVE_S0S1 << GPIO_PIN_CNF_DRIVE_Pos) |
+                              (GPIO_PIN_CNF_INPUT_Connect << GPIO_PIN_CNF_INPUT_Pos) |
+                              (GPIO_PIN_CNF_PULL_Disabled << GPIO_PIN_CNF_PULL_Pos) |
+                              (GPIO_PIN_CNF_SENSE_Disabled << GPIO_PIN_CNF_SENSE_Pos);
+		}
+		//NRF_GPIO->DIR = NRF_GPIO->DIR | masc;
 	}
 }
 
@@ -67,7 +77,6 @@ void hal_gpio_escribir_n(HAL_GPIO_PIN_T bit_inicial, uint8_t num_bits, uint32_t 
 	uint32_t masc = ((1 << num_bits) - 1) << bit_inicial;
 	uint32_t temp = NRF_GPIO->IN & ~masc; //NRF_GPIO->OUT & ~masc;
 	NRF_GPIO->OUT = temp | masc_value;
-	// limpia la mascara en el iopin y cambia sus bits de golpe
 }
 
 
@@ -90,6 +99,11 @@ void hal_gpio_sentido(HAL_GPIO_PIN_T gpio, hal_gpio_pin_dir_t direccion)
 	else if (direccion == HAL_GPIO_PIN_DIR_OUTPUT)
 	{
 		NRF_GPIO->DIR = NRF_GPIO->DIR | masc;
+		NRF_GPIO->PIN_CNF[gpio] = (GPIO_PIN_CNF_DIR_Output << GPIO_PIN_CNF_DIR_Pos) |
+                              (GPIO_PIN_CNF_DRIVE_S0S1 << GPIO_PIN_CNF_DRIVE_Pos) |
+                              (GPIO_PIN_CNF_INPUT_Connect << GPIO_PIN_CNF_INPUT_Pos) |
+                              (GPIO_PIN_CNF_PULL_Disabled << GPIO_PIN_CNF_PULL_Pos) |
+                              (GPIO_PIN_CNF_SENSE_Disabled << GPIO_PIN_CNF_SENSE_Pos);
 	}
 }
 
