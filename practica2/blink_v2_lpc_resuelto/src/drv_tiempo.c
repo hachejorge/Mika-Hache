@@ -29,7 +29,7 @@ Tiempo_us_t drv_tiempo_actual_us(void){
 }
 
 /**
- * tiempo desde que se inicio el temporizador en milisegundos
+ * tiempo desde que se inicio el temporizador en milisegundos, devuelve el riempo en milisegundos
  */
 Tiempo_ms_t drv_tiempo_actual_ms(void){
 	uint64_t ticks = hal_tiempo_actual_tick();

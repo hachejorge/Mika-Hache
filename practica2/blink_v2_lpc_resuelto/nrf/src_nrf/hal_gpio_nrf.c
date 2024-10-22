@@ -1,5 +1,7 @@
 /* *****************************************************************************
- * P.H.2024: TODO
+ * P.H.2024: hal_gpio_nrf.c
+ * Nekane Diaz Montoya   870795	
+ * Jorge Hernandez Aznar 872838
  */
 
 #include "hal_gpio_nrf.h"
