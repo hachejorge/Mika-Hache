@@ -32,16 +32,16 @@ void hal_gpio_iniciar(void) {
 void hal_gpio_sentido_n(HAL_GPIO_PIN_T gpio_inicial, uint8_t num_bits, hal_gpio_pin_dir_t direccion) {
 	uint32_t masc = ((1 << num_bits) - 1) << gpio_inicial;
 	// Act
-	if (direccion == HAL_GPIO_PIN_DIR_INPUT) {
+	if (direccion == HAL_GPIO_PIN_DIR_INPUT) { // Si la dirección es de entrada
 		NRF_GPIO->DIR = NRF_GPIO->DIR & ~masc;
 	}
-	else if (direccion == HAL_GPIO_PIN_DIR_OUTPUT) {
+	else if (direccion == HAL_GPIO_PIN_DIR_OUTPUT) { // Si la dirección es de salida
 		for(int i = 0; i < 32; i++) {
-			NRF_GPIO->PIN_CNF[i] = (GPIO_PIN_CNF_DIR_Output << GPIO_PIN_CNF_DIR_Pos) |
-                              	   (GPIO_PIN_CNF_DRIVE_S0S1 << GPIO_PIN_CNF_DRIVE_Pos) |
-                                   (GPIO_PIN_CNF_INPUT_Connect << GPIO_PIN_CNF_INPUT_Pos) |
-                              	   (GPIO_PIN_CNF_PULL_Disabled << GPIO_PIN_CNF_PULL_Pos) |
-                              	   (GPIO_PIN_CNF_SENSE_Disabled << GPIO_PIN_CNF_SENSE_Pos);
+			NRF_GPIO->PIN_CNF[i] = (GPIO_PIN_CNF_DIR_Output << GPIO_PIN_CNF_DIR_Pos) |  // Configura el pin como salida.
+                              	   (GPIO_PIN_CNF_DRIVE_S0S1 << GPIO_PIN_CNF_DRIVE_Pos) | // Establece el modo de conducción, estándar
+                                   (GPIO_PIN_CNF_INPUT_Connect << GPIO_PIN_CNF_INPUT_Pos) | // Mantiene la capacidad de lectura de entrada (aunque esté configurado como salida)
+                              	   (GPIO_PIN_CNF_PULL_Disabled << GPIO_PIN_CNF_PULL_Pos) | //  Deshabilita resistencias pull-up/pull-down.
+                              	   (GPIO_PIN_CNF_SENSE_Disabled << GPIO_PIN_CNF_SENSE_Pos); // Deshabilita la detección de eventos de cambio de estado.
 		}
 	}
 }
@@ -68,9 +68,9 @@ uint32_t hal_gpio_leer_n(HAL_GPIO_PIN_T gpio_inicial, uint8_t num_bits)
 void hal_gpio_escribir_n(HAL_GPIO_PIN_T bit_inicial, uint8_t num_bits, uint32_t valor)
 {
 	uint32_t masc_value = (valor & ((1 << num_bits) - 1)) << bit_inicial;
-	uint32_t masc = ((1 << num_bits) - 1) << bit_inicial;
-	uint32_t temp = NRF_GPIO->IN & ~masc; //NRF_GPIO->OUT & ~masc;
-	NRF_GPIO->OUT = temp | masc_value;
+	uint32_t masc = ((1 << num_bits) - 1) << bit_inicial; // Crea una máscara de los bits que se quieren modificar
+	uint32_t temp = NRF_GPIO->IN & ~masc; // // Leer el estado actual de los pines del GPIO, aplicando una máscara inversa (~masc)
+	NRF_GPIO->OUT = temp | masc_value; // / Escribir el valor proporcionado en los bits correspondientes, combinando el estado anterior con el nuevo valor en los bits deseados.
 }
 
 
@@ -86,18 +86,16 @@ void hal_gpio_escribir_n(HAL_GPIO_PIN_T bit_inicial, uint8_t num_bits, uint32_t 
 void hal_gpio_sentido(HAL_GPIO_PIN_T gpio, hal_gpio_pin_dir_t direccion)
 {
 	uint32_t masc = (1UL << gpio);
-	if (direccion == HAL_GPIO_PIN_DIR_INPUT)
-	{
-		NRF_GPIO->DIR = NRF_GPIO->DIR & ~masc;
+	if (direccion == HAL_GPIO_PIN_DIR_INPUT){ // Si la dirección es de entrada
+		NRF_GPIO->DIR = NRF_GPIO->DIR & ~masc;  // Configurar el pin como entrada. Se limpia el bit correspondiente en el registro DIR. El registro DIR determina la dirección del pin (0: entrada, 1: salida).
 	}
-	else if (direccion == HAL_GPIO_PIN_DIR_OUTPUT)
-	{
-		NRF_GPIO->DIR = NRF_GPIO->DIR | masc;
-		NRF_GPIO->PIN_CNF[gpio] = (GPIO_PIN_CNF_DIR_Output << GPIO_PIN_CNF_DIR_Pos) |
-                              		(GPIO_PIN_CNF_DRIVE_S0S1 << GPIO_PIN_CNF_DRIVE_Pos) |
-                             		(GPIO_PIN_CNF_INPUT_Connect << GPIO_PIN_CNF_INPUT_Pos) |
-                              		(GPIO_PIN_CNF_PULL_Disabled << GPIO_PIN_CNF_PULL_Pos) |
-                              		(GPIO_PIN_CNF_SENSE_Disabled << GPIO_PIN_CNF_SENSE_Pos);
+	else if (direccion == HAL_GPIO_PIN_DIR_OUTPUT){ // Si la dirección es de salida
+		NRF_GPIO->DIR = NRF_GPIO->DIR | masc;  // Configurar el pin como salida. Se pone en alto el bit correspondiente
+		NRF_GPIO->PIN_CNF[gpio] = (GPIO_PIN_CNF_DIR_Output << GPIO_PIN_CNF_DIR_Pos) | // Configura el pin como salida.
+                              		(GPIO_PIN_CNF_DRIVE_S0S1 << GPIO_PIN_CNF_DRIVE_Pos) | // Establece el modo de conducción, estándar
+                             		(GPIO_PIN_CNF_INPUT_Connect << GPIO_PIN_CNF_INPUT_Pos) | //  Mantiene la capacidad de lectura de entrada (aunque esté configurado como salida)
+                              		(GPIO_PIN_CNF_PULL_Disabled << GPIO_PIN_CNF_PULL_Pos) | // Deshabilita resistencias pull-up/pull-down.
+                              		(GPIO_PIN_CNF_SENSE_Disabled << GPIO_PIN_CNF_SENSE_Pos); // Deshabilita la detección de eventos de cambio de estado.
 	}
 }
 
