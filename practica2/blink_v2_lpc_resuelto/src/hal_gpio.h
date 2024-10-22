@@ -12,7 +12,6 @@
 /**
  * Direcci�n de los registros de GPIO (E o S)
  */
- 
 enum {
 	HAL_GPIO_PIN_DIR_INPUT = 0, 
 	HAL_GPIO_PIN_DIR_OUTPUT = 1,

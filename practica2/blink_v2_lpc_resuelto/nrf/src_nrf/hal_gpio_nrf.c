@@ -13,9 +13,9 @@
  * de poder llamar al resto de funciones de la biblioteca.
  * re-configura todos los pines como de entrada (para evitar cortocircuitos)
  */
-void hal_gpio_iniciar(void)
-{
-	NRF_GPIO->DIR = 0x0;
+void hal_gpio_iniciar(void) {
+	// Reiniciamos los pines todos como salida (igual al reset)
+	NRF_GPIO->DIR = 0x0; 
 }
 
 /* *****************************************************************************
@@ -29,26 +29,20 @@ void hal_gpio_iniciar(void)
  * Los bits indicados se configuran como
  * entrada o salida según la dirección.
  */
-void hal_gpio_sentido_n(HAL_GPIO_PIN_T gpio_inicial, uint8_t num_bits, hal_gpio_pin_dir_t direccion)
-{
+void hal_gpio_sentido_n(HAL_GPIO_PIN_T gpio_inicial, uint8_t num_bits, hal_gpio_pin_dir_t direccion) {
 	uint32_t masc = ((1 << num_bits) - 1) << gpio_inicial;
-	if (direccion == HAL_GPIO_PIN_DIR_INPUT)
-	{
-		//for(int i = 0; i < 32; i++){
-			//NRF_GPIO->PIN_CNF[i] = (GPIO_PIN_CNF_INPUT_Connect << GPIO_PIN_CNF_INPUT_Pos);
-		//}
+	// Act
+	if (direccion == HAL_GPIO_PIN_DIR_INPUT) {
 		NRF_GPIO->DIR = NRF_GPIO->DIR & ~masc;
 	}
-	else if (direccion == HAL_GPIO_PIN_DIR_OUTPUT)
-	{
-		for(int i = 0; i < 32; i++){
+	else if (direccion == HAL_GPIO_PIN_DIR_OUTPUT) {
+		for(int i = 0; i < 32; i++) {
 			NRF_GPIO->PIN_CNF[i] = (GPIO_PIN_CNF_DIR_Output << GPIO_PIN_CNF_DIR_Pos) |
-                              (GPIO_PIN_CNF_DRIVE_S0S1 << GPIO_PIN_CNF_DRIVE_Pos) |
-                              (GPIO_PIN_CNF_INPUT_Connect << GPIO_PIN_CNF_INPUT_Pos) |
-                              (GPIO_PIN_CNF_PULL_Disabled << GPIO_PIN_CNF_PULL_Pos) |
-                              (GPIO_PIN_CNF_SENSE_Disabled << GPIO_PIN_CNF_SENSE_Pos);
+                              	   (GPIO_PIN_CNF_DRIVE_S0S1 << GPIO_PIN_CNF_DRIVE_Pos) |
+                                   (GPIO_PIN_CNF_INPUT_Connect << GPIO_PIN_CNF_INPUT_Pos) |
+                              	   (GPIO_PIN_CNF_PULL_Disabled << GPIO_PIN_CNF_PULL_Pos) |
+                              	   (GPIO_PIN_CNF_SENSE_Disabled << GPIO_PIN_CNF_SENSE_Pos);
 		}
-		//NRF_GPIO->DIR = NRF_GPIO->DIR | masc;
 	}
 }
 
@@ -61,11 +55,9 @@ void hal_gpio_sentido_n(HAL_GPIO_PIN_T gpio_inicial, uint8_t num_bits, hal_gpio_
  */
 uint32_t hal_gpio_leer_n(HAL_GPIO_PIN_T gpio_inicial, uint8_t num_bits)
 {
-	uint32_t masc = ((1 << num_bits) - 1) << gpio_inicial;
+	uint32_t masc = ((1 << num_bits) - 1) << gpio_inicial; // El 1 es desplazado tantas posiciones como num_bits
 
 	return (NRF_GPIO->IN & masc) >> gpio_inicial;
-	// IOPIN : GPIO Port Pin value register. Contiene el estado de los
-	// puertos pines configurados independientemente de la direccion.
 }
 
 /**
@@ -102,10 +94,10 @@ void hal_gpio_sentido(HAL_GPIO_PIN_T gpio, hal_gpio_pin_dir_t direccion)
 	{
 		NRF_GPIO->DIR = NRF_GPIO->DIR | masc;
 		NRF_GPIO->PIN_CNF[gpio] = (GPIO_PIN_CNF_DIR_Output << GPIO_PIN_CNF_DIR_Pos) |
-                              (GPIO_PIN_CNF_DRIVE_S0S1 << GPIO_PIN_CNF_DRIVE_Pos) |
-                              (GPIO_PIN_CNF_INPUT_Connect << GPIO_PIN_CNF_INPUT_Pos) |
-                              (GPIO_PIN_CNF_PULL_Disabled << GPIO_PIN_CNF_PULL_Pos) |
-                              (GPIO_PIN_CNF_SENSE_Disabled << GPIO_PIN_CNF_SENSE_Pos);
+                              		(GPIO_PIN_CNF_DRIVE_S0S1 << GPIO_PIN_CNF_DRIVE_Pos) |
+                             		(GPIO_PIN_CNF_INPUT_Connect << GPIO_PIN_CNF_INPUT_Pos) |
+                              		(GPIO_PIN_CNF_PULL_Disabled << GPIO_PIN_CNF_PULL_Pos) |
+                              		(GPIO_PIN_CNF_SENSE_Disabled << GPIO_PIN_CNF_SENSE_Pos);
 	}
 }
 
@@ -113,8 +105,8 @@ void hal_gpio_sentido(HAL_GPIO_PIN_T gpio, hal_gpio_pin_dir_t direccion)
  * La funci�n devuelve un entero (bool) con el valor de los bits indicados.
  */
 uint32_t hal_gpio_leer(HAL_GPIO_PIN_T gpio){
-	uint32_t masc = (1UL << gpio);
-	return ((NRF_GPIO->IN & masc)!=0);
+	uint32_t masc = (1UL << gpio); //  Genera un valor con solo el bit correspondiente al número del pin `gpio` en alto.
+	return ((NRF_GPIO->IN & masc)!=0); // si el valor devuelto es 1 significa que el pin esta en alto, en caso contrario (0) que está bajo
 }
 
 
@@ -122,8 +114,10 @@ uint32_t hal_gpio_leer(HAL_GPIO_PIN_T gpio){
  * Escribe en el gpio el valor
  */
 void hal_gpio_escribir(HAL_GPIO_PIN_T gpio, uint32_t valor){
-	uint32_t masc = (1UL << gpio);
-	
+	uint32_t masc = (1UL << gpio); //  Genera un valor con solo el bit correspondiente al número del pin `gpio` en alto.
+
+	// Si el valor a escribir es 0, se desactiva el pin (se limpia el bit correspondiente en el registro OUTCLR).
+    // Si el valor es 0, se ejecuta NRF_GPIO->OUTCLR = masc, que limpia (pone en bajo) el pin especificado por la máscara.
 	if ((valor & 0x01) == 0) NRF_GPIO->OUTCLR = masc;
 	else NRF_GPIO->OUTSET = masc;
 }

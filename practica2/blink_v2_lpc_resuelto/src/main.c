@@ -17,7 +17,7 @@
 /* *****************************************************************************
  * BLINK, parpadeo de un led conmutando on/off 
  * retardo por bucle de instrucciones, solo usa el manejador del led
- * para realizar la primera sesi�n de la practica
+ * para realizar la primera sesión de la practica
  */
 void blink_v1(uint32_t id){
   while (1) {
@@ -32,7 +32,7 @@ void blink_v1(uint32_t id){
 /* *****************************************************************************
  * BLINK, parpadeo de un led conmutando on/off 
  * activacion por tiempo, usa tanto manejador del led como el del tiempo
- * para realizar en la segunda sesi�n de la practica, version a entregar
+ * para realizar en la segunda sesión de la practica, version a entregar
  */
 void blink_v2(uint32_t id){
 	Tiempo_ms_t siguiente_activacion; // declaramos cuando será la siguiente activación
@@ -46,7 +46,6 @@ void blink_v2(uint32_t id){
 		siguiente_activacion += RETARDO_MS; // la siguiente activación será a los RETARDO_MS ms
 		drv_tiempo_esperar_hasta_ms(siguiente_activacion); // se esperará hasta el momento siguiente_activacion
 		drv_led_conmutar(id);
-		//otras cosas
 	}
 }
 
@@ -57,11 +56,8 @@ void blink_v2(uint32_t id){
  */
 int main(void){
 	uint32_t Num_Leds; // declaramos el número de leds
-
-	/* Init tiempo, es un reloj que indica el tiempo desde que comenzo la ejecuci�n */
-//	drv_tiempo_iniciar(); // para la sesion 2 de practica 2
 	
-	hal_gpio_iniciar();	// llamamos a iniciar gpio antesde que lo hagan los drivers
+	hal_gpio_iniciar();	  // llamamos a iniciar gpio antes de que lo hagan los drivers
 	drv_tiempo_iniciar(); // iniciamos el tiempo del driver
 
 	/* Configure LED */

@@ -1,6 +1,8 @@
 /* *****************************************************************************
- * P.H.2024: TODO
+ * P.H.2024: hal_tiempo_nrf.c
  * implementacion para cumplir el hal_tiempo.h
+ * Nekane Diaz Montoya   870795	
+ * Jorge Hernandez Aznar 872838
  */
  
 #ifndef HAL_TIEMPO
@@ -16,7 +18,6 @@
 /* *****************************************************************************
  * Timer0 contador de ticks
  */
-
 static volatile uint32_t timer0_int_count;	// contador de 32 bits de veces que ha saltado la RSI Timer0
 
 /* *****************************************************************************
@@ -44,15 +45,16 @@ uint32_t hal_tiempo_iniciar_tick() {
 
     NRF_TIMER0->CC[0] = MAX_COUNTER_VALUE;      // Configurar el valor máximo de comparación
    
-	NRF_TIMER0->INTENSET = TIMER_INTENSET_COMPARE0_Enabled << TIMER_INTENSET_COMPARE0_Pos;  // IRQ's habilitadas para COMPARE0
+    // IRQ's habilitadas para COMPARE0
+	NRF_TIMER0->INTENSET = TIMER_INTENSET_COMPARE0_Enabled << TIMER_INTENSET_COMPARE0_Pos;  
 
-	// Clear the timer when COMPARE0 event is triggered
+    // Restablece el timer cuando salta COMPARE0
 	NRF_TIMER0->SHORTS = TIMER_SHORTS_COMPARE0_CLEAR_Enabled << TIMER_SHORTS_COMPARE0_CLEAR_Pos;
     
-    NVIC_EnableIRQ(TIMER0_IRQn);                // Habilitar la interrupción en el NVIC
+    NVIC_EnableIRQ(TIMER0_IRQn);     // Habilitar la interrupción en el NVIC
 
-    NRF_TIMER0->TASKS_CLEAR = 1;                // Limpiar el contador
-    NRF_TIMER0->TASKS_START = 1;                // Iniciar el temporizador
+    NRF_TIMER0->TASKS_CLEAR = 1;     // Limpiar el contador
+    NRF_TIMER0->TASKS_START = 1;     // Iniciar el temporizador
 
     return HAL_TICKS2US;   // Devuelve el factor de conversión de ticks a microsegundos
 }

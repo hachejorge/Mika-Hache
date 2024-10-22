@@ -1,8 +1,9 @@
 /* *****************************************************************************
  * P.H.2024: Driver/Manejador de los temporizadores
  * suministra los servicios independientemente del hardware
- *
  * usa los servicos de hal_tiempo.h: 
+ * Nekane Diaz Montoya   870795	
+ * Jorge Hernandez Aznar 872838
  */
  
 #include "drv_tiempo.h"
@@ -33,7 +34,7 @@ Tiempo_us_t drv_tiempo_actual_us(void){
  */
 Tiempo_ms_t drv_tiempo_actual_ms(void){
 	uint64_t ticks = hal_tiempo_actual_tick();
-	Tiempo_ms_t tiempo_ms = (ticks / (HAL_TICKS2US * US2MS));
+	Tiempo_ms_t tiempo_ms = (ticks / (HAL_TICKS2US * US2MS)); // Convertir ticks a milisegundos
 	return tiempo_ms;
 }
 
