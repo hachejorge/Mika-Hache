@@ -1,7 +1,8 @@
 /* *****************************************************************************
-  * P.H.2024: Driver/Manejador de los Leds
-	*
+	* P.H.2024: Driver/Manejador de los Leds
 	* blink practica 2 de proyecto hardware 2024
+	* Nekane Diaz Montoya   870795	
+	* Jorge Hernandez Aznar 872838
  */
  
 #include <stdint.h>
@@ -16,34 +17,34 @@
 /* *****************************************************************************
  * BLINK, parpadeo de un led conmutando on/off 
  * retardo por bucle de instrucciones, solo usa el manejador del led
- * para realizar la primera sesi�n de la practica
+ * para realizar la primera sesi�n de la practica
  */
 void blink_v1(uint32_t id){
   while (1) {
-    uint32_t volatile tmo;
+    uint32_t volatile tmo; // declaramos el periodo de tiempo durante el que no se va a producir el cambio
     
     tmo = 10000000;
-    while (tmo--);
-    drv_led_conmutar(id);     
+    while (tmo--); // se decrementa el tiempo
+    drv_led_conmutar(id); // conmuta el led seleccionado por id   
 	}		
 }
 
 /* *****************************************************************************
  * BLINK, parpadeo de un led conmutando on/off 
  * activacion por tiempo, usa tanto manejador del led como el del tiempo
- * para realizar en la segunda sesi�n de la practica, version a entregar
+ * para realizar en la segunda sesi�n de la practica, version a entregar
  */
 void blink_v2(uint32_t id){
-	Tiempo_ms_t siguiente_activacion;	
+	Tiempo_ms_t siguiente_activacion; // declaramos cuando será la siguiente activación
 	
-	drv_led_encender(id);
+	drv_led_encender(id); // encendemos el led seleccionado por id
 
-	siguiente_activacion = drv_tiempo_actual_ms();
+	siguiente_activacion = drv_tiempo_actual_ms(); // obtenemos el tiempo del instante actual en ms
 	
 	/* Toggle LEDs. */
 	while (true) {
-		siguiente_activacion += RETARDO_MS; //ms
-		drv_tiempo_esperar_hasta_ms(siguiente_activacion);
+		siguiente_activacion += RETARDO_MS; // la siguiente activación será a los RETARDO_MS ms
+		drv_tiempo_esperar_hasta_ms(siguiente_activacion); // se esperará hasta el momento siguiente_activacion
 		drv_led_conmutar(id);
 		//otras cosas
 	}
@@ -55,18 +56,18 @@ void blink_v2(uint32_t id){
  * para la entrega final se debe incocar a blink_v2
  */
 int main(void){
-	uint32_t Num_Leds;
+	uint32_t Num_Leds; // declaramos el número de leds
 
-	/* Init tiempo, es un reloj que indica el tiempo desde que comenzo la ejecuci�n */
+	/* Init tiempo, es un reloj que indica el tiempo desde que comenzo la ejecuci�n */
 //	drv_tiempo_iniciar(); // para la sesion 2 de practica 2
 	
 	hal_gpio_iniciar();	// llamamos a iniciar gpio antesde que lo hagan los drivers
-	drv_tiempo_iniciar();
+	drv_tiempo_iniciar(); // iniciamos el tiempo del driver
 
 	/* Configure LED */
-	Num_Leds = drv_leds_iniciar();
+	Num_Leds = drv_leds_iniciar(); // iniciamos los leds
 	
-	if (Num_Leds > 0){
+	if (Num_Leds > 0){ 
 		drv_led_encender(1);
 		//blink_v1(1);			// sesion 1 de practica 2
 		blink_v2(2);			// para la sesion 2 de practica 2
