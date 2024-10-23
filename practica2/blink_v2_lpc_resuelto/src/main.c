@@ -58,7 +58,7 @@ void blink_v2(uint32_t id){
 void blink_v3(uint32_t id){
 
 	drv_led_encender(id);
-	drv_tiempo_periodico_ms(RETARDO_MS, leds_c);
+	drv_tiempo_perio dico_ms(RETARDO_MS, leds_c);
 	while (1) {
 		//__WFI
 		drv_consumo_esperar();
