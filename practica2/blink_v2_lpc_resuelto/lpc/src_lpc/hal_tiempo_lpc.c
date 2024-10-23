@@ -28,7 +28,7 @@ void timer0_ISR (void) __irq {
 }
 
 /* *****************************************************************************
- * Programa un contador de tick sobre Timer0, con maxima precisión y minimas interrupciones
+ * Programa un contador de tick sobre Timer0, con maxima precisiï¿½n y minimas interrupciones
  */
 uint32_t hal_tiempo_iniciar_tick() {
 	timer0_int_count = 0;	
@@ -68,14 +68,14 @@ static void(*f_callback)();		//puntero a funcion a llamar cuando salte la RSI (e
  * llama a la funcion de callbak que se ejecutara en modo irq
  */
 void timer1_ISR (void) __irq {
-	f_callback();													 // Llamo a la función desde la RSI.
+	f_callback();													 // Llamo a la funciï¿½n desde la RSI.
 	T1IR = 1;                              // Clear interrupt flag
 	VICVectAddr = 0;                       // Acknowledge Interrupt
 }
 
 /* *****************************************************************************
  * Dependiente del hardware Timer1
- * Programa el reloj para que llame a la función de callback cada periodo.
+ * Programa el reloj para que llame a la funciï¿½n de callback cada periodo.
  * El periodo se indica en tick. Si el periodo es cero se para el temporizador. 
  */
 void hal_tiempo_reloj_periodico_tick(uint32_t periodo_en_tick, void(*funcion_callback)()){
@@ -100,7 +100,7 @@ void hal_tiempo_reloj_periodico_tick(uint32_t periodo_en_tick, void(*funcion_cal
 	} else {
 		// Detiene el temporizador
 		T1TCR = 0;  
-    VICIntEnClr = 0x20;                     // Disable Timer1 Interrupt		
+    	VICIntEnClr = 0x20;                     // Disable Timer1 Interrupt		
 	}
 }
 
