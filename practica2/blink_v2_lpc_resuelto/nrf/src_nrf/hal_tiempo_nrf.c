@@ -107,6 +107,9 @@ void hal_tiempo_reloj_periodico_tick(uint32_t periodo_en_tick, void (*funcion_ca
 
         NRF_TIMER1->INTENSET = TIMER_INTENSET_COMPARE0_Enabled << TIMER_INTENSET_COMPARE0_Pos; // Habilitar interrupción
 
+        // Restablece el timer cuando salta COMPARE0
+	    NRF_TIMER1->SHORTS = TIMER_SHORTS_COMPARE0_CLEAR_Enabled << TIMER_SHORTS_COMPARE0_CLEAR_Pos;
+
         NVIC_EnableIRQ(TIMER1_IRQn);                // Habilitar la interrupción en el NVIC
 
         NRF_TIMER1->TASKS_CLEAR = 1;                // Limpiar el contador

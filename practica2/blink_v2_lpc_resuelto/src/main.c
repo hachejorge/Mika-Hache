@@ -14,6 +14,12 @@
 
 #define RETARDO_MS 500 		//retardo blink en milisegundos
 
+#define ID_LED 1
+
+void leds_c(void) { //modo RSI
+	drv_leds_conmutar(ID_LED);
+}
+
 /* *****************************************************************************
  * BLINK, parpadeo de un led conmutando on/off 
  * retardo por bucle de instrucciones, solo usa el manejador del led
@@ -25,7 +31,7 @@ void blink_v1(uint32_t id){
     
     tmo = 10000000;
     while (tmo--); // se decrementa el tiempo
-    drv_led_conmutar(id); // conmuta el led seleccionado por id   
+    	drv_led_conmutar(id); // conmuta el led seleccionado por id   
 	}		
 }
 
@@ -46,6 +52,16 @@ void blink_v2(uint32_t id){
 		siguiente_activacion += RETARDO_MS; // la siguiente activación será a los RETARDO_MS ms
 		drv_tiempo_esperar_hasta_ms(siguiente_activacion); // se esperará hasta el momento siguiente_activacion
 		drv_led_conmutar(id);
+	}
+}
+
+void blink_v3(uint32_t id){
+
+	drv_led_encender(id);
+	drv_tiempo_periodico_ms(RETARDO_MS, leds_c);
+	while (1) {
+		//__WFI
+		drv_consumo_esperar();
 	}
 }
 

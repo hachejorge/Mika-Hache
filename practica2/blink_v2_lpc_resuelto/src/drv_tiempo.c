@@ -53,3 +53,12 @@ Tiempo_ms_t drv_tiempo_esperar_hasta_ms(Tiempo_ms_t ms){
 	while(drv_tiempo_actual_ms() < ms);	// Mientras que el tiempo actual sea menor que el dado espera
 	return drv_tiempo_actual_ms();
 }
+
+/**
+ * cada ms milisegundos lanza una interrupción en la que se invoca a la función funcion_callback
+ */
+void drv_tiempo_periodico_ms(Tiempo_ms_t ms, void(*funcion_callback)()){
+	drv_tiempo_iniciar(); // Hay que invocarla para tener la constante HAL_TICKS2US
+	uint32_t ticks = ms * HAL_TICKS2US * US2MS;
+	hal_tiempo_reloj_periodico_tick(ticks,funcion_callback);
+}
