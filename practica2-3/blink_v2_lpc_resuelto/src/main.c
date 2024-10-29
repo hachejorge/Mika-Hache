@@ -13,6 +13,7 @@
 #include "drv_tiempo.h"
 #include "drv_consumo.h"
 #include "board.h"
+#include "rt_fifo.h"
 
 #define RETARDO_MS 500 		//retardo blink en milisegundos
 
@@ -57,7 +58,7 @@ void blink_v2(uint32_t id){
 }
 
 void blink_v3(uint32_t id){
-	//drv_consumo_iniciar(MONITOR3, MONITOR3);
+	drv_consumo_iniciar(MONITOR3, MONITOR1);
 	drv_led_encender(id);
 	drv_tiempo_periodico_ms(RETARDO_MS, leds_c, id);
 	while (true) {
@@ -80,8 +81,13 @@ int main(void){
 	/* Configure LED */
 	Num_Leds = drv_leds_iniciar(); // iniciamos los leds
 	
+	rt_FIFO_inicializar(MONITOR1);
+	
+	for(int i = 0; i < 65; i++){
+		rt_FIFO_encolar(1, i);
+	}
+		
 	if (Num_Leds > 0){ 
-
 			//blink_v1(1);			// sesion 1 de practica 2
 			//blink_v2(2);			// sesion 2 de practica 2
 			blink_v3(3);				// sesion 1 de practica 3

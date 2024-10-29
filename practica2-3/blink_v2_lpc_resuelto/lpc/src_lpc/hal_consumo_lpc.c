@@ -25,4 +25,4 @@ void hal_consumo_esperar(){
 	  PCON |= 0x01; 
 }
 
-void hal_consumo_dormir();
+void hal_consumo_dormir(){}

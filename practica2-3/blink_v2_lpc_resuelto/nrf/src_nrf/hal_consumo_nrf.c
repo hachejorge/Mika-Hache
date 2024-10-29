@@ -10,5 +10,5 @@ void hal_consumo_esperar(){
 }
 
 void hal_consumo_dormir(){
-
+	//NRF_POWER->SYSTEMOFF = 1;
 }

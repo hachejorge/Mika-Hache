@@ -2,7 +2,7 @@
 #include "hal_consumo.h"
 #include "drv_monitor.h"
 
-static volatile uint32_t NUM_MONITORES;	// Número totat de monitores
+static volatile uint32_t NUM_MONITORES;	// Número total de monitores
 static volatile uint32_t MON_WAIT;		// ID del monitor asociado al modo de bajo consumo del procesador
 static volatile uint32_t MON_DORMIR;	// ID del monitor asociado al modo "apagado" del procesador
 
@@ -22,7 +22,7 @@ void drv_consumo_esperar(void){
     hal_consumo_esperar();
 	// Marcar monitor_wait si es posible
 	if(NUM_MONITORES > 0 && MON_WAIT > 0 && MON_WAIT <= NUM_MONITORES) {
-		drv_monitor_desmarcar(MON_WAIT);
+		drv_monitor_marcar(MON_WAIT);
 	}
 }
 
