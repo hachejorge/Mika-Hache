@@ -46,20 +46,30 @@ void rt_FIFO_encolar(uint32_t ID_evento, uint32_t auxData){
     }
 }
 
+// Función que devuelve el número de eventos por procesar (incluyendo el propio evento extraido), y que pasa por los parámetros
+// ID_evento, auxData, TS las variables relacionadas con el primer evento a tratar
 uint8_t rt_FIFO_extraer(EVENTO_T *ID_evento, uint32_t* auxData, Tiempo_us_t *TS){
+    // Se asignan los eventos sin tratar totales, incluyendo el posible a extraer 
+    uint8_t eventos_sin_tratar_resultado = eventos_sin_tratar;
+
+    // Si hay eventos por tratar se devuelve el primero
     if(eventos_sin_tratar > 0){
+        // Variables del primer evento a tratar
         *ID_evento = cola[siguiente_a_tratar].ID_EVENTO;
         *auxData = cola[siguiente_a_tratar].auxData;
         *TS = cola[siguiente_a_tratar].TS;
         
+        // Actualiza los índices de tratados y siguiente a tratar
         ultimo_tratado = siguiente_a_tratar;
         siguiente_a_tratar = (siguiente_a_tratar + 1) % TAM_COLA;
 
+        // Se reduce el número de eventos sin tratar
         eventos_sin_tratar--;
     }
-    return eventos_sin_tratar; 
+    return eventos_sin_tratar_resultado; 
 }
 
+// Dado un evento, nos devuelve cuantas veces ha sido encolado (ev_VOID nos da el total)
 uint32_t rt_FIFO_estadisticas(EVENTO_T ID_evento){
     return stats[ID_evento];
 }

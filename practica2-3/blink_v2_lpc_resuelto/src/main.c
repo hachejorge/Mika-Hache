@@ -67,6 +67,27 @@ void blink_v3(uint32_t id){
 	}
 }
 
+void blink_v4(uint32_t id){
+	EVENTO_T id_evento;
+	uint32_t varAux;
+	Tiempo_us_t timeStamp;
+	
+	drv_consumo_iniciar(MONITOR3, MONITOR1);
+	rt_FIFO_inicializar(MONITOR4);
+	drv_led_encender(id);
+	drv_tiempo_periodico_ms(RETARDO_MS, rt_FIFO_encolar, ev_T_PERIODICO);
+	while (true) {
+		if (rt_FIFO_extraer(&id_evento, &varAux, &timeStamp)) {
+			if(id_evento == ev_T_PERIODICO){
+				drv_led_conmutar(id);
+			}
+		}
+		else{
+			drv_consumo_esperar();
+		}
+	}
+}
+
 /* *****************************************************************************
  * MAIN, Programa principal.
  * para la primera sesion se debe usar la funcion de blink_v1 sin temporizadores
@@ -81,7 +102,6 @@ int main(void){
 	/* Configure LED */
 	Num_Leds = drv_leds_iniciar(); // iniciamos los leds
 	
-	rt_FIFO_inicializar(MONITOR1);
 	
 	for(int i = 0; i < 65; i++){
 		rt_FIFO_encolar(1, i);
