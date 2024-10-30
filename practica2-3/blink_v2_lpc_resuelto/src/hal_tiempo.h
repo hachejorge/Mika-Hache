@@ -24,6 +24,6 @@ uint64_t hal_tiempo_actual_tick(void);
  * TODO para la practica 3, no se si hacer hal propio...
  * programa una activacion periodica cada periodo_en_tick ticks de la maquina
  */
-void hal_tiempo_reloj_periodico_tick(uint32_t periodo_en_tick, void(*funcion_callback)()); 
+void hal_tiempo_reloj_periodico_tick(uint32_t periodo_en_tick, void(*funcion_callback_drv)()); 
 
 #endif

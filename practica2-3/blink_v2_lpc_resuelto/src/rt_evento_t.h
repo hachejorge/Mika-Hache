@@ -1,3 +1,9 @@
+/* *****************************************************************************
+ * P.H.2024: rt_evento_t.h
+ * Nekane Diaz Montoya   870795	
+ * Jorge Hernandez Aznar 872838
+ */
+
 #ifndef RT_EVENTO_T
 #define RT_EVENTO_T
 
@@ -10,3 +16,4 @@ typedef enum {
 #define EVENT_TYPES 3
 
 #endif
+

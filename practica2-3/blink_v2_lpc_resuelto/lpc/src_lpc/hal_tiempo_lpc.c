@@ -78,7 +78,7 @@ void timer1_ISR (void) __irq {
  * Programa el reloj para que llame a la funci�n de callback cada periodo.
  * El periodo se indica en tick. Si el periodo es cero se para el temporizador. 
  */
-void hal_tiempo_reloj_periodico_tick(uint32_t periodo_en_tick, void(*funcion_callback)()){
+void hal_tiempo_reloj_periodico_tick(uint32_t periodo_en_tick, void(*funcion_callback_drv)()){
   
 	f_callback = funcion_callback;
 	

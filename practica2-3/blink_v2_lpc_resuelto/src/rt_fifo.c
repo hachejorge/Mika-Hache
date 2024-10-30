@@ -1,3 +1,9 @@
+/* *****************************************************************************
+ * P.H.2024: rt_fifo.c
+ * Nekane Diaz Montoya   870795	
+ * Jorge Hernandez Aznar 872838
+ */
+
 #include "rt_fifo.h"
 #include "drv_monitor.h"
 #include "drv_tiempo.h"
@@ -14,7 +20,6 @@ void rt_FIFO_inicializar(uint32_t monitor_overflow){
 
     MON_OVERFLOW = monitor_overflow;
 
-    // Hay que desmarcar el monitor al iniciar?
     drv_monitor_desmarcar(MON_OVERFLOW);
 }
 
@@ -36,7 +41,7 @@ void rt_FIFO_encolar(uint32_t ID_evento, uint32_t auxData){
         // Se añade el evento
         cola[siguiente_pos].ID_EVENTO = ID_evento;
         cola[siguiente_pos].auxData = auxData;
-        cola[siguiente_pos].TS = drv_tiempo_actual_us(); // Selecciona como timestap el tiempo actual en microsegundos
+        cola[siguiente_pos].TS = (uint32_t)drv_tiempo_actual_us(); // Selecciona como timestap el tiempo actual en microsegundos
         
         // Se aumenta el índice del último elemento de la cola
         indice_cola = (indice_cola + 1) % TAM_COLA;
@@ -71,5 +76,10 @@ uint8_t rt_FIFO_extraer(EVENTO_T *ID_evento, uint32_t* auxData, Tiempo_us_t *TS)
 
 // Dado un evento, nos devuelve cuantas veces ha sido encolado (ev_VOID nos da el total)
 uint32_t rt_FIFO_estadisticas(EVENTO_T ID_evento){
-    return stats[ID_evento];
+    if(ID_evento < EVENT_TYPES && ID_evento >= 0) {
+        return stats[ID_evento];
+    } 
+    else {
+        return -1;
+    }
 }

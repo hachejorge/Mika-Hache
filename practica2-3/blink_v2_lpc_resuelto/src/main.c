@@ -111,5 +111,6 @@ int main(void){
 			//blink_v1(1);			// sesion 1 de practica 2
 			//blink_v2(2);			// sesion 2 de practica 2
 			blink_v3(3);				// sesion 1 de practica 3
+			blink_v4(4); 		 	// sesion 2 de practica 3
 	}
 }

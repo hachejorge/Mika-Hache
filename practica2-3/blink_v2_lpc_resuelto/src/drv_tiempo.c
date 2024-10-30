@@ -69,10 +69,10 @@ Tiempo_ms_t drv_tiempo_esperar_hasta_ms(Tiempo_ms_t ms){
 /**
  * cada ms milisegundos lanza una interrupción en la que se invoca a la función funcion_callback
  */
-void drv_tiempo_periodico_ms(Tiempo_ms_t ms, void(*funcion_callback)(uint32_t id, uint32_t ms), uint32_t ID_evento){
+void drv_tiempo_periodico_ms(Tiempo_ms_t ms, void(*funcion_encolar_evento)(uint32_t id, uint32_t ms), uint32_t ID_evento){
 	drv_tiempo_iniciar(); // Hay que invocarla para tener la constante HAL_TICKS2US_T0
 	ID_LED_CONMUTAR = ID_evento;
-	f_callback = funcion_callback;
+	f_callback = funcion_encolar_evento;
 	uint32_t ticks = ms * HAL_TICKS2US_T1 * US2MS;
 	hal_tiempo_reloj_periodico_tick(ticks, f_callback_driver);
 }
