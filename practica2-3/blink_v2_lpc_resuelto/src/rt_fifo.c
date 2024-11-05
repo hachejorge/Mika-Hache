@@ -32,7 +32,7 @@ void rt_FIFO_encolar(uint32_t ID_evento, uint32_t auxData){
         // Si los eventos sin tratar superan el tamaño de la cola hay overflow
         if( eventos_sin_tratar > TAM_COLA) { // eventos_sin_tratar (> OR >=) TAM_COLA
             drv_monitor_marcar(MON_OVERFLOW);
-            while(1);
+             while(1);
         }
 
         // Se actualiza la posición en la que se tiene que colocar
