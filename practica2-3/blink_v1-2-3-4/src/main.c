@@ -17,6 +17,7 @@
 
 #define RETARDO_MS 5000 		//retardo blink en milisegundos
 
+// La función conmuta el led con identifacor id, es decir lo apaga o lo enciende
 void leds_c(uint32_t id, uint32_t ms) { //modo RSI
 	drv_led_conmutar(id);
 }
@@ -57,6 +58,11 @@ void blink_v2(uint32_t id){
 	}
 }
 
+/* *****************************************************************************
+ * BLINK, parpadeo de un led conmutando on/off 
+ * se activa la invocación de callback de leds_c periodica cada RETARDO_MS  
+ * mientras el procesador activa el modo de bajo consumo hasta que recibe las interrupciones de leds_c
+ */
 void blink_v3(uint32_t id){
 	drv_consumo_iniciar(MONITOR3, MONITOR1);
 	drv_led_encender(id);
@@ -67,6 +73,12 @@ void blink_v3(uint32_t id){
 	}
 }
 
+/* *****************************************************************************
+ * BLINK, parpadeo de un led conmutando on/off 
+ * en esta versión del blink, el procesador que encuentra en modo de ahorro energético hasta que
+ * llega la interrupción cada RETARDO_MS que encola un evento periódico en una estructura fifo que
+ * procedo a gestionar estos eventos, en nuestro caso conmutando el eld
+ */
 void blink_v4(uint32_t id){
 	EVENTO_T id_evento;
 	uint32_t varAux;

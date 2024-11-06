@@ -11,13 +11,9 @@ typedef enum {
 	ev_VOID = 0, 	    	 // default, vacio
 	ev_T_PERIODICO = 1,  // noficación del timer cada cierto tiempo
 	ev_PULSAR_BOTON = 2, // pulsación de un botón
-	ev_INACTIVIDAD = 3,  // evento de parar el procesador
 } EVENTO_T;			    //mapea a uint32_t
 
-#define EVENT_TYPES 4
-
-#define ev_NUM_EV_USUARIO 1
-#define ev_USUARIO {ev_PULSAR_BOTON}
+#define EVENT_TYPES 3
 
 #endif
 
