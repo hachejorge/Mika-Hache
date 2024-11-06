@@ -1,5 +1,6 @@
 #include "srv_alarm.h"
 #include "drv_monitor.h"
+#include "drv_tiempo.h"
 
 static ALARMA alarmas[svc_ALARMAS_MAX];
 
@@ -19,7 +20,11 @@ void svc_alarma_iniciar(uint32_t overflow, void(*f_callback)(uint32_t id, uint32
         alarmas[i].periodica = false;
         alarmas[i].ID_evento = 0;
         alarmas[i].auxData = 0;
+        alarmas[i].alarm_counter = 0;
     }
+
+    // Cada cierto tiempo se invoca a la alarma
+    drv_tiempo_periodico_ms(MIN_MS_INTERRUPT_ALARM,svc_alarma_tratar,0);
 
 }
 
@@ -27,7 +32,8 @@ void svc_alarma_iniciar(uint32_t overflow, void(*f_callback)(uint32_t id, uint32
 // retardo_ms en su bit de mayor peso indica si la alarma es periódica o no
 // Si el retardo es cero se cancela la alarma
 void svc_alarma_activar(uint32_t retardo_ms, EVENTO_T ID_evento, uint32_t auxData){
-    bool periodica = (retardo_ms & 0x80000000) != 0;  // Bit más significativo indica periodicidad
+    bool periodica = (retardo_ms & 0x80000000) != 0;    // Bit más significativo indica periodicidad
+    Tiempo_ms_t retardo_real = retardo_ms & 0x7FFFFFFF; // Retardo real sin el bit de periodica o no
 
     if(retardo_ms == 0){                              // si el retardo es igual a 0, se desactiva la alarma
         for(int i = 0; i < svc_ALARMAS_MAX; i++){     // Recorremos el vector de alarmas hasta encontrar la que tenga el mismo ID_evento 
@@ -41,13 +47,15 @@ void svc_alarma_activar(uint32_t retardo_ms, EVENTO_T ID_evento, uint32_t auxDat
         if(alarmas_activas < svc_ALARMAS_MAX){
             for(int i = 0; i < svc_ALARMAS_MAX; i++){
                 if(!alarmas[i].activa){
-                    alarmas[i].activa = true;          // 
-                    alarmas[i].retardo_ms = retardo_ms;//                   
-                    alarmas[i].ID_evento = ID_evento;  //
-                    alarmas[i].auxData = auxData;      //
-                    alarmas[i].periodica = periodica;  //
-                    alarmas_activas++;                 //
+                    alarmas[i].activa = true;          
+                    alarmas[i].retardo_ms = retardo_real;
+                    alarmas[i].ID_evento = ID_evento;  
+                    alarmas[i].auxData = auxData;      
+                    alarmas[i].periodica = periodica;  
+                    alarmas[i].alarm_counter = 0;
+                    alarmas_activas++;                 
                 }
+                else{} // Añadir si la alarma ya está añadida para que se reinicie la cuenta
             }
         }
         else{
@@ -59,24 +67,22 @@ void svc_alarma_activar(uint32_t retardo_ms, EVENTO_T ID_evento, uint32_t auxDat
 
 void svc_alarma_tratar(EVENTO_T ID_evento, uint32_t auxData){
     for (int i = 0; i < svc_ALARMAS_MAX; i++) {
-        if (alarmas[i].activa && alarmas[i].ID_evento == ID_evento) {
-            // Verificar si el retardo ha expirado
-            if (alarmas[i].retardo_ms <= auxData) {
+        if (alarmas[i].activa) {
+            alarmas[i].alarm_counter++;
+            // Verificar si el tipo de evento coincide y el retardo ha expirado
+            if (alarmas[i].ID_evento == ID_evento && alarmas[i].retardo_ms <= alarmas[i].alarm_counter * MIN_MS_INTERRUPT_ALARM) {
                 // Disparar el evento usando el callback
                 callback(alarmas[i].ID_evento, alarmas[i].auxData);
                 // Si es periódica, recalcular el retardo
                 if (alarmas[i].periodica) {
-                    alarmas[i].retardo_ms += auxData;  // Recalcular el retardo para la próxima activación
+                    alarmas[i].alarm_counter = 0 ;  // Reiniciar el contador para esta alarma
                 } 
                 else {
                     // Si no es periódica, desactivar la alarma
                     alarmas[i].activa = 0;
                     alarmas_activas--;
                 }
-            } else {
-                // Reducir el retardo en función del tiempo transcurrido (auxData)
-                alarmas[i].retardo_ms -= auxData;
-            }
+            } 
         }
     }
 }

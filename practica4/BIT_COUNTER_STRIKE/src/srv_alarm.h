@@ -8,12 +8,17 @@
 
 #define svc_ALARMAS_MAX 4
 
+// Cada cuanto llega la notificación periodica a la alarma
+// Máximo común divisor de los periodos de las alarmas
+#define MIN_MS_INTERRUPT_ALARM 5000
+
 typedef struct {
 	bool activa;
-	Tiempo_ms_t retardo_ms;
 	bool periodica;
-    EVENTO_T ID_evento;
+	Tiempo_ms_t retardo_ms;
+	uint32_t alarm_counter;
     uint32_t auxData;
+	EVENTO_T ID_evento;
 } ALARMA;
 
 
