@@ -506,6 +506,11 @@
               <FileType>5</FileType>
               <FilePath>..\..\src\hal_ext_int.h</FilePath>
             </File>
+            <File>
+              <FileName>drv_botones.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\src\drv_botones.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
