@@ -19,6 +19,7 @@ typedef enum {
 #define ev_NUM_EV_USUARIO 1
 #define ev_USUARIO {ev_PULSAR_BOTON}
 
+
 EVENTO_T evs_USUARIO[ev_NUM_EV_USUARIO] = {ev_PULSAR_BOTON}
 
 #endif

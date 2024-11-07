@@ -8,6 +8,8 @@
 #include <stdbool.h>
 #include <stdint.h> 
 #include "rt_evento_t.h"
+#include "rt_fifo.h"
+
 
 #ifndef DRV_BOTONES
 #define DRV_BOTONES
@@ -20,12 +22,8 @@ typedef struct {
     void (*callback)(int id);   // Callback a ejecutar al presionar el bot�n
 } BUTTON;
 
+void drv_botones_iniciar(void(*rt_FIFO_encolar)(uint32_t id, uint32_t aux), EVENTO_T ev_PULSAR_BOTON, EVENTO_T ev_BOTON_RETARDO);
 
-void iniciar_botones(EVENTO_T evento, void(*f_callback)(uint32_t id, uint32_t aux));
-
-
-void tratar_boton(uint32_t id);
-
-pulsar_boton();
+void drv_botones_tratar(EVENTO_T evento, uint32_t auxiliar);
 
 #endif
