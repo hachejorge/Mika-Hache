@@ -2,10 +2,21 @@
 #include "srv_alarm.h"
 #include "rt_fifo.h"
 #include "drv_consumo.h"
+#include "drv_monitor.h"
 #include <stddef.h>
 
 static GE gestor_eventos[EVENT_TYPES];
 static uint32_t monitor_overflow;
+
+bool esEventoUsuario(EVENTO_T id_evento){
+    for(int i = 0; i < ev_NUM_EV_USUARIO; i++){
+        if(evs_USUARIO[i] == id_evento) return true;
+    }
+    return false;
+}
+
+
+
 
 void rt_GE_iniciar(uint32_t monitor) {
     monitor_overflow = monitor;
@@ -15,15 +26,18 @@ void rt_GE_iniciar(uint32_t monitor) {
             gestor_eventos[i].callbacks[j] = NULL;
         }
     }
-    svc_alarma_activar(20000,ev_INACTIVIDAD,0);
+		svc_GE_suscribir(ev_PULSAR_BOTON, rt_GE_tratar);
+		svc_GE_suscribir(ev_INACTIVIDAD, rt_GE_tratar);
 }
 
 void rt_GE_lanzador(){
     EVENTO_T evento;
     uint32_t auxiliar;
     Tiempo_us_t timestamp;
- 
-    // Bucle principal para procesar la cola de eventos
+    
+	svc_alarma_activar(svc_alarma_codificar(0, 20*1000),ev_INACTIVIDAD,0);
+    
+		// Bucle principal para procesar la cola de eventos
     while (1) {
         // Desencolar el siguiente evento
         if (rt_FIFO_extraer(&evento, &auxiliar, &timestamp)) { 
@@ -41,7 +55,7 @@ void rt_GE_lanzador(){
     }
 }
 
-void svc_GE_suscribir(EVENTO_T evento, void(*f_callback)(uint32_t id, uint32_t aux)){
+void svc_GE_suscribir(EVENTO_T evento, void(*f_callback)(EVENTO_T id, uint32_t aux)){
     if (gestor_eventos[evento].callbacks_usados >= rt_GE_MAX_SUSCRITOS){
         // marcamos el monitor ya que hay overflow
         drv_monitor_marcar(monitor_overflow);
@@ -58,7 +72,7 @@ void svc_GE_suscribir(EVENTO_T evento, void(*f_callback)(uint32_t id, uint32_t a
     }
 }
 
-void svc_GE_cancelar(EVENTO_T evento, void(*f_callback)(uint32_t id, uint32_t aux)){
+void svc_GE_cancelar(EVENTO_T evento, void(*f_callback)(EVENTO_T id, uint32_t aux)){
     if(gestor_eventos[evento].callbacks_usados > 0) {
         for(int i = 0; i < rt_GE_MAX_SUSCRITOS; i++) { // recorremos el vector de eventos suscritos
             if(gestor_eventos[evento].callbacks[i] == f_callback) { // si esa componente del vector está vacía, suscribimos un nuevo evento
@@ -69,16 +83,13 @@ void svc_GE_cancelar(EVENTO_T evento, void(*f_callback)(uint32_t id, uint32_t au
     }
 }
 
-bool esEventoUsuario(EVENTO_T id_evento){
-    for(int i = 0; i < ev_NUM_EV_USUARIO; i++){
-        if(evs_USUARIO[i] == id_evento) return true;
-    }
-    return false;
-}
+
 
 void rt_GE_tratar(EVENTO_T evento, uint32_t auxiliar){
     if(esEventoUsuario(evento)){
-        svc_alarma_activar(20000, ev_INACTIVIDAD, 0);
+				// Desactivamos la alarma para volver a activarla
+				svc_alarma_activar(0,ev_INACTIVIDAD,0);
+				svc_alarma_activar(svc_alarma_codificar(0, 20*1000),ev_INACTIVIDAD,0);
     }
     else if(evento == ev_INACTIVIDAD){
         drv_consumo_dormir();

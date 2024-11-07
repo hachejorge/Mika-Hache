@@ -32,4 +32,8 @@ void svc_alarma_activar(uint32_t retardo_ms, EVENTO_T ID_evento, uint32_t auxDat
  
 void svc_alarma_tratar(EVENTO_T ID_evento, uint32_t auxData);
 
+uint32_t svc_alarma_codificar(bool periodico, uint32_t retardo);
+
 #endif
+	
+	

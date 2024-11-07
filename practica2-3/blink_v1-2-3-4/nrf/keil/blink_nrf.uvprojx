@@ -457,16 +457,6 @@
               <FileType>5</FileType>
               <FilePath>..\..\src\rt_evento_t.h</FilePath>
             </File>
-            <File>
-              <FileName>srv_alarma.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\src\srv_alarma.c</FilePath>
-            </File>
-            <File>
-              <FileName>srv_alarma.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\..\src\srv_alarma.h</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>

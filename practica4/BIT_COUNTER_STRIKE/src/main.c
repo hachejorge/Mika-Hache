@@ -4,7 +4,7 @@
 	* Nekane Diaz Montoya   870795	
 	* Jorge Hernandez Aznar 872838
  */
- 
+
 #include <stdint.h>
 #include <stdbool.h>
 
@@ -86,6 +86,10 @@ void blink_v4(uint32_t id){
 			drv_consumo_esperar();
 		}
 	}
+}
+
+void blink_v3_bis(){
+		drv_consumo_dormir();
 }
 
 

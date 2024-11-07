@@ -15,7 +15,7 @@
 #include "board.h"
 #include "rt_fifo.h"
 
-#define RETARDO_MS 5000 		//retardo blink en milisegundos
+#define RETARDO_MS 500 		//retardo blink en milisegundos
 
 // La función conmuta el led con identifacor id, es decir lo apaga o lo enciende
 void leds_c(uint32_t id, uint32_t ms) { //modo RSI
@@ -115,8 +115,10 @@ int main(void){
 	/* Configure LED */
 	Num_Leds = drv_leds_iniciar(); // iniciamos los leds
 	
+	// Si se descomenta se tiene que quedar bloqueado en un bucle 
 	//verificar_over_flow_cola(MONITOR4);
 	
+	// Verifica la correcta extracción e inserción en la cola fifo
 	int resultado = verificar_insertar_extraer_en_cola(MONITOR4);
 	
 	if (Num_Leds > 0){ 

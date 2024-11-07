@@ -26,3 +26,4 @@ void hal_consumo_esperar(){
 }
 
 void hal_consumo_dormir(){}
+	

@@ -12,15 +12,16 @@ typedef enum {
 	ev_T_PERIODICO = 1,  // noficación del timer cada cierto tiempo
 	ev_PULSAR_BOTON = 2, // pulsación de un botón
 	ev_INACTIVIDAD = 3,  // evento de parar el procesador
+	ev_BOTON_RETARDO = 4,
 } EVENTO_T;			    //mapea a uint32_t
 
-#define EVENT_TYPES 4
+#define EVENT_TYPES 5
 
 #define ev_NUM_EV_USUARIO 1
 #define ev_USUARIO {ev_PULSAR_BOTON}
 
 
-EVENTO_T evs_USUARIO[ev_NUM_EV_USUARIO] = {ev_PULSAR_BOTON}
+EVENTO_T evs_USUARIO[ev_NUM_EV_USUARIO] = {ev_PULSAR_BOTON};
 
 #endif
 

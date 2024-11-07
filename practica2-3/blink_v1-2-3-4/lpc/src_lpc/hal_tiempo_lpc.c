@@ -80,7 +80,7 @@ void timer1_ISR (void) __irq {
  */
 void hal_tiempo_reloj_periodico_tick(uint32_t periodo_en_tick, void(*funcion_callback_drv)()){
   
-	f_callback = funcion_callback;
+	f_callback = funcion_callback_drv;
 	
 	if (periodo_en_tick != 0) { //Si el periodo es cero solo se para el temporizador.
 		T1MR0 = periodo_en_tick  - 1; 		// 15 Ticks (ciclos) por microsegundo.

@@ -8,52 +8,75 @@
 #include "board.h"
 #include "drv_botones.h"
 #include "hal_ext_int.h"
+#include "hal_gpio.h"
+#include "rt_GE.h"
+#include "srv_alarm.h"
 #include <stddef.h>
 
 enum estados { 
 	e_reposo,
 	e_entrando,
 	e_esperando,
-	e_soltando
+	e_soltado
 } estado_actual;
 
 #if BUTTONS_NUMBER > 0
-	static BUTTON button_list[BUTTONS_NUMBER] = BUTTONS_LIST;
+	static BUTTON buttons[BUTTONS_NUMBER] = BUTTONS_LIST;
+	static uint32_t button_list[BUTTONS_NUMBER] = BUTTONS_LIST;
 #endif
 
-void drv_botones_iniciar(void(*rt_FIFO_encolar)(uint32_t id, uint32_t aux), EVENTO_T ev_PULSAR_BOTON, EVENTO_T ev_BOTON_RETARDO){
+void drv_botones_iniciar(void(*callback)(EVENTO_T id, uint32_t aux), EVENTO_T ev_PULSAR_BOTON, EVENTO_T ev_BOTON_RETARDO){
 	#if BUTTONS_NUMBER > 0
 		// Inicializar botones con el callback y otros par�metros
+		
 	
+		for (uint32_t i = 0; i < BUTTONS_NUMBER; ++i) 			{
+			hal_gpio_sentido(button_list[i], HAL_GPIO_PIN_DIR_INPUT);
+		}
 		for (int i = 0; i < BUTTONS_NUMBER; i++) {
-				button_list[i].id = i;
-				button_list[i].pulsado = false;
-				button_list[i].estado_actual = NULL;
-				button_list[i].callback = rt_FIFO_encolar; 			//No estoy segura de que haya que pomer esta funcion aqui???????
+				buttons[i].id = i;
+				buttons[i].pulsado = false;
+				buttons[i].estado_actual = NULL;
+				buttons[i].callback = callback; 		
 		}
 		// Configurar interrupciones externas en hal_ext_int
 		hal_ext_int_iniciar();		
+		// no se si estos dos suscribir tendrían que ir dentro de callback de butoton_list
+		svc_GE_suscribir(ev_PULSAR_BOTON, drv_botones_tratar);
+		svc_GE_suscribir(ev_BOTON_RETARDO, drv_botones_tratar);
 	#endif //BUTTONS_NUMBER > 0	
-	// no se si estos dos suscribir tendrían que ir dentro de callback de butoton_list
-	svc_GE_suscribir(ev_PULSAR_BOTON, drv_botones_tratar);
-	svc_GE_suscribir(ev_BOTON_RETARDO, drv_botones_tratar);
+
+}
+
+void drv_botones_pulsado(){
 
 }
 
 void drv_botones_tratar(EVENTO_T evento, uint32_t auxiliar){
 	switch (estado_actual){
-	case e_entrando:
-		
-		break;
-	case e_esperando: 
-		
-		break;
 	case e_reposo:
 		
+		svc_alarma_activar(svc_alarma_codificar(0,20), ev_BOTON_RETARDO, 0);
+		estado_actual = e_entrando;
 		break;
-	case e_soltando:
+	
+	case e_entrando: 
 		
+		estado_actual = e_esperando;
+	
 		break;
+	
+	case e_esperando:
+
+		estado_actual = e_soltado;
+		break;
+	
+	case e_soltado:
+
+		estado_actual = e_reposo;
+		break;
+
+	
 	default:
 		break;
 	}

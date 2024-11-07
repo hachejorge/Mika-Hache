@@ -15,14 +15,14 @@
 #define DRV_BOTONES
 
 typedef struct {
-    int id;                     // Identificador del bot�n
-    bool pulsado;               // Estado del bot�n (true si est� pulsado)
-    int estado_actual;          // Estado de la automara en el que se encuentra el bot�n
+    int id;                     // Identificador del boton
+    bool pulsado;               // Estado del boton (true si est� pulsado)
+    int estado_actual;          // Estado de la automara en el que se encuentra el boton
     int tiempo_rebote;          // Tiempo de retardo para ignorar rebotes
-    void (*callback)(int id);   // Callback a ejecutar al presionar el bot�n
+    void (*callback)(EVENTO_T id, uint32_t aux);   // Callback a ejecutar al presionar el boton
 } BUTTON;
 
-void drv_botones_iniciar(void(*rt_FIFO_encolar)(uint32_t id, uint32_t aux), EVENTO_T ev_PULSAR_BOTON, EVENTO_T ev_BOTON_RETARDO);
+void drv_botones_iniciar(void(*callback)(EVENTO_T id, uint32_t aux), EVENTO_T ev_PULSAR_BOTON, EVENTO_T ev_BOTON_RETARDO);
 
 void drv_botones_tratar(EVENTO_T evento, uint32_t auxiliar);
 

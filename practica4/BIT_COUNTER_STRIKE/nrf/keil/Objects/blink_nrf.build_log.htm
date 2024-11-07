@@ -5,11 +5,11 @@
 <h2>Tool Versions:</h2>
 IDE-Version: �Vision V5.26.2.0
 Copyright (C) 2018 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: . nekanem, HP Inc., LIC=----
+License Information: UZ UZ, UZ, LIC=----
  
 Tool Versions:
 Toolchain:       MDK-Lite  Version: 5.26.2.0
-Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
+Toolchain Path:  C:\Programas-Practicas\Simuladores\Keil\ARM\ARMCC\Bin
 C Compiler:      Armcc.exe V5.06 update 6 (build 750)
 Assembler:       Armasm.exe V5.06 update 6 (build 750)
 Linker/Locator:  ArmLink.exe V5.06 update 6 (build 750)
@@ -21,96 +21,95 @@ Target DLL:      Segger\JL2CM3.dll V2.99.31.0
 Dialog DLL:      TCM.DLL V1.36.1.0
  
 <h2>Project:</h2>
-C:\UNIVERSIDAD\2024-2025\PH\Mika-Hache\practica4\BIT_COUNTER_STRIKE\nrf\keil\blink_nrf.uvprojx
+D:\practica4\BIT_COUNTER_STRIKE\nrf\keil\blink_nrf.uvprojx
 Project File Date:  11/07/2024
 
 <h2>Output:</h2>
-*** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+*** Using Compiler 'V5.06 update 6 (build 750)', folder: 'C:\Programas-Practicas\Simuladores\Keil\ARM\ARMCC\Bin'
 Rebuild Project 'blink_nrf' - Target 'nRF'
 compiling drv_leds.c...
-compiling rt_fifo.c...
-C:\UNIVERSIDAD\2024-2025\PH\Mika-Hache\practica4\BIT_COUNTER_STRIKE\src\drv_tiempo.h(14): error:  #65: expected a ";"
-  typedef uint64_t Tiempo_us_t;
-C:\UNIVERSIDAD\2024-2025\PH\Mika-Hache\practica4\BIT_COUNTER_STRIKE\src\drv_tiempo.h(25): error:  #20: identifier "Tiempo_us_t" is undefined
-  Tiempo_us_t drv_tiempo_actual_us(void);
-C:\UNIVERSIDAD\2024-2025\PH\Mika-Hache\practica4\BIT_COUNTER_STRIKE\src\rt_fifo.h(17): error:  #20: identifier "Tiempo_us_t" is undefined
-  	Tiempo_us_t TS;
-C:\UNIVERSIDAD\2024-2025\PH\Mika-Hache\practica4\BIT_COUNTER_STRIKE\src\rt_fifo.h(27): error:  #20: identifier "Tiempo_us_t" is undefined
-  uint8_t rt_FIFO_extraer(EVENTO_T *ID_evento, uint32_t* auxData, Tiempo_us_t *TS);
-C:\UNIVERSIDAD\2024-2025\PH\Mika-Hache\practica4\BIT_COUNTER_STRIKE\src\rt_fifo.c(75): error:  #20: identifier "Tiempo_us_t" is undefined
-  uint8_t rt_FIFO_extraer(EVENTO_T *ID_evento, uint32_t* auxData, Tiempo_us_t *TS){
-C:\UNIVERSIDAD\2024-2025\PH\Mika-Hache\practica4\BIT_COUNTER_STRIKE\src\rt_fifo.c(135): error:  #20: identifier "Tiempo_us_t" is undefined
-  		Tiempo_us_t time;
-C:\UNIVERSIDAD\2024-2025\PH\Mika-Hache\practica4\BIT_COUNTER_STRIKE\src\rt_fifo.c(16): warning:  #550-D: variable "ultimo_tratado"  was set but never used
-  static uint8_t ultimo_tratado; 	   // Indice del último evento tratado
-..\..\src\rt_fifo.c: 1 warning, 6 errors
-compiling drv_consumo.c...
-compiling drv_monitor.c...
 compiling main.c...
-C:\UNIVERSIDAD\2024-2025\PH\Mika-Hache\practica4\BIT_COUNTER_STRIKE\src\rt_fifo.h(14): error:  #65: expected a ";"
-  typedef struct {
-C:\UNIVERSIDAD\2024-2025\PH\Mika-Hache\practica4\BIT_COUNTER_STRIKE\src\rt_fifo.h(18): warning:  #12-D: parsing restarts here after previous syntax error
-  } EVENTO;
-..\..\src\main.c: 1 warning, 1 error
-compiling srv_alarm.c...
-C:\UNIVERSIDAD\2024-2025\PH\Mika-Hache\practica4\BIT_COUNTER_STRIKE\src\srv_alarm.h(15): error:  #65: expected a ";"
-  typedef struct {
-C:\UNIVERSIDAD\2024-2025\PH\Mika-Hache\practica4\BIT_COUNTER_STRIKE\src\srv_alarm.h(22): warning:  #12-D: parsing restarts here after previous syntax error
-  } ALARMA;
-C:\UNIVERSIDAD\2024-2025\PH\Mika-Hache\practica4\BIT_COUNTER_STRIKE\src\srv_alarm.h(35): warning:  #1-D: last line of file ends without a newline
-  #endif
-C:\UNIVERSIDAD\2024-2025\PH\Mika-Hache\practica4\BIT_COUNTER_STRIKE\src\srv_alarm.c(5): error:  #20: identifier "ALARMA" is undefined
-  static ALARMA alarmas[svc_ALARMAS_MAX];
-..\..\src\srv_alarm.c: 2 warnings, 2 errors
 compiling drv_tiempo.c...
+compiling drv_monitor.c...
+compiling drv_consumo.c...
+compiling rt_fifo.c...
+D:\practica4\BIT_COUNTER_STRIKE\src\rt_fifo.c(16): warning:  #550-D: variable "ultimo_tratado"  was set but never used
+  static uint8_t ultimo_tratado; 	   // Indice del último evento tratado
+..\..\src\rt_fifo.c: 1 warning, 0 errors
 compiling rt_GE.c...
-C:\UNIVERSIDAD\2024-2025\PH\Mika-Hache\practica4\BIT_COUNTER_STRIKE\src\rt_GE.h(9): error:  #65: expected a ";"
-  typedef struct {
-C:\UNIVERSIDAD\2024-2025\PH\Mika-Hache\practica4\BIT_COUNTER_STRIKE\src\rt_GE.h(12): warning:  #12-D: parsing restarts here after previous syntax error
-  } GE;
-C:\UNIVERSIDAD\2024-2025\PH\Mika-Hache\practica4\BIT_COUNTER_STRIKE\src\rt_GE.h(20): warning:  #1295-D: Deprecated declaration rt_GE_lanzador - give arg types
+D:\practica4\BIT_COUNTER_STRIKE\src\rt_GE.h(20): warning:  #1295-D: Deprecated declaration rt_GE_lanzador - give arg types
   void rt_GE_lanzador();
-C:\UNIVERSIDAD\2024-2025\PH\Mika-Hache\practica4\BIT_COUNTER_STRIKE\src\rt_GE.h(28): warning:  #1-D: last line of file ends without a newline
+D:\practica4\BIT_COUNTER_STRIKE\src\rt_GE.h(28): warning:  #1-D: last line of file ends without a newline
   #endif
-C:\UNIVERSIDAD\2024-2025\PH\Mika-Hache\practica4\BIT_COUNTER_STRIKE\src\srv_alarm.h(35): warning:  #1-D: last line of file ends without a newline
-  #endif
-C:\UNIVERSIDAD\2024-2025\PH\Mika-Hache\practica4\BIT_COUNTER_STRIKE\src\rt_GE.c(7): error:  #20: identifier "GE" is undefined
-  static GE gestor_eventos[EVENT_TYPES];
-C:\UNIVERSIDAD\2024-2025\PH\Mika-Hache\practica4\BIT_COUNTER_STRIKE\src\rt_GE.c(47): warning:  #223-D: function "drv_monitor_marcar" declared implicitly
-          drv_monitor_marcar(monitor_overflow);
-..\..\src\rt_GE.c: 5 warnings, 2 errors
+D:\practica4\BIT_COUNTER_STRIKE\src\srv_alarm.h(39): warning:  #1-D: last line of file ends without a newline
+  	
+..\..\src\rt_GE.c: 3 warnings, 0 errors
+compiling srv_alarm.c...
+D:\practica4\BIT_COUNTER_STRIKE\src\srv_alarm.h(39): warning:  #1-D: last line of file ends without a newline
+  	
+D:\practica4\BIT_COUNTER_STRIKE\src\srv_alarm.c(21): warning:  #188-D: enumerated type mixed with another type
+          alarmas[i].ID_evento = 0;
+D:\practica4\BIT_COUNTER_STRIKE\src\srv_alarm.c(93): warning:  #61-D: integer operation result is out of range
+  			  return 1 << 31 | retardo;
+D:\practica4\BIT_COUNTER_STRIKE\src\srv_alarm.c(93): warning:  #68-D: integer conversion resulted in a change of sign
+  			  return 1 << 31 | retardo;
+..\..\src\srv_alarm.c: 4 warnings, 0 errors
 compiling drv_botones.c...
-C:\UNIVERSIDAD\2024-2025\PH\Mika-Hache\practica4\BIT_COUNTER_STRIKE\src\drv_tiempo.h(14): error:  #65: expected a ";"
-  typedef uint64_t Tiempo_us_t;
-C:\UNIVERSIDAD\2024-2025\PH\Mika-Hache\practica4\BIT_COUNTER_STRIKE\src\drv_tiempo.h(25): error:  #20: identifier "Tiempo_us_t" is undefined
-  Tiempo_us_t drv_tiempo_actual_us(void);
-C:\UNIVERSIDAD\2024-2025\PH\Mika-Hache\practica4\BIT_COUNTER_STRIKE\src\rt_fifo.h(17): error:  #20: identifier "Tiempo_us_t" is undefined
-  	Tiempo_us_t TS;
-C:\UNIVERSIDAD\2024-2025\PH\Mika-Hache\practica4\BIT_COUNTER_STRIKE\src\rt_fifo.h(27): error:  #20: identifier "Tiempo_us_t" is undefined
-  uint8_t rt_FIFO_extraer(EVENTO_T *ID_evento, uint32_t* auxData, Tiempo_us_t *TS);
-C:\UNIVERSIDAD\2024-2025\PH\Mika-Hache\practica4\BIT_COUNTER_STRIKE\src\hal_ext_int.h(4): warning:  #1295-D: Deprecated declaration hal_ext_int_iniciar - give arg types
+D:\practica4\BIT_COUNTER_STRIKE\src\hal_ext_int.h(4): warning:  #1295-D: Deprecated declaration hal_ext_int_iniciar - give arg types
   void hal_ext_int_iniciar();
-C:\UNIVERSIDAD\2024-2025\PH\Mika-Hache\practica4\BIT_COUNTER_STRIKE\src\drv_botones.c(32): warning:  #513-D: a value of type "void (*)(uint32_t, uint32_t)" cannot be assigned to an entity of type "void (*)(int)"
-  				button_list[i].callback = rt_FIFO_encolar; 			//???????
-C:\UNIVERSIDAD\2024-2025\PH\Mika-Hache\practica4\BIT_COUNTER_STRIKE\src\drv_botones.c(38): warning:  #223-D: function "svc_GE_suscribir" declared implicitly
-  	svc_GE_suscribir(ev_PULSAR_BOTON, drv_botones_tratar);
-C:\UNIVERSIDAD\2024-2025\PH\Mika-Hache\practica4\BIT_COUNTER_STRIKE\src\drv_botones.c(21): warning:  #550-D: variable "button_list"  was set but never used
-  	static BUTTON button_list[BUTTONS_NUMBER] = BUTTONS_LIST;
-..\..\src\drv_botones.c: 4 warnings, 4 errors
-assembling arm_startup_nrf52840.s...
+D:\practica4\BIT_COUNTER_STRIKE\src\hal_ext_int.h(6): warning:  #1295-D: Deprecated declaration hal_habilitar_int - give arg types
+  void hal_habilitar_int();
+D:\practica4\BIT_COUNTER_STRIKE\src\hal_ext_int.h(8): warning:  #1295-D: Deprecated declaration hal_deshabilitar_int - give arg types
+  void hal_deshabilitar_int();
+D:\practica4\BIT_COUNTER_STRIKE\src\hal_ext_int.h(10): warning:  #1295-D: Deprecated declaration hal_habilitar_despertar - give arg types
+  void hal_habilitar_despertar();
+D:\practica4\BIT_COUNTER_STRIKE\src\hal_ext_int.h(12): warning:  #1295-D: Deprecated declaration hal_deshabilitar_despertar - give arg types
+  void hal_deshabilitar_despertar();
+D:\practica4\BIT_COUNTER_STRIKE\src\rt_GE.h(20): warning:  #1295-D: Deprecated declaration rt_GE_lanzador - give arg types
+  void rt_GE_lanzador();
+D:\practica4\BIT_COUNTER_STRIKE\src\rt_GE.h(28): warning:  #1-D: last line of file ends without a newline
+  #endif
+D:\practica4\BIT_COUNTER_STRIKE\src\srv_alarm.h(39): warning:  #1-D: last line of file ends without a newline
+  	
+D:\practica4\BIT_COUNTER_STRIKE\src\drv_botones.c(24): warning:  #550-D: variable "buttons"  was set but never used
+  	static BUTTON buttons[BUTTONS_NUMBER] = BUTTONS_LIST;
+..\..\src\drv_botones.c: 9 warnings, 0 errors
 compiling hal_consumo_nrf.c...
 compiling hal_gpio_nrf.c...
 compiling hal_tiempo_nrf.c...
+assembling arm_startup_nrf52840.s...
+compiling hal_ext_int_nrf.c...
+D:\practica4\BIT_COUNTER_STRIKE\src\hal_ext_int.h(4): warning:  #1295-D: Deprecated declaration hal_ext_int_iniciar - give arg types
+  void hal_ext_int_iniciar();
+D:\practica4\BIT_COUNTER_STRIKE\src\hal_ext_int.h(6): warning:  #1295-D: Deprecated declaration hal_habilitar_int - give arg types
+  void hal_habilitar_int();
+D:\practica4\BIT_COUNTER_STRIKE\src\hal_ext_int.h(8): warning:  #1295-D: Deprecated declaration hal_deshabilitar_int - give arg types
+  void hal_deshabilitar_int();
+D:\practica4\BIT_COUNTER_STRIKE\src\hal_ext_int.h(10): warning:  #1295-D: Deprecated declaration hal_habilitar_despertar - give arg types
+  void hal_habilitar_despertar();
+D:\practica4\BIT_COUNTER_STRIKE\src\hal_ext_int.h(12): warning:  #1295-D: Deprecated declaration hal_deshabilitar_despertar - give arg types
+  void hal_deshabilitar_despertar();
+D:\practica4\BIT_COUNTER_STRIKE\nrf\src_nrf\hal_ext_int_nrf.c(28): warning:  #1-D: last line of file ends without a newline
+  }
+..\src_nrf\hal_ext_int_nrf.c: 6 warnings, 0 errors
 compiling system_nrf52.c...
-".\Objects\blink_nrf.axf" - 15 Error(s), 13 Warning(s).
+linking...
+.\Objects\blink_nrf.axf: Error: L6200E: Symbol evs_USUARIO multiply defined (by rt_fifo.o and main.o).
+.\Objects\blink_nrf.axf: Error: L6200E: Symbol evs_USUARIO multiply defined (by srv_alarm.o and main.o).
+.\Objects\blink_nrf.axf: Error: L6200E: Symbol evs_USUARIO multiply defined (by rt_ge.o and main.o).
+.\Objects\blink_nrf.axf: Error: L6200E: Symbol evs_USUARIO multiply defined (by drv_botones.o and main.o).
+Not enough information to list image symbols.
+Not enough information to list load addresses in the image map.
+Finished: 2 information, 0 warning and 4 error messages.
+".\Objects\blink_nrf.axf" - 4 Error(s), 23 Warning(s).
 
 <h2>Software Packages used:</h2>
 
 Package Vendor: ARM
-                http://www.keil.com/pack/ARM.CMSIS.5.4.0.pack
-                ARM.CMSIS.5.4.0
+                http://www.keil.com/pack/ARM.CMSIS.5.6.0.pack
+                ARM.CMSIS.5.6.0
                 CMSIS (Cortex Microcontroller Software Interface Standard)
-   * Component: CORE Version: 5.1.2
+   * Component: CORE Version: 5.3.0
 
 Package Vendor: NordicSemiconductor
                 http://developer.nordicsemi.com/nRF5_SDK/pieces/nRF_DeviceFamilyPack/NordicSemiconductor.nRF_DeviceFamilyPack.8.44.1.pack
@@ -120,20 +119,20 @@ Package Vendor: NordicSemiconductor
 
 <h2>Collection of Component include folders:</h2>
   .\RTE\_nRF
-  C:\Keil_v5\ARM\PACK\ARM\CMSIS\5.4.0\CMSIS\Core\Include
-  C:\Keil_v5\ARM\PACK\NordicSemiconductor\nRF_DeviceFamilyPack\8.44.1\Device\Include
+  C:\Programas-Practicas\Simuladores\Keil\ARM\PACK\ARM\CMSIS\5.6.0\CMSIS\Core\Include
+  C:\Programas-Practicas\Simuladores\Keil\ARM\PACK\NordicSemiconductor\nRF_DeviceFamilyPack\8.44.1\Device\Include
 
 <h2>Collection of Component Files used:</h2>
 
-   * Component: ARM::CMSIS:CORE:5.1.2
+   * Component: ARM::CMSIS:CORE:5.3.0
 
    * Component: NordicSemiconductor::Device:Startup:8.44.1
       Source file:   Device\Source\arm\arm_startup_nrf52840.s
-      Source file:   Device\Source\system_nrf52.c
       Include file:  Device\Include\system_nrf.h
       Include file:  Device\Include\system_nrf52840.h
+      Source file:   Device\Source\system_nrf52.c
 Target not created.
-Build Time Elapsed:  00:00:02
+Build Time Elapsed:  00:00:03
 </pre>
 </body>
 </html>

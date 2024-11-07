@@ -86,3 +86,13 @@ void svc_alarma_tratar(EVENTO_T ID_evento, uint32_t auxData){
         }
     }
 }
+
+uint32_t svc_alarma_codificar(bool periodico, uint32_t retardo){
+		retardo &= 0x7FFFFFFF;
+		if(periodico){
+			  return 1 << 31 | retardo;
+		}
+		else{
+				return 0 << 31 | retardo;
+		}
+}
