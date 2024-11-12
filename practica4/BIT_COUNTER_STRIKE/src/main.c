@@ -18,8 +18,14 @@
 #include "rt_evento_t.h"
 #include "board.h"
 #include "rt_fifo.h"
+#include "drv_botones.h"
+
 
 #define RETARDO_MS 5000 		//retardo blink en milisegundos
+
+#if LEDS_NUMBER > 0
+	static uint32_t led_list[BUTTONS_NUMBER] = BUTTONS_LIST;
+#endif
 
 void probar_activar_led_con_boton(uint32_t id_led, uint32_t id_boton){
 	// Driver de tiempo inicializado
@@ -36,13 +42,22 @@ void probar_activar_led_con_boton(uint32_t id_led, uint32_t id_boton){
 }
 
 void blink_v3_bis(uint32_t id){
+	EVENTO_T evento;
+	uint32_t aux;
+	Tiempo_us_t ts;
 	while(true) {
-		for(int i = 0; i < 10; i++){
-		
-
-			drv_consumo_esperar();
+		if(rt_FIFO_extraer(&evento, &aux, &ts)){ // Extrae pulsar botón
+			for(int i = 0; i < 10; i++){
+				for(uint32_t id = 0; id < LEDS_NUMBER; i++){				
+					drv_led_encender(led_list[i]);
+					// Esperar un poco
+					drv_led_apagar(led_list[i]);
+				}
+			}
 		}
-		drv_consumo_dormir();
+		else{
+			drv_consumo_dormir();
+		}
 	}
 }
 
