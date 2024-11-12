@@ -26,8 +26,8 @@ void rt_GE_iniciar(uint32_t monitor) {
             gestor_eventos[i].callbacks[j] = NULL;
         }
     }
-		svc_GE_suscribir(ev_PULSAR_BOTON, rt_GE_tratar);
-		svc_GE_suscribir(ev_INACTIVIDAD, rt_GE_tratar);
+	svc_GE_suscribir(ev_PULSAR_BOTON, rt_GE_tratar);
+	svc_GE_suscribir(ev_INACTIVIDAD, rt_GE_tratar);
 }
 
 void rt_GE_lanzador(){

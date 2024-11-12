@@ -12,86 +12,27 @@
 #include "drv_leds.h"
 #include "drv_tiempo.h"
 #include "drv_consumo.h"
+#include "drv_botones.h"
+#include "srv_alarm.h"
+#include "rt_GE.h"
 #include "board.h"
 #include "rt_fifo.h"
 
 #define RETARDO_MS 5000 		//retardo blink en milisegundos
 
-void leds_c(uint32_t id, uint32_t ms) { //modo RSI
-	drv_led_conmutar(id);
+void probar_activar_led_con_boton(uint32_t id_led, uint32_t id_boton){
+	// Driver de tiempo inicializado
+	rt_FIFO_inicializar(MONITOR3)
+
+	svc_alarma_iniciar(MONITOR1, rt_FIFO_encolar, ev_T_PERIODICO);
+	rt_GE_iniciar(MONITOR2);
+
+	drv_botones_iniciar(rt_FIFO_encolar, ev_PULSAR_BOTON, ev_BOTON_RETARDO);
+
+	rt_GE_lanzador();
+
+	drv_consumo_dormir();
 }
-
-/* *****************************************************************************
- * BLINK, parpadeo de un led conmutando on/off 
- * retardo por bucle de instrucciones, solo usa el manejador del led
- * para realizar la primera sesión de la practica
- */
-void blink_v1(uint32_t id){
-	drv_led_encender(id);
-  while (true) {
-    uint32_t volatile tmo; // declaramos el periodo de tiempo durante el que no se va a producir el cambio
-    
-    tmo = 10000000;
-    while (tmo--); // se decrementa el tiempo
-    	drv_led_conmutar(id); // conmuta el led seleccionado por id   
-	}		
-}
-
-/* *****************************************************************************
- * BLINK, parpadeo de un led conmutando on/off 
- * activacion por tiempo, usa tanto manejador del led como el del tiempo
- * para realizar en la segunda sesión de la practica, version a entregar
- */
-void blink_v2(uint32_t id){
-	Tiempo_ms_t siguiente_activacion; // declaramos cuando será la siguiente activación
-	
-	drv_led_encender(id); // encendemos el led seleccionado por id
-
-	siguiente_activacion = drv_tiempo_actual_ms(); // obtenemos el tiempo del instante actual en ms
-	
-	/* Toggle LEDs. */
-	while (true) {
-		siguiente_activacion += RETARDO_MS; // la siguiente activación será a los RETARDO_MS ms
-		drv_tiempo_esperar_hasta_ms(siguiente_activacion); // se esperará hasta el momento siguiente_activacion
-		drv_led_conmutar(id);
-	}
-}
-
-void blink_v3(uint32_t id){
-	drv_consumo_iniciar(MONITOR3, MONITOR1);
-	drv_led_encender(id);
-	drv_tiempo_periodico_ms(RETARDO_MS, leds_c, id);
-	while (true) {
-		//__WFI
-		drv_consumo_esperar();
-	}
-}
-
-void blink_v4(uint32_t id){
-	EVENTO_T id_evento;
-	uint32_t varAux;
-	Tiempo_us_t timeStamp;
-	
-	drv_consumo_iniciar(MONITOR3, MONITOR1);
-	rt_FIFO_inicializar(MONITOR4);
-	drv_led_encender(id);
-	drv_tiempo_periodico_ms(RETARDO_MS, rt_FIFO_encolar, ev_T_PERIODICO);
-	while (true) {
-		if (rt_FIFO_extraer(&id_evento, &varAux, &timeStamp)) {
-			if(id_evento == ev_T_PERIODICO){
-				drv_led_conmutar(id);
-			}
-		}
-		else{
-			drv_consumo_esperar();
-		}
-	}
-}
-
-void blink_v3_bis(){
-		drv_consumo_dormir();
-}
-
 
 /* *****************************************************************************
  * MAIN, Programa principal.
@@ -102,7 +43,6 @@ int main(void){
 	uint32_t Num_Leds; // declaramos el número de leds
 	
 	hal_gpio_iniciar();	  // llamamos a iniciar gpio antes de que lo hagan los drivers
-	drv_tiempo_iniciar(); // iniciamos el tiempo del driver
 
 	/* Configure LED */
 	Num_Leds = drv_leds_iniciar(); // iniciamos los leds

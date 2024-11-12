@@ -1,18 +1,26 @@
 #include "srv_alarm.h"
 #include "drv_monitor.h"
 #include "drv_tiempo.h"
+#include "rt_GE.h"
 
 static ALARMA alarmas[svc_ALARMAS_MAX];
 
 static uint32_t mon_overflow;
 static uint8_t alarmas_activas;
+
 void (*callback)(uint32_t, uint32_t); // Callback para encolar eventos en FIFO
 
+/** 
+void cb_alarma(){
+    callback(evento, aux)
+}*/
 
 void svc_alarma_iniciar(uint32_t overflow, void(*f_callback)(uint32_t id, uint32_t aux), uint32_t ID_evento){
     alarmas_activas = 0;
     mon_overflow = overflow;
     callback = f_callback; // Asignación de la función de callback
+
+    svc_GE_suscribir(ev_T_PERIODICO, svc_alarma_tratar);
 
     for (int i = 0; i < svc_ALARMAS_MAX; i++) {
         alarmas[i].activa = false;
@@ -24,7 +32,7 @@ void svc_alarma_iniciar(uint32_t overflow, void(*f_callback)(uint32_t id, uint32
     }
 
     // Cada cierto tiempo se invoca a la alarma
-    drv_tiempo_periodico_ms(MIN_MS_INTERRUPT_ALARM,svc_alarma_tratar,0);
+    drv_tiempo_periodico_ms(MIN_MS_INTERRUPT_ALARM, callback, ID_evento);
 
 }
 
@@ -55,7 +63,7 @@ void svc_alarma_activar(uint32_t retardo_ms, EVENTO_T ID_evento, uint32_t auxDat
                     alarmas[i].alarm_counter = 0;
                     alarmas_activas++;                 
                 }
-                else{} // Añadir si la alarma ya está añadida para que se reinicie la cuenta
+                // Añadir si la alarma ya está añadida para que se reinicie la cuenta
             }
         }
         else{

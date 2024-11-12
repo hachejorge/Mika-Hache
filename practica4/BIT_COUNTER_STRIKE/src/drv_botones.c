@@ -32,6 +32,7 @@ void drv_botones_iniciar(void(*callback)(EVENTO_T id, uint32_t aux), EVENTO_T ev
 	
 		for (uint32_t i = 0; i < BUTTONS_NUMBER; ++i) 			{
 			hal_gpio_sentido(button_list[i], HAL_GPIO_PIN_DIR_INPUT);
+			hal_habilitar_int(button_list[i]);
 		}
 		for (int i = 0; i < BUTTONS_NUMBER; i++) {
 				buttons[i].id = i;
@@ -49,7 +50,7 @@ void drv_botones_iniciar(void(*callback)(EVENTO_T id, uint32_t aux), EVENTO_T ev
 }
 
 void drv_botones_pulsado(){
-
+	hal_deshabilitar_int();
 }
 
 void drv_botones_tratar(EVENTO_T evento, uint32_t auxiliar){
