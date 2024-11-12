@@ -511,6 +511,26 @@
               <FileType>5</FileType>
               <FilePath>..\..\src\drv_botones.h</FilePath>
             </File>
+            <File>
+              <FileName>rt_GE.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\rt_GE.c</FilePath>
+            </File>
+            <File>
+              <FileName>rt_GE.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\src\rt_GE.h</FilePath>
+            </File>
+            <File>
+              <FileName>srv_alarm.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\srv_alarm.c</FilePath>
+            </File>
+            <File>
+              <FileName>srv_alarm.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\src\srv_alarm.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

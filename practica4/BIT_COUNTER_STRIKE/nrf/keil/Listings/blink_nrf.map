@@ -4,35 +4,22 @@ Component: ARM Compiler 5.06 update 6 (build 750) Tool: armlink [4d35ed]
 
 Section Cross References
 
-    main.o(i.blink_v1) refers to drv_leds.o(i.drv_led_encender) for drv_led_encender
-    main.o(i.blink_v1) refers to drv_leds.o(i.drv_led_conmutar) for drv_led_conmutar
-    main.o(i.blink_v2) refers to drv_leds.o(i.drv_led_encender) for drv_led_encender
-    main.o(i.blink_v2) refers to drv_tiempo.o(i.drv_tiempo_actual_ms) for drv_tiempo_actual_ms
-    main.o(i.blink_v2) refers to drv_tiempo.o(i.drv_tiempo_esperar_hasta_ms) for drv_tiempo_esperar_hasta_ms
-    main.o(i.blink_v2) refers to drv_leds.o(i.drv_led_conmutar) for drv_led_conmutar
-    main.o(i.blink_v3) refers to drv_consumo.o(i.drv_consumo_iniciar) for drv_consumo_iniciar
-    main.o(i.blink_v3) refers to drv_leds.o(i.drv_led_encender) for drv_led_encender
-    main.o(i.blink_v3) refers to drv_tiempo.o(i.drv_tiempo_periodico_ms) for drv_tiempo_periodico_ms
-    main.o(i.blink_v3) refers to drv_consumo.o(i.drv_consumo_esperar) for drv_consumo_esperar
-    main.o(i.blink_v3) refers to main.o(i.leds_c) for leds_c
-    main.o(i.blink_v4) refers to drv_consumo.o(i.drv_consumo_iniciar) for drv_consumo_iniciar
-    main.o(i.blink_v4) refers to rt_fifo.o(i.rt_FIFO_inicializar) for rt_FIFO_inicializar
-    main.o(i.blink_v4) refers to drv_leds.o(i.drv_led_encender) for drv_led_encender
-    main.o(i.blink_v4) refers to drv_tiempo.o(i.drv_tiempo_periodico_ms) for drv_tiempo_periodico_ms
-    main.o(i.blink_v4) refers to rt_fifo.o(i.rt_FIFO_extraer) for rt_FIFO_extraer
-    main.o(i.blink_v4) refers to drv_leds.o(i.drv_led_conmutar) for drv_led_conmutar
-    main.o(i.blink_v4) refers to drv_consumo.o(i.drv_consumo_esperar) for drv_consumo_esperar
-    main.o(i.blink_v4) refers to rt_fifo.o(i.rt_FIFO_encolar) for rt_FIFO_encolar
-    main.o(i.leds_c) refers to drv_leds.o(i.drv_led_conmutar) for drv_led_conmutar
+    main.o(i.blink_v3_bis) refers to drv_consumo.o(i.drv_consumo_esperar) for drv_consumo_esperar
+    main.o(i.blink_v3_bis) refers to drv_consumo.o(i.drv_consumo_dormir) for drv_consumo_dormir
     main.o(i.main) refers to hal_gpio_nrf.o(i.hal_gpio_iniciar) for hal_gpio_iniciar
-    main.o(i.main) refers to drv_tiempo.o(i.drv_tiempo_iniciar) for drv_tiempo_iniciar
     main.o(i.main) refers to drv_leds.o(i.drv_leds_iniciar) for drv_leds_iniciar
+    main.o(i.main) refers to srv_alarm.o(i.svc_alarma_iniciar) for svc_alarma_iniciar
+    main.o(i.main) refers to rt_ge.o(i.rt_GE_iniciar) for rt_GE_iniciar
+    main.o(i.main) refers to drv_botones.o(i.drv_botones_iniciar) for drv_botones_iniciar
     main.o(i.main) refers to rt_fifo.o(i.verificar_insertar_extraer_en_cola) for verificar_insertar_extraer_en_cola
-    main.o(i.main) refers to drv_consumo.o(i.drv_consumo_iniciar) for drv_consumo_iniciar
-    main.o(i.main) refers to drv_leds.o(i.drv_led_encender) for drv_led_encender
-    main.o(i.main) refers to drv_tiempo.o(i.drv_tiempo_periodico_ms) for drv_tiempo_periodico_ms
-    main.o(i.main) refers to drv_consumo.o(i.drv_consumo_esperar) for drv_consumo_esperar
-    main.o(i.main) refers to main.o(i.leds_c) for leds_c
+    main.o(i.main) refers to rt_fifo.o(i.rt_FIFO_encolar) for rt_FIFO_encolar
+    main.o(i.probar_activar_led_con_boton) refers to rt_fifo.o(i.rt_FIFO_inicializar) for rt_FIFO_inicializar
+    main.o(i.probar_activar_led_con_boton) refers to srv_alarm.o(i.svc_alarma_iniciar) for svc_alarma_iniciar
+    main.o(i.probar_activar_led_con_boton) refers to rt_ge.o(i.rt_GE_iniciar) for rt_GE_iniciar
+    main.o(i.probar_activar_led_con_boton) refers to drv_botones.o(i.drv_botones_iniciar) for drv_botones_iniciar
+    main.o(i.probar_activar_led_con_boton) refers to rt_ge.o(i.rt_GE_lanzador) for rt_GE_lanzador
+    main.o(i.probar_activar_led_con_boton) refers to drv_consumo.o(i.drv_consumo_dormir) for drv_consumo_dormir
+    main.o(i.probar_activar_led_con_boton) refers to rt_fifo.o(i.rt_FIFO_encolar) for rt_FIFO_encolar
     drv_leds.o(i.drv_led_apagar) refers to hal_gpio_nrf.o(i.hal_gpio_escribir) for hal_gpio_escribir
     drv_leds.o(i.drv_led_apagar) refers to drv_leds.o(.constdata) for .constdata
     drv_leds.o(i.drv_led_conmutar) refers to hal_gpio_nrf.o(i.hal_gpio_leer) for hal_gpio_leer
@@ -72,10 +59,6 @@ Section Cross References
     drv_consumo.o(i.drv_consumo_iniciar) refers to drv_monitor.o(i.drv_monitor_iniciar) for drv_monitor_iniciar
     drv_consumo.o(i.drv_consumo_iniciar) refers to hal_consumo_nrf.o(i.hal_consumo_iniciar) for hal_consumo_iniciar
     drv_consumo.o(i.drv_consumo_iniciar) refers to drv_consumo.o(.data) for .data
-    drv_monitor.o(i.drv_monitor_desmarcar) refers to hal_gpio_nrf.o(i.hal_gpio_escribir) for hal_gpio_escribir
-    drv_monitor.o(i.drv_monitor_desmarcar) refers to drv_monitor.o(.constdata) for .constdata
-    drv_monitor.o(i.drv_monitor_marcar) refers to hal_gpio_nrf.o(i.hal_gpio_escribir) for hal_gpio_escribir
-    drv_monitor.o(i.drv_monitor_marcar) refers to drv_monitor.o(.constdata) for .constdata
     rt_fifo.o(i.rt_FIFO_encolar) refers to drv_monitor.o(i.drv_monitor_marcar) for drv_monitor_marcar
     rt_fifo.o(i.rt_FIFO_encolar) refers to drv_tiempo.o(i.drv_tiempo_actual_us) for drv_tiempo_actual_us
     rt_fifo.o(i.rt_FIFO_encolar) refers to rt_fifo.o(.data) for .data
@@ -97,10 +80,11 @@ Section Cross References
     srv_alarm.o(i.svc_alarma_activar) refers to drv_monitor.o(i.drv_monitor_marcar) for drv_monitor_marcar
     srv_alarm.o(i.svc_alarma_activar) refers to srv_alarm.o(.bss) for .bss
     srv_alarm.o(i.svc_alarma_activar) refers to srv_alarm.o(.data) for .data
+    srv_alarm.o(i.svc_alarma_iniciar) refers to rt_ge.o(i.svc_GE_suscribir) for svc_GE_suscribir
     srv_alarm.o(i.svc_alarma_iniciar) refers to drv_tiempo.o(i.drv_tiempo_periodico_ms) for drv_tiempo_periodico_ms
     srv_alarm.o(i.svc_alarma_iniciar) refers to srv_alarm.o(.data) for .data
-    srv_alarm.o(i.svc_alarma_iniciar) refers to srv_alarm.o(.bss) for .bss
     srv_alarm.o(i.svc_alarma_iniciar) refers to srv_alarm.o(i.svc_alarma_tratar) for svc_alarma_tratar
+    srv_alarm.o(i.svc_alarma_iniciar) refers to srv_alarm.o(.bss) for .bss
     srv_alarm.o(i.svc_alarma_tratar) refers to srv_alarm.o(.bss) for .bss
     srv_alarm.o(i.svc_alarma_tratar) refers to srv_alarm.o(.data) for .data
     rt_ge.o(i.esEventoUsuario) refers to rt_ge.o(.data) for .data
@@ -122,13 +106,20 @@ Section Cross References
     rt_ge.o(i.svc_GE_suscribir) refers to rt_ge.o(.bss) for .bss
     rt_ge.o(i.svc_GE_suscribir) refers to rt_ge.o(.data) for .data
     drv_botones.o(i.drv_botones_iniciar) refers to hal_gpio_nrf.o(i.hal_gpio_sentido) for hal_gpio_sentido
+    drv_botones.o(i.drv_botones_iniciar) refers to hal_ext_int_nrf.o(i.hal_habilitar_int) for hal_habilitar_int
     drv_botones.o(i.drv_botones_iniciar) refers to hal_ext_int_nrf.o(i.hal_ext_int_iniciar) for hal_ext_int_iniciar
     drv_botones.o(i.drv_botones_iniciar) refers to rt_ge.o(i.svc_GE_suscribir) for svc_GE_suscribir
     drv_botones.o(i.drv_botones_iniciar) refers to drv_botones.o(.data) for .data
     drv_botones.o(i.drv_botones_iniciar) refers to drv_botones.o(i.drv_botones_tratar) for drv_botones_tratar
+    drv_botones.o(i.drv_botones_pulsado) refers to hal_ext_int_nrf.o(i.hal_deshabilitar_int) for hal_deshabilitar_int
+    drv_botones.o(i.drv_botones_tratar) refers to hal_ext_int_nrf.o(i.hal_habilitar_int) for hal_habilitar_int
     drv_botones.o(i.drv_botones_tratar) refers to srv_alarm.o(i.svc_alarma_codificar) for svc_alarma_codificar
     drv_botones.o(i.drv_botones_tratar) refers to srv_alarm.o(i.svc_alarma_activar) for svc_alarma_activar
     drv_botones.o(i.drv_botones_tratar) refers to drv_botones.o(.data) for .data
+    drv_monitor.o(i.drv_monitor_desmarcar) refers to hal_gpio_nrf.o(i.hal_gpio_escribir) for hal_gpio_escribir
+    drv_monitor.o(i.drv_monitor_desmarcar) refers to drv_monitor.o(.constdata) for .constdata
+    drv_monitor.o(i.drv_monitor_marcar) refers to hal_gpio_nrf.o(i.hal_gpio_escribir) for hal_gpio_escribir
+    drv_monitor.o(i.drv_monitor_marcar) refers to drv_monitor.o(.constdata) for .constdata
     hal_tiempo_nrf.o(i.TIMER0_IRQHandler) refers to hal_tiempo_nrf.o(.data) for .data
     hal_tiempo_nrf.o(i.TIMER1_IRQHandler) refers to hal_tiempo_nrf.o(.data) for .data
     hal_tiempo_nrf.o(i.hal_tiempo_actual_tick) refers to hal_tiempo_nrf.o(.data) for .data
@@ -160,3 +151,58 @@ Section Cross References
     entry9b.o(.ARM.Collect$$$$0000000C) refers to main.o(i.main) for main
     init.o(.text) refers to entry5.o(.ARM.Collect$$$$00000004) for __main_after_scatterload
 
+
+==============================================================================
+
+Removing Unused input sections from the image.
+
+    Removing main.o(i.blink_v3_bis), (28 bytes).
+    Removing main.o(i.probar_activar_led_con_boton), (52 bytes).
+    Removing drv_leds.o(i.drv_led_apagar), (28 bytes).
+    Removing drv_leds.o(i.drv_led_conmutar), (40 bytes).
+    Removing drv_leds.o(i.drv_led_encender), (28 bytes).
+    Removing drv_tiempo.o(i.drv_tiempo_esperar_hasta_ms), (68 bytes).
+    Removing drv_tiempo.o(i.drv_tiempo_esperar_ms), (68 bytes).
+    Removing drv_tiempo.o(i.drv_tiempo_iniciar), (16 bytes).
+    Removing drv_consumo.o(i.drv_consumo_esperar), (72 bytes).
+    Removing drv_consumo.o(i.drv_consumo_iniciar), (28 bytes).
+    Removing drv_consumo.o(.data), (12 bytes).
+    Removing rt_fifo.o(i.rt_FIFO_estadisticas), (20 bytes).
+    Removing rt_fifo.o(i.rt_FIFO_extraer), (76 bytes).
+    Removing rt_fifo.o(i.rt_FIFO_inicializar), (40 bytes).
+    Removing rt_fifo.o(i.verificar_overflow_cola), (60 bytes).
+    Removing rt_ge.o(i.esEventoUsuario), (20 bytes).
+    Removing rt_ge.o(i.rt_GE_lanzador), (84 bytes).
+    Removing rt_ge.o(i.svc_GE_cancelar), (96 bytes).
+    Removing drv_botones.o(i.drv_botones_pulsado), (4 bytes).
+    Removing drv_monitor.o(i.drv_monitor_iniciar), (4 bytes).
+    Removing hal_gpio_nrf.o(.rev16_text), (4 bytes).
+    Removing hal_gpio_nrf.o(.revsh_text), (4 bytes).
+    Removing hal_gpio_nrf.o(.rrx_text), (6 bytes).
+    Removing hal_gpio_nrf.o(i.hal_gpio_escribir_n), (40 bytes).
+    Removing hal_gpio_nrf.o(i.hal_gpio_leer), (24 bytes).
+    Removing hal_gpio_nrf.o(i.hal_gpio_leer_n), (28 bytes).
+    Removing hal_gpio_nrf.o(i.hal_gpio_sentido_n), (130 bytes).
+    Removing hal_tiempo_nrf.o(.rev16_text), (4 bytes).
+    Removing hal_tiempo_nrf.o(.revsh_text), (4 bytes).
+    Removing hal_tiempo_nrf.o(.rrx_text), (6 bytes).
+    Removing hal_consumo_nrf.o(.rev16_text), (4 bytes).
+    Removing hal_consumo_nrf.o(.revsh_text), (4 bytes).
+    Removing hal_consumo_nrf.o(.rrx_text), (6 bytes).
+    Removing hal_consumo_nrf.o(i.hal_consumo_esperar), (4 bytes).
+    Removing hal_consumo_nrf.o(i.hal_consumo_iniciar), (2 bytes).
+    Removing hal_ext_int_nrf.o(.rev16_text), (4 bytes).
+    Removing hal_ext_int_nrf.o(.revsh_text), (4 bytes).
+    Removing hal_ext_int_nrf.o(.rrx_text), (6 bytes).
+    Removing hal_ext_int_nrf.o(i.hal_deshabilitar_despertar), (10 bytes).
+    Removing hal_ext_int_nrf.o(i.hal_deshabilitar_int), (22 bytes).
+    Removing hal_ext_int_nrf.o(i.hal_habilitar_despertar), (8 bytes).
+    Removing arm_startup_nrf52840.o(HEAP), (16384 bytes).
+    Removing system_nrf52.o(.rev16_text), (4 bytes).
+    Removing system_nrf52.o(.revsh_text), (4 bytes).
+    Removing system_nrf52.o(.rrx_text), (6 bytes).
+    Removing system_nrf52.o(i.SystemCoreClockUpdate), (16 bytes).
+    Removing system_nrf52.o(i.nvmc_config), (24 bytes).
+    Removing system_nrf52.o(i.nvmc_wait), (16 bytes).
+
+48 unused section(s) (total 17622 bytes) removed from the image.

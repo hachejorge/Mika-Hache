@@ -5,22 +5,16 @@
  */
   
 #include <stdint.h>
-#include "rt_evento_t.h"
 #include "drv_tiempo.h"
+#include "rt_evento_t.h"
 
 #ifndef RT_FIFO
 #define RT_FIFO
 
-typedef struct {
-	EVENTO_T ID_EVENTO;
-	uint32_t auxData;
-	Tiempo_us_t TS;
-} EVENTO;
-
 void rt_FIFO_inicializar(uint32_t monitor_overflow);
 
 // Función que encola el evento dado al que le añade el timestamp, en caso de haber overflow lo marca mediante MON_OVERFLOW y se queda en bucle
-void rt_FIFO_encolar(uint32_t ID_evento, uint32_t auxData);
+void rt_FIFO_encolar(EVENTO_T ID_evento, uint32_t auxData);
 
 // Función que devuelve el número de eventos por procesar (incluyendo el propio evento extraido), y que pasa por los parámetros
 // ID_evento, auxData, TS las variables relacionadas con el primer evento a tratar

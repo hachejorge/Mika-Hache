@@ -20,3 +20,4 @@ void hal_consumo_dormir(void)  {
 	PCON |= 0x02; 
 	switch_to_PLL(); 	//PLL aranca a 12Mhz cuando volvemos de power down ???????????
 }
+
