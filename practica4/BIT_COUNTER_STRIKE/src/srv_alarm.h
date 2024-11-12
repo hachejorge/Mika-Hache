@@ -17,12 +17,12 @@ typedef struct {
 	bool periodica;
 	Tiempo_ms_t retardo_ms;
 	uint32_t alarm_counter;
-    uint32_t auxData;
+  uint32_t auxData;
 	EVENTO_T ID_evento;
 } ALARMA;
 
 
-void svc_alarma_iniciar(uint32_t overflow, void(*f_callback)(uint32_t id, uint32_t aux), uint32_t ID_evento);
+void svc_alarma_iniciar(uint32_t overflow, void(*f_callback)(EVENTO_T id, uint32_t aux), uint32_t ID_evento);
 
 // ID_evento referencia al tipo de evento que se encolará al vencer la alarma
 // retardo_ms en su bit de mayor peso indica si la alarma es periódica o no

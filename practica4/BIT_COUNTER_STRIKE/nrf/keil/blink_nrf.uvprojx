@@ -433,16 +433,6 @@
               <FilePath>..\..\src\drv_consumo.h</FilePath>
             </File>
             <File>
-              <FileName>drv_monitor.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\drv_monitor.h</FilePath>
-            </File>
-            <File>
-              <FileName>drv_monitor.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\drv_monitor.c</FilePath>
-            </File>
-            <File>
               <FileName>rt_fifo.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\..\src\rt_fifo.c</FilePath>
@@ -491,6 +481,16 @@
               <FileName>hal_ext_int.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\src\hal_ext_int.h</FilePath>
+            </File>
+            <File>
+              <FileName>drv_monitor.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\drv_monitor.c</FilePath>
+            </File>
+            <File>
+              <FileName>drv_monitor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\src\drv_monitor.h</FilePath>
             </File>
           </Files>
         </Group>

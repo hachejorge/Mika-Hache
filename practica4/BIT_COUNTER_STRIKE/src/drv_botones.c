@@ -9,6 +9,7 @@
 #include "drv_botones.h"
 #include "hal_ext_int.h"
 #include "hal_gpio.h"
+#include "rt_evento_t.h"
 #include "rt_GE.h"
 #include "srv_alarm.h"
 #include <stddef.h>
@@ -25,7 +26,7 @@ enum estados {
 	static uint32_t button_list[BUTTONS_NUMBER] = BUTTONS_LIST;
 #endif
 
-void drv_botones_iniciar(void(*callback)(EVENTO_T id, uint32_t aux), EVENTO_T ev_PULSAR_BOTON, EVENTO_T ev_BOTON_RETARDO){
+void drv_botones_iniciar(void(*callback)(EVENTO_T id, uint32_t aux), EVENTO_T ev_PULSAR_BOTON, EVENTO_T ev_BOTON_RETARDN){
 	#if BUTTONS_NUMBER > 0
 		// Inicializar botones con el callback y otros par�metros
 		
@@ -50,6 +51,7 @@ void drv_botones_iniciar(void(*callback)(EVENTO_T id, uint32_t aux), EVENTO_T ev
 }
 
 void drv_botones_pulsado(){
+// deshabilitamos las interrupciones de los botones y llamar al callback
 	hal_deshabilitar_int();
 }
 
@@ -73,7 +75,8 @@ void drv_botones_tratar(EVENTO_T evento, uint32_t auxiliar){
 		break;
 	
 	case e_soltado:
-
+		// habilitamos las interupciones 
+		hal_habilitar_int();
 		estado_actual = e_reposo;
 		break;
 

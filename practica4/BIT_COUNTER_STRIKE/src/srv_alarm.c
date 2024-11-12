@@ -8,14 +8,14 @@ static ALARMA alarmas[svc_ALARMAS_MAX];
 static uint32_t mon_overflow;
 static uint8_t alarmas_activas;
 
-void (*callback)(uint32_t, uint32_t); // Callback para encolar eventos en FIFO
+void (*callback)(EVENTO_T, uint32_t); // Callback para encolar eventos en FIFO
 
 /** 
 void cb_alarma(){
     callback(evento, aux)
 }*/
 
-void svc_alarma_iniciar(uint32_t overflow, void(*f_callback)(uint32_t id, uint32_t aux), uint32_t ID_evento){
+void svc_alarma_iniciar(uint32_t overflow, void(*f_callback)(EVENTO_T id, uint32_t aux), uint32_t ID_evento){
     alarmas_activas = 0;
     mon_overflow = overflow;
     callback = f_callback; // Asignación de la función de callback
@@ -26,7 +26,7 @@ void svc_alarma_iniciar(uint32_t overflow, void(*f_callback)(uint32_t id, uint32
         alarmas[i].activa = false;
         alarmas[i].retardo_ms = 0;
         alarmas[i].periodica = false;
-        alarmas[i].ID_evento = 0;
+        alarmas[i].ID_evento = ev_VOID;
         alarmas[i].auxData = 0;
         alarmas[i].alarm_counter = 0;
     }
@@ -53,7 +53,7 @@ void svc_alarma_activar(uint32_t retardo_ms, EVENTO_T ID_evento, uint32_t auxDat
     }
     else{
         if(alarmas_activas < svc_ALARMAS_MAX){
-            for(int i = 0; i < svc_ALARMAS_MAX; i++){
+					for(int i = 0; i < svc_ALARMAS_MAX; i++){
                 if(!alarmas[i].activa){
                     alarmas[i].activa = true;          
                     alarmas[i].retardo_ms = retardo_real;
@@ -98,9 +98,9 @@ void svc_alarma_tratar(EVENTO_T ID_evento, uint32_t auxData){
 uint32_t svc_alarma_codificar(bool periodico, uint32_t retardo){
 		retardo &= 0x7FFFFFFF;
 		if(periodico){
-			  return 1 << 31 | retardo;
+			  return (1U << 31) | retardo;
 		}
 		else{
-				return 0 << 31 | retardo;
+				return (0U << 31) | retardo;
 		}
 }

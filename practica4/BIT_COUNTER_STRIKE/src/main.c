@@ -15,6 +15,7 @@
 #include "drv_botones.h"
 #include "srv_alarm.h"
 #include "rt_GE.h"
+#include "rt_evento_t.h"
 #include "board.h"
 #include "rt_fifo.h"
 
@@ -22,7 +23,7 @@
 
 void probar_activar_led_con_boton(uint32_t id_led, uint32_t id_boton){
 	// Driver de tiempo inicializado
-	rt_FIFO_inicializar(MONITOR3)
+	rt_FIFO_inicializar(MONITOR3);
 
 	svc_alarma_iniciar(MONITOR1, rt_FIFO_encolar, ev_T_PERIODICO);
 	rt_GE_iniciar(MONITOR2);
@@ -32,6 +33,17 @@ void probar_activar_led_con_boton(uint32_t id_led, uint32_t id_boton){
 	rt_GE_lanzador();
 
 	drv_consumo_dormir();
+}
+
+void blink_v3_bis(uint32_t id){
+	while(true) {
+		for(int i = 0; i < 10; i++){
+		
+
+			drv_consumo_esperar();
+		}
+		drv_consumo_dormir();
+	}
 }
 
 /* *****************************************************************************
@@ -48,13 +60,17 @@ int main(void){
 	Num_Leds = drv_leds_iniciar(); // iniciamos los leds
 	
 	//verificar_over_flow_cola(MONITOR4);
-	
+	rt_FIFO_iniciar();
+	svc_alarma_iniciar(MONITOR1, rt_FIFO_encolar, ev_T_PERIODICO);
+	rt_GE_iniciar(MONITOR2);
+	drv_botones_iniciar(rt_FIFO_encolar, ev_PULSAR_BOTON, ev_BOTON_RETARDO);
+
 	int resultado = verificar_insertar_extraer_en_cola(MONITOR4);
 	
 	if (Num_Leds > 0){ 
 			//blink_v1(1);			 // sesion 1 de practica 2
 			//blink_v2(2);			// sesion 2 de practica 2
-			blink_v3(3);		 // sesion 1 de practica 3
+			//blink_v3(3);		 // sesion 1 de practica 3
 			//blink_v4(4); 		 	// sesion 2 de practica 3
 	}
 }

@@ -5,6 +5,9 @@
 #include "drv_monitor.h"
 #include <stddef.h>
 
+
+EVENTO_T evs_USUARIO[ev_NUM_EV_USUARIO] = {ev_PULSAR_BOTON};
+
 static GE gestor_eventos[EVENT_TYPES];
 static uint32_t monitor_overflow;
 
@@ -14,8 +17,6 @@ bool esEventoUsuario(EVENTO_T id_evento){
     }
     return false;
 }
-
-
 
 
 void rt_GE_iniciar(uint32_t monitor) {

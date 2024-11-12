@@ -1,5 +1,6 @@
 #include "hal_ext_int.h"
-#include <LPC210x.h>  // Asegúrate de incluir el archivo adecuado para el microcontrolador LPC específico
+#include <LPC21xx.h>  // Asegúrate de incluir el archivo adecuado para el microcontrolador LPC específico
+#include <stdint.h>
 
 // Inicialización de las interrupciones externas
 void hal_ext_int_iniciar() {

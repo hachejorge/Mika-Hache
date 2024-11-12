@@ -26,3 +26,4 @@ void hal_habilitar_despertar(){
 void hal_deshabilitar_despertar(){
 	NRF_POWER->TASKS_LOWPWR = 0;
 }
+

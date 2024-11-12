@@ -9,7 +9,16 @@
 #include "drv_tiempo.h"
 #include "drv_tiempo.h"
 
+
 #define TAM_COLA 64
+
+
+typedef struct {
+	EVENTO_T ID_EVENTO;
+	uint32_t auxData;
+	Tiempo_us_t TS;
+} EVENTO;
+
 
 // Cola y variables de control
 static EVENTO cola[TAM_COLA];
@@ -43,7 +52,7 @@ void rt_FIFO_inicializar(uint32_t monitor_overflow){
 }
 
 // Función que encola el evento dado al que le añade el timestamp, en caso de haber overflow lo marca mediante MON_OVERFLOW y se queda en bucle
-void rt_FIFO_encolar(uint32_t ID_evento, uint32_t auxData){
+void rt_FIFO_encolar(EVENTO_T ID_evento, uint32_t auxData){
     // Se comprueba que sea un evento válido
     if(ID_evento < EVENT_TYPES && ID_evento > 0) {
         // Se aumenta el número de eventos sin tratar
@@ -123,11 +132,11 @@ int verificar_insertar_extraer_en_cola(uint32_t mon_overflow){
 		int resultado = 1;
 	
 		for(int i = 0; i < eventos1; i++){
-				rt_FIFO_encolar(1, i);
+				rt_FIFO_encolar(ev_T_PERIODICO, i);
 		}
 		
 		for(int i = 0; i < eventos2; i++){
-				rt_FIFO_encolar(2, i);
+				rt_FIFO_encolar(ev_PULSAR_BOTON, i);
 		}
 		
 		EVENTO_T id_evento;

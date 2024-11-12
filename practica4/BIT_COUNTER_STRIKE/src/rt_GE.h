@@ -26,3 +26,4 @@ void svc_GE_cancelar(EVENTO_T evento, void(*f_callback)(EVENTO_T id, uint32_t au
 void rt_GE_tratar(EVENTO_T evento, uint32_t auxiliar);
 
 #endif
+
