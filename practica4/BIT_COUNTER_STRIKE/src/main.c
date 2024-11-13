@@ -19,6 +19,7 @@
 #include "board.h"
 #include "drv_botones.h"
 #include "rt_fifo.h"
+#include "hal_ext_int.h"
 
 
 #define RETARDO_MS 5000 		//retardo blink en milisegundos
@@ -42,24 +43,30 @@ void probar_activar_led_con_boton(uint32_t id_led, uint32_t id_boton){
 }
 
 void blink_v3_bis(uint32_t id){
-	EVENTO_T evento;
-	uint32_t aux;
-	Tiempo_us_t ts;
-	while(true) {
-		if(rt_FIFO_extraer(&evento, &aux, &ts)){ // Extrae pulsar botón
-			for(int i = 0; i < 10; i++){
-				for(uint32_t id = 0; id < LEDS_NUMBER; i++){				
-					drv_led_encender(led_list[i]);
-					// Esperar un poco
-					drv_led_apagar(led_list[i]);
-				}
-			}
-		}
-		else{
-			drv_consumo_dormir();
-		}
-	}
+    EVENTO_T evento;
+    uint32_t aux;
+    Tiempo_us_t ts;
+
+    while(true) {
+        if(rt_FIFO_extraer(&evento, &aux, &ts)){ // Extrae pulsar botón
+            for(int i = 0; i < 10; i++){
+									for(uint32_t led_id = 0; led_id < LEDS_NUMBER; led_id++){                
+											drv_led_encender(led_list[led_id]);
+											drv_tiempo_esperar_hasta_ms(500);
+											drv_led_apagar(led_list[led_id]);
+									}
+							}
+            // Apagar todos los LEDs después de 10 parpadeos
+            for(uint32_t led_id = 0; led_id < LEDS_NUMBER; led_id++){
+                drv_led_apagar(led_list[led_id]);
+            }
+        } else {
+            drv_consumo_dormir();
+        }
+    }
 }
+
+
 
 /* *****************************************************************************
  * MAIN, Programa principal.
@@ -70,22 +77,19 @@ int main(void){
 	uint32_t Num_Leds; // declaramos el número de leds
 	
 	hal_gpio_iniciar();	  // llamamos a iniciar gpio antes de que lo hagan los drivers
+	drv_tiempo_iniciar();
 
 	/* Configure LED */
 	Num_Leds = drv_leds_iniciar(); // iniciamos los leds
 	
-	//verificar_over_flow_cola(MONITOR4);
-	rt_FIFO_inicializar(MONITOR3);
+	drv_consumo_iniciar(MONITOR3, MONITOR1);
+	rt_FIFO_inicializar(MONITOR4);
 	svc_alarma_iniciar(MONITOR1, rt_FIFO_encolar, ev_T_PERIODICO);
-	rt_GE_iniciar(MONITOR2);
+	//rt_GE_iniciar(MONITOR2);
 	drv_botones_iniciar(rt_FIFO_encolar, ev_PULSAR_BOTON, ev_BOTON_RETARDO);
 
-	int resultado = verificar_insertar_extraer_en_cola(MONITOR4);
 	
 	if (Num_Leds > 0){ 
-			//blink_v1(1);			 // sesion 1 de practica 2
-			//blink_v2(2);			// sesion 2 de practica 2
-			//blink_v3(3);		 // sesion 1 de practica 3
-			//blink_v4(4); 		 	// sesion 2 de practica 3
+		blink_v3_bis(3);
 	}
 }

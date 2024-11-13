@@ -26,11 +26,26 @@ enum estados {
 	static uint32_t button_list[BUTTONS_NUMBER] = BUTTONS_LIST;
 #endif
 
+static void(*f_callback)(EVENTO_T id, uint32_t ms);		//puntero a funcion a llamar cuando salte la RSI (en modo irq)
+
+static void llamar_f_callback(uint32_t pin) {
+	#if BUTTONS_NUMBER > 0
+		uint32_t id_boton;
+		for(uint32_t i = 0; i < BUTTONS_NUMBER; i++) {
+			if(pin == button_list[i]){
+				id_boton = button_list[i];
+			}
+			hal_deshabilitar_int(button_list[i]);
+		}
+		f_callback(ev_PULSAR_BOTON, id_boton);
+	#endif
+}
+
 void drv_botones_iniciar(void(*callback)(EVENTO_T id, uint32_t aux), EVENTO_T ev_PULSAR_BOTON, EVENTO_T ev_BOTON_RETARDN){
 	#if BUTTONS_NUMBER > 0
 		// Inicializar botones con el callback y otros par�metros
 		
-	
+		f_callback = callback; 
 		for (uint32_t i = 0; i < BUTTONS_NUMBER; ++i) 			{
 			hal_gpio_sentido(button_list[i], HAL_GPIO_PIN_DIR_INPUT);
 			hal_habilitar_int(button_list[i]);
@@ -42,7 +57,7 @@ void drv_botones_iniciar(void(*callback)(EVENTO_T id, uint32_t aux), EVENTO_T ev
 				buttons[i].callback = callback; 		
 		}*/
 		// Configurar interrupciones externas en hal_ext_int
-		hal_ext_int_iniciar();		
+		hal_ext_int_iniciar(rt_FIFO_encolar);		
 		// no se si estos dos suscribir tendrían que ir dentro de callback de butoton_list
 		svc_GE_suscribir(ev_PULSAR_BOTON, drv_botones_tratar);
 		svc_GE_suscribir(ev_BOTON_RETARDO, drv_botones_tratar);
@@ -59,24 +74,25 @@ void drv_botones_tratar(EVENTO_T evento, uint32_t auxiliar){
 	switch (estado_actual){
 	case e_reposo:
 		
-		svc_alarma_activar(svc_alarma_codificar(0,20), ev_BOTON_RETARDO, 0);
+		svc_alarma_activar(svc_alarma_codificar(0,30), ev_BOTON_RETARDO, 0);
 		estado_actual = e_entrando;
 		break;
 	
 	case e_entrando: 
-		
+		svc_alarma_activar(svc_alarma_codificar(0,50), ev_BOTON_RETARDO, 0);
 		estado_actual = e_esperando;
-	
 		break;
 	
 	case e_esperando:
-
+		/*if(drv_botones_pulsado()){
+			
+		}*/
 		estado_actual = e_soltado;
 		break;
 	
 	case e_soltado:
 		// habilitamos las interupciones 
-		hal_habilitar_int(3);
+		hal_habilitar_int(1);
 		estado_actual = e_reposo;
 		break;
 
