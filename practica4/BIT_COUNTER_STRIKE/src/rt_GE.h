@@ -17,7 +17,7 @@ typedef struct {
 // activa alarma ev_INACTIVIDAD
 void rt_GE_iniciar(uint32_t monitor);
 
-void rt_GE_lanzador();
+void rt_GE_lanzador(void);
 
 void svc_GE_suscribir(EVENTO_T evento, void(*f_callback)(EVENTO_T id, uint32_t aux));
 

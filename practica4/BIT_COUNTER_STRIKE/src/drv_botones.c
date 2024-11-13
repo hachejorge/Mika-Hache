@@ -22,7 +22,7 @@ enum estados {
 } estado_actual;
 
 #if BUTTONS_NUMBER > 0
-	static BUTTON buttons[BUTTONS_NUMBER] = BUTTONS_LIST;
+	//static BUTTON buttons[BUTTONS_NUMBER] = BUTTONS_LIST;
 	static uint32_t button_list[BUTTONS_NUMBER] = BUTTONS_LIST;
 #endif
 
@@ -35,12 +35,12 @@ void drv_botones_iniciar(void(*callback)(EVENTO_T id, uint32_t aux), EVENTO_T ev
 			hal_gpio_sentido(button_list[i], HAL_GPIO_PIN_DIR_INPUT);
 			hal_habilitar_int(button_list[i]);
 		}
-		for (int i = 0; i < BUTTONS_NUMBER; i++) {
+		/*for (int i = 0; i < BUTTONS_NUMBER; i++) {
 				buttons[i].id = i;
 				buttons[i].pulsado = false;
 				buttons[i].estado_actual = NULL;
 				buttons[i].callback = callback; 		
-		}
+		}*/
 		// Configurar interrupciones externas en hal_ext_int
 		hal_ext_int_iniciar();		
 		// no se si estos dos suscribir tendrían que ir dentro de callback de butoton_list
@@ -52,7 +52,7 @@ void drv_botones_iniciar(void(*callback)(EVENTO_T id, uint32_t aux), EVENTO_T ev
 
 void drv_botones_pulsado(){
 // deshabilitamos las interrupciones de los botones y llamar al callback
-	hal_deshabilitar_int();
+	hal_deshabilitar_int(3);
 }
 
 void drv_botones_tratar(EVENTO_T evento, uint32_t auxiliar){
@@ -76,7 +76,7 @@ void drv_botones_tratar(EVENTO_T evento, uint32_t auxiliar){
 	
 	case e_soltado:
 		// habilitamos las interupciones 
-		hal_habilitar_int();
+		hal_habilitar_int(3);
 		estado_actual = e_reposo;
 		break;
 

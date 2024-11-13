@@ -17,8 +17,8 @@
 #include "rt_GE.h"
 #include "rt_evento_t.h"
 #include "board.h"
-#include "rt_fifo.h"
 #include "drv_botones.h"
+#include "rt_fifo.h"
 
 
 #define RETARDO_MS 5000 		//retardo blink en milisegundos
@@ -75,7 +75,7 @@ int main(void){
 	Num_Leds = drv_leds_iniciar(); // iniciamos los leds
 	
 	//verificar_over_flow_cola(MONITOR4);
-	rt_FIFO_iniciar();
+	rt_FIFO_inicializar(MONITOR3);
 	svc_alarma_iniciar(MONITOR1, rt_FIFO_encolar, ev_T_PERIODICO);
 	rt_GE_iniciar(MONITOR2);
 	drv_botones_iniciar(rt_FIFO_encolar, ev_PULSAR_BOTON, ev_BOTON_RETARDO);

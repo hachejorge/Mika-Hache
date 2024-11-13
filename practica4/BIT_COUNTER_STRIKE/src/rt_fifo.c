@@ -22,7 +22,7 @@ typedef struct {
 
 // Cola y variables de control
 static EVENTO cola[TAM_COLA];
-static uint8_t ultimo_tratado; 	   // Indice del último evento tratado
+//static uint8_t ultimo_tratado; 	   // Indice del último evento tratado
 static uint8_t siguiente_a_tratar; // Índice del siguiente evento a tratar
 static int8_t indice_cola; 	   // ultimo dato insertado en la cola
 
@@ -37,7 +37,7 @@ static uint32_t eventos_sin_tratar;
 
 
 void rt_FIFO_inicializar(uint32_t monitor_overflow){
-    ultimo_tratado = 0;
+    //ultimo_tratado = 0;
     siguiente_a_tratar = 0;
     indice_cola = -1;
     eventos_sin_tratar = 0;
@@ -93,7 +93,7 @@ uint8_t rt_FIFO_extraer(EVENTO_T *ID_evento, uint32_t* auxData, Tiempo_us_t *TS)
         *TS = cola[siguiente_a_tratar].TS;
         
         // Actualiza los índices de tratados y siguiente a tratar
-        ultimo_tratado = siguiente_a_tratar;
+        //ultimo_tratado = siguiente_a_tratar;
         siguiente_a_tratar = (siguiente_a_tratar + 1) % TAM_COLA;
 
         // Se reduce el número de eventos sin tratar
@@ -119,7 +119,7 @@ void verificar_overflow_cola(uint32_t mon_overflow){
 		rt_FIFO_inicializar(mon_overflow);
 
 		for(int i = 0; i < 65; i++){
-				rt_FIFO_encolar(1, i);
+				rt_FIFO_encolar((EVENTO_T)1, i);
 		}
 }
 // Función que verifica la correcta inserción y extracción de eventos en la cola, así como sus estadísticas
