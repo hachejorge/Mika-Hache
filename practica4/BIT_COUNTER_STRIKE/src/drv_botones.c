@@ -66,34 +66,84 @@ void drv_botones_iniciar(void(*callback)(EVENTO_T id, uint32_t aux), EVENTO_T ev
 }
 
 void drv_botones_pulsado(){
-// deshabilitamos las interrupciones de los botones y llamar al callback
-	hal_deshabilitar_int(3);
+#if BUTTONS_NUMBER > 0
+        // Deshabilitamos las interrupciones de todos los botones para evitar conflictos
+        for (uint32_t i = 0; i < BUTTONS_NUMBER; ++i) {
+            hal_deshabilitar_int(button_list[i]);
+        }
+        
+        // Llamar al callback con un evento de botón pulsado
+        if (f_callback != NULL) {
+            // Pasamos un evento indicando que se ha pulsado un botón
+            // Utiliza un ID genérico o específico si es necesario
+            f_callback(ev_PULSAR_BOTON, id_button); // '0' puede ser reemplazado por un identificador adecuado
+        }
+    #endif
 }
 
 void drv_botones_tratar(EVENTO_T evento, uint32_t auxiliar){
 	switch (estado_actual){
 	case e_reposo:
-		
-		svc_alarma_activar(svc_alarma_codificar(0,30), ev_BOTON_RETARDO, 0);
-		estado_actual = e_entrando;
+		if (evento == ev_PULSAR_BOTON) {
+			uint32_t id_boton = auxiliar;
+			
+			// Usar el callback para encolar el ID del evento y datos auxiliares
+			if (f_callback != NULL) {
+				f_callback(ev_PULSAR_BOTON, id_boton);
+			}
+			
+			// Activar una alarma esporádica (Trp) para 30 ms
+			svc_alarma_activar(svc_alarma_codificar(0, 30), ev_BOTON_RETARDO, id_boton);
+			
+			// Cambiar al estado 'e_entrando'
+			estado_actual = e_entrando;
+        }
 		break;
 	
 	case e_entrando: 
-		svc_alarma_activar(svc_alarma_codificar(0,50), ev_BOTON_RETARDO, 0);
-		estado_actual = e_esperando;
+		if (evento == ev_BOTON_RETARDO) {
+			// Identificar la fuente si es necesario
+			uint32_t id_boton = auxiliar;
+			
+			// Usar el callback para enviar ID_ev y auxdata
+			if (f_callback != NULL) {
+				f_callback(ev_BOTON_RETARDO, id_boton);
+			}
+			
+			// Programar una alarma periódica (Tep)
+			svc_alarma_activar(svc_alarma_codificar(0, 50), ev_BOTON_RETARDO, id_boton);
+			
+			// Cambiar al estado 'e_esperando'
+			estado_actual = e_esperando;
+		}
 		break;
 	
 	case e_esperando:
-		/*if(drv_botones_pulsado()){
-			
-		}*/
-		estado_actual = e_soltado;
+		// Manejar el evento ev_BOTON_RETARDO en el estado 'e_esperando'
+            if (evento == ev_BOTON_RETARDO) {
+                // Verificar si el botón se ha soltado
+                if (botonsoltado?) {
+                    // Programar una alarma esporádica (Trd)
+                    svc_alarma_activar(svc_alarma_codificar(0, 100), ev_BOTON_RETARDO, auxiliar);
+                    
+                    // Saltar al estado 'e_soltado'
+                    estado_actual = e_soltado;
+                }
+            }
+			 estado_actual = e_esperando;
 		break;
 	
 	case e_soltado:
-		// habilitamos las interupciones 
-		hal_habilitar_int(1);
-		estado_actual = e_reposo;
+		 // Limpiar interrupciones pendientes
+            hal_ext_int_iniciar(funcion_interrupcion_boton);  // Suponiendo que hay una función para limpiar interrupciones
+            
+            // Habilitar las interrupciones nuevamente
+            for (uint32_t i = 0; i < BUTTONS_NUMBER; ++i) {
+                hal_habilitar_int(button_list[i]);
+            }
+            
+            // Saltar al estado 'e_reposo'
+            estado_actual = e_reposo;
 		break;
 
 	

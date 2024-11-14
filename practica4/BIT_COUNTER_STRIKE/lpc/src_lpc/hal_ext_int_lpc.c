@@ -60,8 +60,8 @@ void hal_ext_int_iniciar(void (*funcion_IRQ)(EVENTO_T evento, uint32_t aux)) {
     // Habilitar la interrupción externa EINT1
     VICIntEnable |= (1 << 14);  // Bit 14 para EINT1 en el controlador de interrupciones
 
-        PINSEL0 &= ~(0x03 << ( BUTTON_1* 2));   // Limpiar la configuración anterior
-        PINSEL0 |= (0x01 << ( BUTTON_1 * 2));
+    PINSEL0 &= ~(0x03 << ( BUTTON_1* 2));   // Limpiar la configuración anterior
+    PINSEL0 |= (0x01 << ( BUTTON_1 * 2));
 }
 
 // Habilitar interrupción externa en el pin especificado (para el LPC, esto está orientado a EINT1, EINT2 o EINT3)
