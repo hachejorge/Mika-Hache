@@ -1,0 +1,58 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: µVision V5.26.2.0
+Copyright (C) 2018 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: jorge Hernandez, HP Inc., LIC=----
+ 
+Tool Versions:
+Toolchain:       MDK-Lite  Version: 5.26.2.0
+Toolchain Path:  D:\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 6 (build 750)
+Assembler:       Armasm.exe V5.06 update 6 (build 750)
+Linker/Locator:  ArmLink.exe V5.06 update 6 (build 750)
+Library Manager: ArmAr.exe V5.06 update 6 (build 750)
+Hex Converter:   FromElf.exe V5.06 update 6 (build 750)
+CPU DLL:         SARM.DLL V5.26.2.0
+Dialog DLL:      DARMP.DLL V1.53.0.0
+Target DLL:      UL2ARM.DLL V1.74.10.0
+Dialog DLL:      TARMP.DLL V1.53.0.0
+ 
+<h2>Project:</h2>
+C:\Users\santo\Desktop\jorge\PHW\BIT_COUNTER_STRIKE-development\lpc\keil\blink_lpc.uvproj
+Project File Date:  11/16/2024
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 6 (build 750)', folder: 'D:\ARM\ARMCC\Bin'
+Rebuild Project 'blink_lpc' - Target 'LPC'
+compiling main.c...
+compiling drv_tiempo.c...
+compiling drv_leds.c...
+compiling drv_consumo.c...
+compiling rt_fifo.c...
+C:\Users\santo\Desktop\jorge\PHW\BIT_COUNTER_STRIKE-development\src\rt_fifo.c(25): warning:  #550-D: variable "ultimo_tratado"  was set but never used
+  static uint8_t ultimo_tratado; 	   // Indice del Ãºltimo evento tratado
+..\..\src\rt_fifo.c: 1 warning, 0 errors
+compiling drv_monitor.c...
+compiling rt_GE.c...
+compiling srv_alarm.c...
+compiling drv_botones_lpc.c...
+compiling hal_gpio_lpc.c...
+compiling hal_consumo_lpc.c...
+compiling hal_tiempo_lpc.c...
+assembling Startup.s...
+compiling hal_ext_int_lpc.c...
+D:\ARM\INC\Philips\LPC210x.H(179): warning:  #47-D: incompatible redefinition of macro "S0SPCR"  (declared at line 198 of "D:\ARM\INC\Philips\LPC21xx.h")
+  #define S0SPCR         (*((volatile unsigned char *) 0xE0020000))
+D:\ARM\INC\Philips\LPC210x.H(181): warning:  #47-D: incompatible redefinition of macro "S0SPDR"  (declared at line 200 of "D:\ARM\INC\Philips\LPC21xx.h")
+  #define S0SPDR         (*((volatile unsigned char *) 0xE0020008))
+..\src_lpc\hal_ext_int_lpc.c: 2 warnings, 0 errors
+linking...
+Program Size: Code=3244 RO-data=36 RW-data=32 ZI-data=3320  
+".\Objects\blink_lpc.axf" - 0 Error(s), 3 Warning(s).
+Build Time Elapsed:  00:00:01
+</pre>
+</body>
+</html>
