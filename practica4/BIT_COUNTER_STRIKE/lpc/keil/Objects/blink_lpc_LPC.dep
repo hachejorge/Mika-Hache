@@ -56,7 +56,7 @@ I (../src_lpc/board_lpc.h)(0x67338B33)
 I (C:\Keil_v5\ARM\INC\Philips\LPC210x.H)(0x559D2F68)
 I (../src_lpc/reserva_gpio_lpc2105.h)(0x672B62AD)
 I (..\..\src\hal_gpio.h)(0x672A3802)
-F (..\..\src\drv_botones.c)(0x67350BCF)(--c99 --gnu -c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork --split_sections -I ../../src -I ../src_lpc-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="526" -DLPC2105_simulador-o .\objects\drv_botones.o --omf_browse .\objects\drv_botones.crf --depend .\objects\drv_botones.d)
+F (..\..\src\drv_botones.c)(0x67352257)(--c99 --gnu -c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork --split_sections -I ../../src -I ../src_lpc-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="526" -DLPC2105_simulador-o .\objects\drv_botones.o --omf_browse .\objects\drv_botones.crf --depend .\objects\drv_botones.d)
 I (..\..\src\board.h)(0x672A3802)
 I (../src_lpc/board_lpc.h)(0x67338B33)
 I (C:\Keil_v5\ARM\INC\Philips\LPC210x.H)(0x559D2F68)
@@ -108,7 +108,7 @@ F (..\src_lpc\hal_consumo_lpc.c)(0x67350FEE)(--c99 --gnu -c --cpu ARM7TDMI -D__E
 I (../../src/hal_consumo.h)(0x672A3802)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F2F9E)
 I (C:\Keil_v5\ARM\INC\Philips\LPC210x.H)(0x559D2F68)
-F (..\src_lpc\hal_ext_int_lpc.c)(0x67350F3C)(--c99 --gnu -c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork --split_sections -I ../../src -I ../src_lpc-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="526" -DLPC2105_simulador-o .\objects\hal_ext_int_lpc.o --omf_browse .\objects\hal_ext_int_lpc.crf --depend .\objects\hal_ext_int_lpc.d)
+F (..\src_lpc\hal_ext_int_lpc.c)(0x67352144)(--c99 --gnu -c --cpu ARM7TDMI -D__EVAL -g -O0 --apcs=interwork --split_sections -I ../../src -I ../src_lpc-IC:\Keil_v5\ARM\RV31\INC-IC:\Keil_v5\ARM\CMSIS\Include-IC:\Keil_v5\ARM\INC\Philips-D__UVISION_VERSION="526" -DLPC2105_simulador-o .\objects\hal_ext_int_lpc.o --omf_browse .\objects\hal_ext_int_lpc.crf --depend .\objects\hal_ext_int_lpc.d)
 I (../../src/hal_ext_int.h)(0x6734DF90)
 I (../../src/rt_evento_t.h)(0x67338FF3)
 I (C:\Keil_v5\ARM\ARMCC\include\stdint.h)(0x599F2F9E)

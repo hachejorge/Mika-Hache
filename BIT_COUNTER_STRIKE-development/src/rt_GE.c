@@ -65,7 +65,7 @@ void svc_GE_suscribir(EVENTO_T evento, void(*f_callback)(EVENTO_T id, uint32_t a
         bool evento_suscrito = false;
         for(int i = 0; i < rt_GE_MAX_SUSCRITOS && !evento_suscrito; i++) { // recorremos el vector de eventos suscritos
             if(gestor_eventos[evento].callbacks[i] == NULL) { // si esa componente del vector está vacía, suscribimos un nuevo evento
-                gestor_eventos[evento].callbacks[i] = f_callback;
+                gestor_eventos[evento].callbacks[i] = f_callback; // habría que jacer aquí svc_GE_candelar?????
                 evento_suscrito = true;                       // el evento está suscrito
                 gestor_eventos[evento].callbacks_usados++;    // aumentamos el número de callbacks en ese evento
             }
@@ -78,7 +78,7 @@ void svc_GE_cancelar(EVENTO_T evento, void(*f_callback)(EVENTO_T id, uint32_t au
         for(int i = 0; i < rt_GE_MAX_SUSCRITOS; i++) { // recorremos el vector de eventos suscritos
             if(gestor_eventos[evento].callbacks[i] == f_callback) { // si esa componente del vector está vacía, suscribimos un nuevo evento
                 gestor_eventos[evento].callbacks[i] = NULL;
-                gestor_eventos[evento].callbacks_usados--;    // aumentamos el número de callbacks en ese evento
+                gestor_eventos[evento].callbacks_usados--;    // disminuimos el número de callbacks en ese evento
             }
         }
     }

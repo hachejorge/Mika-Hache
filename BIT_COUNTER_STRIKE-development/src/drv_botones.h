@@ -13,7 +13,7 @@ void test_gpiote_button_int(void);
 
 void drv_botones_iniciar(void(*callback)(EVENTO_T id, uint32_t aux), EVENTO_T ev_PULSAR_BOTON, EVENTO_T ev_BOTON_RETARDO);
 
-void drv_botones_tratar(EVENTO_T evento, uint32_t auxiliar);
+void drv_botones_tratar(uint32_t pin);
 
 void drv_botones_pulsado(void);
 

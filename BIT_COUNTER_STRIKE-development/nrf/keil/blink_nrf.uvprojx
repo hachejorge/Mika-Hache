@@ -497,6 +497,11 @@
               <FileType>1</FileType>
               <FilePath>..\src_nrf\hal_consumo_nrf.c</FilePath>
             </File>
+            <File>
+              <FileName>hal_ext_int_nrf.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\src_nrf\hal_ext_int_nrf.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
