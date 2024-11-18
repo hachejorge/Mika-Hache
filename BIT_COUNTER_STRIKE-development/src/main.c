@@ -15,6 +15,7 @@
 #include "board.h"
 #include "rt_GE.h"
 #include "drv_botones_lpc.h"
+#include "drv_botones.h"
 #include "srv_alarm.h"
 #include "rt_FIFO.h"
 
@@ -60,6 +61,7 @@ void pruebas_alarma_GE(){
 	hal_gpio_iniciar();	  // llamamos a iniciar gpio antes de que lo hagan los drivers
 	drv_tiempo_iniciar();
 	/* Configure LED */
+	drv_botones_iniciar(rt_FIFO_encolar,ev_PULSAR_BOTON, ev_BOTON_RETARDO);
 	
 	#if TEST_MODE
 		test_rt_FIFO();

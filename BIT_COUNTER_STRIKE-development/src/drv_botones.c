@@ -11,9 +11,9 @@
  */
 void test_gpiote_button_int(){
   // Configure BUTTON3 to generate EVENTS_COMPARE[0] every 1000us.
-  NRF_GPIOTE->CONFIG[3] = (GPIOTE_CONFIG_MODE_Event      << GPIOTE_CONFIG_MODE_Pos) |
-                          (GPIOTE_CONFIG_POLARITY_Toggle << GPIOTE_CONFIG_POLARITY_Pos) |
-                          (BUTTON_3                << GPIOTE_CONFIG_PSEL_Pos);
+  	NRF_GPIOTE->CONFIG[3] = (GPIOTE_CONFIG_MODE_Event      << GPIOTE_CONFIG_MODE_Pos) |
+                          	(GPIOTE_CONFIG_POLARITY_Toggle << GPIOTE_CONFIG_POLARITY_Pos) |
+                          	(BUTTON_3                	   << GPIOTE_CONFIG_PSEL_Pos);
 	
 	NRF_GPIOTE->INTENSET = 8;
 	
@@ -63,8 +63,19 @@ enum estados {
 	static uint32_t button_list[BUTTONS_NUMBER] = BUTTONS_LIST;
 #endif
 
+// Devuelve el botón equivalente a un pin
+int32_t boton_equivalente_pin(uint32_t pin) {
+	for(int i = 0; i < BUTTONS_NUMBER; i++){
+		if(pin == button_list[i]){
+			return button_list[i];
+		}
+	}
+	return -1;
+}
+
 static void(*f_callback)(EVENTO_T id, uint32_t ms);		//puntero a funcion a llamar cuando salte la RSI (en modo irq)
 
+/*
 static void llamar_f_callback(uint32_t pin) {
 	#if BUTTONS_NUMBER > 0
 		uint32_t id_boton;
@@ -76,12 +87,12 @@ static void llamar_f_callback(uint32_t pin) {
 		}
 		f_callback(ev_PULSAR_BOTON, id_boton);
 	#endif
-}
+}*/
 
 void drv_botones_iniciar(void(*callback)(EVENTO_T id, uint32_t aux), EVENTO_T ev_PULSAR_BOTON, EVENTO_T ev_BOTON_RETARDN){
 	#if BUTTONS_NUMBER > 0
 		// Inicializar botones con el callback y otros par�metros
-		hal_ext_int_iniciar(drv_botones_tratar);		
+		hal_ext_int_iniciar(callback);		
 		f_callback = callback; 
 		for (uint32_t i = 0; i < BUTTONS_NUMBER; ++i) 			{
 			hal_gpio_sentido(button_list[i], HAL_GPIO_PIN_DIR_INPUT);
@@ -111,19 +122,29 @@ void drv_botones_pulsado(){
     #endif
 }
 
-void drv_botones_tratar(uint32_t auxiliar){
+bool boton_soltado(uint32_t pin) {
+    if (hal_gpio_leer(pin) == 1) {
+        return true;  // El botón está soltado
+    } else {
+        return false; // El botón aún está presionado
+    }
+}
+
+// En auxiliar me llega el pin que ha sido activado 
+void drv_botones_tratar(EVENTO_T evento, uint32_t auxiliar){
 	switch (estado_actual){
 	case e_reposo:
 		if (evento == ev_PULSAR_BOTON) {
+			// Hay que transformar este pin a botones
 			uint32_t id_boton = auxiliar;
 			
-			// Usar el callback para encolar el ID del evento y datos auxiliares
-			if (f_callback != NULL) {
-				rt_FIFO_extraer(ev_PULSAR_BOTON, id_boton);
+			// Desabilitar interrupciones
+			for(int i = 0; i < BUTTONS_NUMBER; i++){
+				hal_deshabilitar_int(buttons_list[i]);
 			}
-			
-			// Activar una alarma esporádica (Trp) para 30 ms
-			svc_alarma_activar(svc_alarma_codificar(0, 30), ev_BOTON_RETARDO, id_boton);
+
+			// Activar una alarma esporádica (Trp) para 5 ms
+			svc_alarma_activar(svc_alarma_codificar(0, 5), ev_BOTON_RETARDO, id_boton);
 			
 			// Cambiar al estado 'e_entrando'
 			estado_actual = e_entrando;
@@ -135,13 +156,8 @@ void drv_botones_tratar(uint32_t auxiliar){
 			// Identificar la fuente si es necesario
 			uint32_t id_boton = auxiliar;
 			
-			// Usar el callback para enviar ID_ev y auxdata
-			if (f_callback != NULL) {
-				rt_FIFO_extraer(ev_BOTON_RETARDO, id_boton);
-			}
-			
 			// Programar una alarma periódica (Tep)
-			svc_alarma_activar(svc_alarma_codificar(0, 50), ev_BOTON_RETARDO, id_boton);
+			svc_alarma_activar(svc_alarma_codificar(0, 5), ev_BOTON_RETARDO, id_boton);
 			
 			// Cambiar al estado 'e_esperando'
 			estado_actual = e_esperando;
@@ -152,9 +168,9 @@ void drv_botones_tratar(uint32_t auxiliar){
 		// Manejar el evento ev_BOTON_RETARDO en el estado 'e_esperando'
             if (evento == ev_BOTON_RETARDO) {
                 // Verificar si el botón se ha soltado
-                if (botonsoltado?) {
+                if (botonsoltado?(id_boton)) {
                     // Programar una alarma esporádica (Trd)
-                    (svc_alarma_codificar(0, 100), ev_BOTON_RETARDO, auxiliar);
+                    svc_alarma_activar(svc_alarma_codificar(0, 100), ev_BOTON_RETARDO, auxiliar);
                     
                     // Saltar al estado 'e_soltado'
                     estado_actual = e_soltado;
@@ -165,7 +181,7 @@ void drv_botones_tratar(uint32_t auxiliar){
 	
 	case e_soltado:
 		 // Limpiar interrupciones pendientes
-            hal_ext_int_iniciar();  // Suponiendo que hay una función para limpiar interrupciones
+            hal_ext_int_iniciar(f_callback);  // Suponiendo que hay una función para limpiar interrupciones
             
             // Habilitar las interrupciones nuevamente
             for (uint32_t i = 0; i < BUTTONS_NUMBER; ++i) {

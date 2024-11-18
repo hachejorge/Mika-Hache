@@ -63,7 +63,7 @@ void svc_alarma_activar(uint32_t retardo_ms, EVENTO_T ID_evento, uint32_t auxDat
                     alarmas[i].periodica = periodica;  
                     alarmas[i].alarm_counter = 0;
                     alarmas_activas++;   
-										activacion_hecha = true;
+					activacion_hecha = true;
                 }
                 // Añadir si la alarma ya está añadida para que se reinicie la cuenta
             }
