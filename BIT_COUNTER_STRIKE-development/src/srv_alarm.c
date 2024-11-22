@@ -54,7 +54,7 @@ void svc_alarma_activar(uint32_t retardo_ms, EVENTO_T ID_evento, uint32_t auxDat
     else{
         if(alarmas_activas < svc_ALARMAS_MAX){
 					bool activacion_hecha = false;
-					for(int i = 0; i < svc_ALARMAS_MAX && !activacion_hecha; i++){
+			for(int i = 0; i < svc_ALARMAS_MAX && !activacion_hecha; i++){
                 if(!alarmas[i].activa){
                     alarmas[i].activa = true;          
                     alarmas[i].retardo_ms = retardo_real;
