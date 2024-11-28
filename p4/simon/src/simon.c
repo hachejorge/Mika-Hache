@@ -16,13 +16,14 @@
 #include "srv_alarm.h"
 #include "rt_FIFO.h"
 #include "hal_WDT.h"
+#include "hal_random.h"
 #include "board.h"
 
  enum estados_simon{
 	 e_INIT,
-	 /*
 	 e_SHOW_SEQUENCE,
 	 e_WAIT_FOR_INPUT,
+	 /*
 	 e_SUCCESS,
 	 e_FAIL,
 	 */
@@ -43,10 +44,13 @@ void simon_iniciar(){
 	svc_alarma_iniciar(1,rt_FIFO_encolar,ev_T_PERIODICO);
 	drv_botones_iniciar(rt_FIFO_encolar,ev_PULSAR_BOTON, ev_BOTON_RETARDO);
 	estado_simon = e_INIT;
+	hal_random_iniciar(drv_tiempo_actual_ms());
 	rt_FIFO_encolar(ev_INICIAR_JUEGO,0);
 	svc_GE_suscribir(ev_INICIAR_JUEGO, simon_tratar);
 	rt_GE_lanzador();
 }
+
+static int pos_simon = 0;
 
 void simon_tratar(EVENTO_T evento, uint32_t aux){
 	switch(estado_simon) 
@@ -57,16 +61,22 @@ void simon_tratar(EVENTO_T evento, uint32_t aux){
 				svc_GE_suscribir(ev_LEDS_ENCENDER, leds_conmutar);
 				svc_alarma_activar(false, 4000, ev_LEDS_APAGAR, 0);
 				svc_GE_suscribir(ev_LEDS_APAGAR, leds_conmutar);
-				
+				for(int i = 0; i <TAM_SIMON; i++){
+					leds_simon[i] = hal_random_generar(1,BUTTONS_NUMBER);
+				}
+				estado_simon = e_SHOW_SEQUENCE;
 			}
 			break;
-			/*
+			//Aqui hay que seguir que no me ha dado tiempo
 		case e_SHOW_SEQUENCE:
+			drv_led_encender(leds_juego[pos_simon]);
+			estado_simon = e_WAIT_FOR_INPUT;
 			
 			break;
 		case e_WAIT_FOR_INPUT:
 			
 			break;
+		/*
 		case e_SUCCESS:
 			
 			break;

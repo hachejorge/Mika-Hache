@@ -45,8 +45,11 @@
 
 #define MONITORS_LIST { MONITOR1, MONITOR2, MONITOR3, MONITOR4 }
 
+#define TAM_SIMON 8
 
 static int leds_juego[] = {1,2,3,2,1,2,3,2};
+static int leds_simon[TAM_SIMON];
+
 #define TAM_LEDS_JUEGO 8
 
 #endif
