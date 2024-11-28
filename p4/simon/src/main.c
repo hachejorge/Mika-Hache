@@ -18,6 +18,7 @@
 #include "srv_alarm.h"
 #include "rt_FIFO.h"
 #include "hal_WDT.h"
+#include "simon.h"
 
 #define TEST_MODE 0
 
@@ -131,9 +132,10 @@ void pruebas_botones(){
 		pruebas_botones();
 		//test_alarmas();
 		//test_rt_FIFO();
+	 		iniciar_juego();
 	#else
+		simon_iniciar();
 
-		iniciar_juego();
 	#endif
 	 
 }

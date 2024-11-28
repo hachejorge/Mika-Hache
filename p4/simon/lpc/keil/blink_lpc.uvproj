@@ -551,6 +551,16 @@
               <FileType>5</FileType>
               <FilePath>..\..\src\hal_random.h</FilePath>
             </File>
+            <File>
+              <FileName>simon.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\simon.c</FilePath>
+            </File>
+            <File>
+              <FileName>simon.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\src\simon.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

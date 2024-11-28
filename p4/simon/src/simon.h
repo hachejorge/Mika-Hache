@@ -11,7 +11,7 @@
 #include "rt_evento_t.h"
 #include <stdint.h>
 
-void simon_iniciar();
+void simon_iniciar(void);
 
 void simon_tratar(EVENTO_T evento, uint32_t aux);
 
