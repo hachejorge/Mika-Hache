@@ -22,6 +22,7 @@ bool esEventoUsuario(EVENTO_T id_evento){
 
 void rt_GE_iniciar(uint32_t monitor) {
     monitor_overflow = monitor;
+    drv_consumo_iniciar(3,4);
     for(int i = 0; i < EVENT_TYPES; i++){
         gestor_eventos[i].callbacks_usados = 0;
         for(int j = 0; j < rt_GE_MAX_SUSCRITOS; j++){
@@ -55,7 +56,7 @@ void rt_GE_lanzador(){
         } else {
             // No hay eventos, entrar en modo de espera
             drv_consumo_esperar();
-				}
+		}
     }
 }
 
@@ -65,7 +66,7 @@ void svc_GE_suscribir(EVENTO_T evento, void(*f_callback)(EVENTO_T id, uint32_t a
         drv_monitor_marcar(monitor_overflow);
         while(true); 
     }else{
-				hal_WDT_feed();
+		hal_WDT_feed();
 			
         bool evento_suscrito = false;
         for(int i = 0; i < rt_GE_MAX_SUSCRITOS && !evento_suscrito; i++) { // recorremos el vector de eventos suscritos

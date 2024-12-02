@@ -11,8 +11,6 @@
 #include "rt_evento_t.h"
 #include "rt_GE.h"
 #include "hal_WDT.h"
-#include "rt_fifo.h"
-#include "drv_consumo.h"
 
 #define MAX_ALARMAS 10  // Máximo número de alarmas activas permitido
 #define INTERVALO_TIMER_MS 1 // Periodo en milisegundos para las interrupciones del temporizador

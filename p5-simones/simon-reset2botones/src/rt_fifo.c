@@ -6,7 +6,6 @@
 
 #include "rt_fifo.h"
 #include "drv_monitor.h"
-#include "drv_tiempo.h"
 #include "drv_SC.h"
 #include "drv_tiempo.h"
 #include "hal_WDT.h"

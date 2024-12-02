@@ -46,7 +46,7 @@
 		break;
 	 }
 	#else
-	simon_iniciar();
+		simon_iniciar();
 	#endif
 	 
 }

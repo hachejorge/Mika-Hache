@@ -7,10 +7,7 @@
 #include "simon.h"
 #include <stdbool.h>
 
-#include "hal_gpio.h"
 #include "drv_leds.h"
-#include "drv_tiempo.h"
-#include "drv_consumo.h"
 #include "rt_GE.h"
 #include "drv_botones.h"
 #include "srv_alarm.h"
@@ -87,7 +84,6 @@ void reiniciar_juego(EVENTO_T evento, uint32_t aux){
 
 
 void simon_iniciar(){
-	drv_consumo_iniciar(3,4);
 	rt_FIFO_inicializar(2);
 	rt_GE_iniciar(1);
 	hal_random_iniciar(drv_tiempo_actual_ms());
