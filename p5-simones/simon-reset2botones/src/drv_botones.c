@@ -121,7 +121,8 @@ void drv_botones_tratar(EVENTO_T evento, uint32_t auxiliar){
 		if (evento == ev_PULSAR_BOTON) {
 			
 			drv_led_encender(auxiliar);
-			
+			estaReseteando = false;
+
 			// Activar una alarma esporádica (Trp) para 5 ms
 			svc_alarma_activar(svc_alarma_codificar(0, TRP), ev_BOTON_RETARDO, auxiliar);
 			

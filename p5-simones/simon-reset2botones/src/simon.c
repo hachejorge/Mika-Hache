@@ -124,7 +124,7 @@ void simon_tratar(EVENTO_T evento, uint32_t aux){
 	{
 		case e_INIT:
 			if(evento == ev_INICIAR_JUEGO){
-				// Iría en el main??
+				// Irï¿½a en el main??
 				for(int i = 0; i <TAM_SIMON; i++){
 					leds_simon[i] = hal_random_generar(1,BUTTONS_NUMBER);
 				}
@@ -148,23 +148,24 @@ void simon_tratar(EVENTO_T evento, uint32_t aux){
 			break;
 
 		case e_WAIT_FOR_INPUT:
-				if(ev_PULSAR_BOTON == evento){
-						if(aux == leds_simon[posicion_pulsada]){ // Bien pulsado
-								svc_alarma_activar(svc_alarma_codificar(0, 5000), ev_TIEMPO_SUPERADO, 0);
-								if(posicion_simon == posicion_pulsada + 1){ // Ha pulsado todos bien
-										estado_simon = e_SUCCESS;
-										svc_alarma_activar(svc_alarma_codificar(0, 500), ev_JUEGO_CONTINUAR, 0);
-								}
-								else{
-										posicion_pulsada++;
-								}
-						}
-						else{ // Fallo 
-								estado_simon = e_FAIL;
-								svc_alarma_activar(svc_alarma_codificar(0, 0), ev_TIEMPO_SUPERADO, 0);
-								svc_alarma_activar(svc_alarma_codificar(0,10),ev_JUEGO_CONTINUAR,0);
-						}
+
+			if(ev_PULSAR_BOTON == evento){
+				svc_alarma_activar(svc_alarma_codificar(0, 0), ev_TIEMPO_SUPERADO, 0);
+				if(aux == leds_simon[posicion_pulsada]){ // Bien pulsado
+					if(posicion_simon == posicion_pulsada + 1){ // Ha pulsado todos bien
+						estado_simon = e_SUCCESS;
+						svc_alarma_activar(svc_alarma_codificar(0, 500), ev_JUEGO_CONTINUAR, 0);
+					}
+					else{
+						posicion_pulsada++;
+						svc_alarma_activar(svc_alarma_codificar(0, 5000), ev_TIEMPO_SUPERADO, 0);
+					}
 				}
+				else{ // Fallo 
+					estado_simon = e_FAIL;
+					svc_alarma_activar(svc_alarma_codificar(0,10),ev_JUEGO_CONTINUAR,0);
+				}
+			}
 				
 			break;
 		
