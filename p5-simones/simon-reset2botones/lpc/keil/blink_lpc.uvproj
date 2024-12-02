@@ -561,6 +561,26 @@
               <FileType>5</FileType>
               <FilePath>..\..\src\simon.h</FilePath>
             </File>
+            <File>
+              <FileName>Counter_strike.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\Counter_strike.c</FilePath>
+            </File>
+            <File>
+              <FileName>Counter_strike.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\src\Counter_strike.h</FilePath>
+            </File>
+            <File>
+              <FileName>test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\test.c</FilePath>
+            </File>
+            <File>
+              <FileName>test.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\src\test.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1174,6 +1194,26 @@
               <FileName>simon.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\..\src\simon.h</FilePath>
+            </File>
+            <File>
+              <FileName>Counter_strike.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\Counter_strike.c</FilePath>
+            </File>
+            <File>
+              <FileName>Counter_strike.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\src\Counter_strike.h</FilePath>
+            </File>
+            <File>
+              <FileName>test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\..\src\test.c</FilePath>
+            </File>
+            <File>
+              <FileName>test.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\..\src\test.h</FilePath>
             </File>
           </Files>
         </Group>
