@@ -42,6 +42,7 @@
 		test_rt_FIFO();
 	 break;
 	 case 5 :
+	 // BIT-COUNTER-STRIKE
 		iniciar_juego();
 		break;
 	 }

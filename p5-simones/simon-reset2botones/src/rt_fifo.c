@@ -12,7 +12,6 @@
 
 #define TAM_COLA 64
 
-
 // Cola y variables de control
 static EVENTO cola[TAM_COLA];
 static uint8_t siguiente_a_tratar; // Índice del siguiente evento a tratar
@@ -27,12 +26,28 @@ static uint32_t stats[EVENT_TYPES];
 // Cantidad de eventos sin tratar
 static uint32_t eventos_sin_tratar;
 
+// ESTADÍSTICAS
+// Cantidad de eventos sin tratar de forma simultánea en la cola
+static uint32_t max_eventos_sin_tratar;
+
+// Total de eventos tratados
+static uint32_t total_eventos_tratados;
+
+// Tiempo medio de espera hasta tratar un evento
+static uint32_t avg_tiempo_espera;
+
+// Máximo de tiempo esperado hasta tratar un evento
+static uint32_t max_tiempo_espera;
 
 void rt_FIFO_inicializar(uint32_t monitor_overflow){
     siguiente_a_tratar = 0;
     indice_cola = -1;
     eventos_sin_tratar = 0;
-
+		max_eventos_sin_tratar = 0;
+		total_eventos_tratados = 0;
+		avg_tiempo_espera = 0;
+		max_tiempo_espera = 0;
+	
     for(uint8_t i = 0; i < EVENT_TYPES; i++){
         stats[i] = 0;
     }
@@ -67,6 +82,10 @@ void rt_FIFO_encolar(EVENTO_T ID_evento, uint32_t auxData){
         // Se aumenta el índice del último elemento de la cola
         indice_cola = (indice_cola + 1) % TAM_COLA;
         
+				if(max_eventos_sin_tratar < eventos_sin_tratar){
+						max_eventos_sin_tratar = eventos_sin_tratar;
+				}
+				
         stats[ID_evento]++; // Aumenta las veces encoladas del ID_evento
         stats[0]++;         // Aumenta los eventos totales encolados
     }
@@ -94,7 +113,22 @@ uint8_t rt_FIFO_extraer(EVENTO_T *ID_evento, uint32_t* auxData, Tiempo_us_t *TS)
 
         // Se reduce el número de eventos sin tratar
         eventos_sin_tratar--;
-    }
+			
+				// ACTUALIZACIÓN ESTÁDISTICAS
+				uint64_t tiempo_total_espera = avg_tiempo_espera * total_eventos_tratados;
+				
+				// Hacemos cast a 32 bits  ya que se supone que el tiempo de espera es muy poco en comparación al TS, o al tiempo actual
+				uint32_t tiempo_espera_actual = drv_tiempo_actual_us() - *TS;
+				
+				total_eventos_tratados++;
+				
+				// Actualizamos el tiempo de espera hasta procesar un evento
+				avg_tiempo_espera = (tiempo_total_espera + tiempo_espera_actual)/total_eventos_tratados;
+    
+				if(max_tiempo_espera < tiempo_espera_actual){
+						max_tiempo_espera = tiempo_espera_actual;
+				}
+		}
 		drv_SC_salir_enable_irq();
     return eventos_sin_tratar_resultado; 
 }

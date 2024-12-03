@@ -7,7 +7,7 @@
 
   <Targets>
     <Target>
-      <TargetName>nRF</TargetName>
+      <TargetName>nRF_Debug</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <pCCUsed>5060750::V5.06 update 6 (build 750)::ARMCC</pCCUsed>
@@ -1196,14 +1196,14 @@
       <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="5.3.0" condition="ARMv6_7_8-M Device">
         <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.6.0"/>
         <targetInfos>
-          <targetInfo name="nRF"/>
+          <targetInfo name="nRF_Debug"/>
           <targetInfo name="nRF_Release"/>
         </targetInfos>
       </component>
       <component Cclass="Device" Cgroup="Startup" Cvendor="NordicSemiconductor" Cversion="8.44.1" condition="nRF52840 Device and CMSIS">
         <package license="License/license.txt" name="nRF_DeviceFamilyPack" schemaVersion="1.3" url="http://developer.nordicsemi.com/nRF5_SDK/pieces/nRF_DeviceFamilyPack/" vendor="NordicSemiconductor" version="8.44.1"/>
         <targetInfos>
-          <targetInfo name="nRF"/>
+          <targetInfo name="nRF_Debug"/>
           <targetInfo name="nRF_Release"/>
         </targetInfos>
       </component>
@@ -1214,7 +1214,7 @@
         <component Cclass="Device" Cgroup="Startup" Cvendor="NordicSemiconductor" Cversion="8.44.1" condition="nRF52840 Device and CMSIS"/>
         <package license="License/license.txt" name="nRF_DeviceFamilyPack" schemaVersion="1.3" url="http://developer.nordicsemi.com/nRF5_SDK/pieces/nRF_DeviceFamilyPack/" vendor="NordicSemiconductor" version="8.44.1"/>
         <targetInfos>
-          <targetInfo name="nRF"/>
+          <targetInfo name="nRF_Debug"/>
           <targetInfo name="nRF_Release"/>
         </targetInfos>
       </file>
@@ -1229,7 +1229,7 @@
         <component Cclass="Device" Cgroup="Startup" Cvendor="NordicSemiconductor" Cversion="8.44.1" condition="nRF52840 Device and CMSIS"/>
         <package license="License/license.txt" name="nRF_DeviceFamilyPack" schemaVersion="1.3" url="http://developer.nordicsemi.com/nRF5_SDK/pieces/nRF_DeviceFamilyPack/" vendor="NordicSemiconductor" version="8.44.1"/>
         <targetInfos>
-          <targetInfo name="nRF"/>
+          <targetInfo name="nRF_Debug"/>
           <targetInfo name="nRF_Release"/>
         </targetInfos>
       </file>

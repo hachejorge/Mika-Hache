@@ -58,19 +58,6 @@ void simon_mostrar_seq_juego(EVENTO_T evento, uint32_t aux){
 		}
 }
 
-//Para acierto, se encienden todos
-void simon_conmutar_leds(EVENTO_T evento, uint32_t aux){
-		if(aux < 2){
-			for(int i = 1; i <= LEDS_NUMBER; i++){
-						drv_led_conmutar(i);
-			}
-			svc_alarma_activar(svc_alarma_codificar(0,500), ev_LEDS_ENCENDER, aux + 1);
-		}
-		else{
-			svc_alarma_activar(svc_alarma_codificar(0, 10), ev_JUEGO_CONTINUAR, 0);
-		}
-}
-
 void reiniciar_juego(EVENTO_T evento, uint32_t aux){
 		estado_simon = e_INIT;
 		posicion_simon = 1;
@@ -81,6 +68,26 @@ void reiniciar_juego(EVENTO_T evento, uint32_t aux){
 	
 		svc_alarma_activar(svc_alarma_codificar(0,10),ev_INICIAR_JUEGO,0);	
 }
+
+//Para acierto, se encienden todos
+void simon_conmutar_leds(EVENTO_T evento, uint32_t aux){
+		if(aux < 2){
+			for(int i = 1; i <= LEDS_NUMBER; i++){
+						drv_led_conmutar(i);
+			}
+			svc_alarma_activar(svc_alarma_codificar(0,500), ev_LEDS_ENCENDER, aux + 1);
+		}
+		else{
+			if(posicion_simon == TAM_SIMON + 1){
+					reiniciar_juego(ev_INICIAR_JUEGO, 0);
+			}
+			else{
+				svc_alarma_activar(svc_alarma_codificar(0, 10), ev_JUEGO_CONTINUAR, 0);
+		
+			}
+		}
+}
+
 
 
 void simon_iniciar(){
