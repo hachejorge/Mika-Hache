@@ -19,6 +19,8 @@
 
 /* *****************************************************************************
  * MAIN, Programa principal.
+ * TEST_MODE si es 0 indica que está activado el BIT-COUNTER-STRIKE
+ *					 si es 1, con la variable TEST se indica que test que quiere probar
  */
  int main(void){
 	
@@ -29,6 +31,7 @@
 		 
 	#if TEST_MODE
 	 switch (TEST){
+		// No hay test unitario de GE ya que está implicito en los de botones y alarmas
 	 case 1:
 		test_WDT();
 	 break;

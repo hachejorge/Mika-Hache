@@ -6,7 +6,6 @@
 
 #include "board.h"
 #include "drv_botones.h"
-#include "drv_leds.h"
 #include "hal_ext_int.h"
 #include "hal_gpio.h"
 #include "rt_evento_t.h"
@@ -92,9 +91,6 @@ void drv_botones_tratar(EVENTO_T evento, uint32_t auxiliar){
 	switch (estado_actual){
 	case e_reposo:
 		if (evento == ev_PULSAR_BOTON) {
-			
-			drv_led_encender(auxiliar);
-			
 			// Activar una alarma esporádica (Trp) para 5 ms
 			svc_alarma_activar(svc_alarma_codificar(0, TRP), ev_BOTON_RETARDO, auxiliar);
 			
@@ -143,8 +139,6 @@ void drv_botones_tratar(EVENTO_T evento, uint32_t auxiliar){
 				hal_habilitar_int(button_list[i]);
 			}
 			// Saltar al estado 'e_reposo'
-			drv_led_apagar(auxiliar);
-
 			estado_actual = e_reposo;
 		}
 		break;
