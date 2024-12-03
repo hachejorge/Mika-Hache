@@ -7,11 +7,13 @@
 
 #include "drv_SC.h"
 
-// Número de procesos dentro de sección crítica
+// Nï¿½mero de procesos dentro de secciï¿½n crï¿½tica
 static uint32_t m_in_critical_region = 0;
 
 uint32_t drv_SC_entrar_disable_irq(void) {
-    __disable_irq();
+    if(m_in_critical_region == 0){
+        __disable_irq();
+    }
     return(m_in_critical_region++);
 }
 
