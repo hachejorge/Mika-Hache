@@ -1,7 +1,7 @@
 .\objects\counter_strike.o: ..\..\src\Counter_strike.c
-.\objects\counter_strike.o: D:\ARM\ARMCC\Bin\..\include\stdbool.h
+.\objects\counter_strike.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h
 .\objects\counter_strike.o: ..\..\src\hal_gpio.h
-.\objects\counter_strike.o: D:\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\counter_strike.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\counter_strike.o: ..\..\src\drv_leds.h
 .\objects\counter_strike.o: ..\..\src\drv_tiempo.h
 .\objects\counter_strike.o: ..\..\src\drv_consumo.h

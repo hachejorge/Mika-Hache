@@ -14,13 +14,13 @@ typedef enum {
 	ev_INACTIVIDAD = 3,  	// evento de parar el procesador
 	ev_BOTON_RETARDO = 4,	// evento para el retardo del autómata de un botón
 	ev_INICIAR_JUEGO = 5,
-	ev_LEDS_ENCENDER = 6,
-	ev_LEDS_APAGAR = 7,
-	ev_JUEGO_CONTINUAR = 8,
-	ev_JUEGO_SEQ_INCIAL = 9,
-	ev_JUEGO_SEQ_JUEGO = 10,
-	ev_TIEMPO_SUPERADO = 11,
-	ev_RESET_BOTON = 12,
+	ev_MOSTRAR_ACIERTO = 6,
+	ev_JUEGO_CONTINUAR = 7,
+	ev_JUEGO_SEQ_INCIAL = 8,
+	ev_JUEGO_SEQ_JUEGO = 9,
+	ev_TIEMPO_SUPERADO = 10,
+	ev_RESET_BOTON = 11,
+	ev_APAGAR_LED = 12,
 } EVENTO_T;			    //mapea a uint32_t
 
 #define EVENT_TYPES 13

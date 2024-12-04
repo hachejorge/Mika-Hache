@@ -120,7 +120,7 @@ void drv_botones_tratar(EVENTO_T evento, uint32_t auxiliar){
 	case e_reposo:
 		if (evento == ev_PULSAR_BOTON) {
 			
-			drv_led_encender(auxiliar);
+			//drv_led_encender(auxiliar);
 			estaReseteando = false;
 
 			// Activar una alarma esporádica (Trp) para 5 ms
@@ -173,7 +173,7 @@ void drv_botones_tratar(EVENTO_T evento, uint32_t auxiliar){
 				hal_habilitar_int(button_list[i]);
 			}
 			// Saltar al estado 'e_reposo'
-			drv_led_apagar(auxiliar);
+			//drv_led_apagar(auxiliar);
 		
 			// Desactivamos una posible alarma activa de reseteo de botón
 			//svc_alarma_activar(svc_alarma_codificar(0,0), ev_RESET_BOTON, 0);

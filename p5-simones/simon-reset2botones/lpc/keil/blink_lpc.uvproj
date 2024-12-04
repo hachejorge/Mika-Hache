@@ -7,7 +7,7 @@
 
   <Targets>
     <Target>
-      <TargetName>LPC</TargetName>
+      <TargetName>LPC_debug</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
       <pCCUsed>5060750::V5.06 update 6 (build 750)::ARMCC</pCCUsed>
@@ -375,7 +375,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls></MiscControls>
-              <Define>LPC2105_simulador</Define>
+              <Define>DEBUG LPC2105_simulador</Define>
               <Undefine></Undefine>
               <IncludePath>../../src;../src_lpc</IncludePath>
             </VariousControls>

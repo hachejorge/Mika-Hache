@@ -16,11 +16,12 @@
 #include "hal_random.h"
 #include "board.h"
 
-#define TAM_SIMON 10
+#define TAM_SIMON 20
+#define TAM_SIMON_INI 10
 #define VELOCIDAD 20
 
 // dependiendo si queramos tener definida en la primera partida la secuencia para nrf(0), lpc(1) o una random(2).
-#define PRIMERA_PARTIDA 1 
+static uint32_t PRIMERA_PARTIDA = 2;
 
  enum estados_simon{
 	 e_INIT,
@@ -66,8 +67,8 @@ void reiniciar_juego(EVENTO_T evento, uint32_t aux){
 		estado_simon = e_INIT;
 		posicion_simon = 1;
 		
-		svc_alarma_activar(svc_alarma_codificar(0, 0), ev_JUEGO_SEQ_JUEGO, 0);
-		svc_alarma_activar(svc_alarma_codificar(0,0), ev_JUEGO_SEQ_INCIAL, 0);
+		//svc_alarma_activar(svc_alarma_codificar(0, 0), ev_JUEGO_SEQ_JUEGO, 0);
+		//svc_alarma_activar(svc_alarma_codificar(0,0), ev_JUEGO_SEQ_INCIAL, 0);
 	
 	
 		svc_alarma_activar(svc_alarma_codificar(0,10),ev_INICIAR_JUEGO,0);	
@@ -79,7 +80,7 @@ void simon_conmutar_leds(EVENTO_T evento, uint32_t aux){
 			for(int i = 1; i <= LEDS_NUMBER; i++){
 						drv_led_conmutar(i);
 			}
-			svc_alarma_activar(svc_alarma_codificar(0,500), ev_LEDS_ENCENDER, aux + 1);
+			svc_alarma_activar(svc_alarma_codificar(0,500), ev_MOSTRAR_ACIERTO, aux + 1);
 		}
 		else{
 			if(posicion_simon == TAM_SIMON + 1){
@@ -92,7 +93,14 @@ void simon_conmutar_leds(EVENTO_T evento, uint32_t aux){
 		}
 }
 
+void encender_led(EVENTO_T evento, uint32_t aux){
+		drv_led_encender(aux);
+		svc_alarma_activar(svc_alarma_codificar(0, 500), ev_APAGAR_LED, aux);
+}
 
+void apagar_led(EVENTO_T evento, uint32_t aux){
+		drv_led_apagar(aux);
+}
 
 void simon_iniciar(){
 	rt_FIFO_inicializar(2);
@@ -103,17 +111,20 @@ void simon_iniciar(){
 	drv_botones_iniciar(rt_FIFO_encolar,ev_PULSAR_BOTON, ev_BOTON_RETARDO);
 	
 	svc_GE_suscribir(ev_TIEMPO_SUPERADO, reiniciar_juego);
-	svc_GE_suscribir(ev_LEDS_ENCENDER, simon_conmutar_leds);
+	svc_GE_suscribir(ev_MOSTRAR_ACIERTO, simon_conmutar_leds);
 	
 	svc_GE_suscribir(ev_JUEGO_SEQ_JUEGO, simon_mostrar_seq_juego);
 	svc_GE_suscribir(ev_JUEGO_SEQ_INCIAL, simon_mostrar_seq_inicial);
 	
+	svc_GE_suscribir(ev_PULSAR_BOTON, encender_led);
 	svc_GE_suscribir(ev_PULSAR_BOTON, simon_tratar);
 	
 	svc_GE_suscribir(ev_JUEGO_CONTINUAR, simon_tratar);
 	svc_GE_suscribir(ev_INICIAR_JUEGO, simon_tratar);
 	
 	svc_GE_suscribir(ev_RESET_BOTON, reiniciar_juego);
+	
+	svc_GE_suscribir(ev_APAGAR_LED, apagar_led);
 	
 	svc_alarma_activar(svc_alarma_codificar(0,100),ev_INICIAR_JUEGO,0);
 	
@@ -134,17 +145,19 @@ void simon_tratar(EVENTO_T evento, uint32_t aux){
 				switch(PRIMERA_PARTIDA){
 					// dependiendo de la varible PRIMERA_PARTIDA se ejecutará la secuencia de leds para nrf, lpc o una random
 					case 0 :{	// nrf
-						int secuencia_temporal[TAM_SIMON] = {1, 2, 3, 4, 3, 2, 1, 2, 3, 4};
+						int secuencia_temporal[TAM_SIMON_INI] = {1, 2, 3, 4, 3, 2, 1, 2, 3, 4};
 						for(int i = 0; i <TAM_SIMON; i++){
 							leds_simon[i] = secuencia_temporal[i];
 						}
+						PRIMERA_PARTIDA = 2;
 						break;
 					}
 					case 1 :{	// lpc
-						int secuencia_temporal[TAM_SIMON] = {1, 2, 3, 2, 1, 2, 3, 2, 1, 2};
+						int secuencia_temporal[TAM_SIMON_INI] = {1, 2, 3, 2, 1, 2, 3, 2, 1, 2};
 						for(int i = 0; i <TAM_SIMON; i++){
 							leds_simon[i] = secuencia_temporal[i];
 						}
+						PRIMERA_PARTIDA = 2;
 						break;
 					}
 					case 2 :{	// random
@@ -202,7 +215,7 @@ void simon_tratar(EVENTO_T evento, uint32_t aux){
 				posicion_simon++;
 				estado_simon = e_SHOW_SEQUENCE;
 				velocidad--;
-				svc_alarma_activar(svc_alarma_codificar(0, 500), ev_LEDS_ENCENDER, 0);
+				svc_alarma_activar(svc_alarma_codificar(0, 500), ev_MOSTRAR_ACIERTO, 0);
 			}
 			break;
 		

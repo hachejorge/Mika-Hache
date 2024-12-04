@@ -9,6 +9,11 @@
 
 EVENTO_T evs_USUARIO[ev_NUM_EV_USUARIO] = {ev_PULSAR_BOTON};
 
+#ifdef DEBUG
+// Tiempo durante el cual el procesador se encuentra en esperas en micro segundos
+uint64_t tiempo_en_espera;
+#endif
+
 static GE gestor_eventos[EVENT_TYPES];
 static uint32_t monitor_overflow;
 
@@ -18,7 +23,6 @@ bool esEventoUsuario(EVENTO_T id_evento){
     }
     return false;
 }
-
 
 void rt_GE_iniciar(uint32_t monitor) {
     monitor_overflow = monitor;
@@ -54,9 +58,16 @@ void rt_GE_lanzador(){
                 }
             }
         } else {
+					#ifdef DEBUG
+            uint64_t tiempo_ant = drv_tiempo_actual_us();
+					#endif
             // No hay eventos, entrar en modo de espera
             drv_consumo_esperar();
-		}
+					#ifdef DEBUG
+            uint64_t tiempo_pos = drv_tiempo_actual_us();
+            tiempo_en_espera += (tiempo_pos - tiempo_ant);
+					#endif
+        }
     }
 }
 

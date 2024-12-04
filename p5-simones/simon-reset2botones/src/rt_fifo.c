@@ -26,8 +26,8 @@ static uint32_t stats[EVENT_TYPES];
 
 // Cantidad de eventos sin tratar
 static uint32_t eventos_sin_tratar;
-
-// ESTADÍSTICAS
+#ifdef DEBUG
+/*** ESTADÍSTICAS ***/
 // Cantidad de eventos sin tratar de forma simultánea en la cola
 static uint32_t max_eventos_sin_tratar;
 
@@ -40,19 +40,22 @@ static uint32_t avg_tiempo_espera;
 // Máximo de tiempo esperado hasta tratar un evento
 static uint32_t max_tiempo_espera;
 
-// Tiempo de respjuesta del usuario desde que se marca la secuencia hasta que se empieza a pulsar
-static uint32_t tiempo_respuesta_usuario;
+// Tiempo de respuesta del usuario desde que se marca la secuencia hasta que se empieza a pulsar
+static uint32_t max_respuesta_usuario;
+
+#endif
 
 void rt_FIFO_inicializar(uint32_t monitor_overflow){
     siguiente_a_tratar = 0;
     indice_cola = -1;
     eventos_sin_tratar = 0;
+	#ifdef DEBUG
 		max_eventos_sin_tratar = 0;
 		total_eventos_tratados = 0;
 		avg_tiempo_espera = 0;
 		max_tiempo_espera = 0;
-		tiempo_respuesta_usuario = 0;
-	
+		max_respuesta_usuario = 0;
+	#endif
     for(uint8_t i = 0; i < EVENT_TYPES; i++){
         stats[i] = 0;
     }
@@ -86,11 +89,11 @@ void rt_FIFO_encolar(EVENTO_T ID_evento, uint32_t auxData){
         
         // Se aumenta el índice del último elemento de la cola
         indice_cola = (indice_cola + 1) % TAM_COLA;
-        
+        #ifdef DEBUG
 				if(max_eventos_sin_tratar < eventos_sin_tratar){
 						max_eventos_sin_tratar = eventos_sin_tratar;
 				}
-				
+				#endif
         stats[ID_evento]++; // Aumenta las veces encoladas del ID_evento
         stats[0]++;         // Aumenta los eventos totales encolados
     }
@@ -118,7 +121,7 @@ uint8_t rt_FIFO_extraer(EVENTO_T *ID_evento, uint32_t* auxData, Tiempo_us_t *TS)
 
         // Se reduce el número de eventos sin tratar
         eventos_sin_tratar--;
-			
+			#ifdef DEBUG
 				/**** ACTUALIZACIÓN ESTÁDISTICAS ****/
 				uint64_t tiempo_total_espera = avg_tiempo_espera * total_eventos_tratados;
 				
@@ -139,11 +142,16 @@ uint8_t rt_FIFO_extraer(EVENTO_T *ID_evento, uint32_t* auxData, Tiempo_us_t *TS)
 						inicia_secuencia = drv_tiempo_actual_us();
 				}
 				
+				uint32_t tiempo_respuesta_usuario;
 				// El tiempo_respuesta_usuario será la diferencia entre el tiempo en el momento en el que se produzca una reacción del usuario (ev_PULSAR_BOTON y el inicio de la secuencia)
 				if(*ID_evento == ev_PULSAR_BOTON){
-						tiempo_respuesta_usuario = drv_tiempo_actual_us() - inicia_secuencia;
+						 tiempo_respuesta_usuario = drv_tiempo_actual_us() - inicia_secuencia;
+					if(max_respuesta_usuario < tiempo_respuesta_usuario){
+						max_respuesta_usuario = tiempo_respuesta_usuario;
+					}
 				}
-				//printf("%d",tiempo_respuesta_usuario);
+				
+				#endif
 		}
 		drv_SC_salir_enable_irq();
     return eventos_sin_tratar_resultado; 

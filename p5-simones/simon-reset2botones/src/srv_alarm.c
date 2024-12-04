@@ -12,7 +12,7 @@
 #include "rt_GE.h"
 #include "hal_WDT.h"
 
-#define MAX_ALARMAS 10  // Máximo número de alarmas activas permitido
+#define MAX_ALARMAS 5  // Máximo número de alarmas activas permitido
 #define INTERVALO_TIMER_MS 1 // Periodo en milisegundos para las interrupciones del temporizador
 
 /*

@@ -1,6 +1,6 @@
 .\objects\test.o: ..\..\src\test.c
 .\objects\test.o: ..\..\src\hal_gpio.h
-.\objects\test.o: D:\ARM\ARMCC\Bin\..\include\stdint.h
+.\objects\test.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdint.h
 .\objects\test.o: ..\..\src\drv_leds.h
 .\objects\test.o: ..\..\src\drv_tiempo.h
 .\objects\test.o: ..\..\src\drv_consumo.h
@@ -13,4 +13,4 @@
 .\objects\test.o: ..\..\src\rt_FIFO.h
 .\objects\test.o: ..\..\src\hal_WDT.h
 .\objects\test.o: ..\..\src\test.h
-.\objects\test.o: D:\ARM\ARMCC\Bin\..\include\stdbool.h
+.\objects\test.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdbool.h

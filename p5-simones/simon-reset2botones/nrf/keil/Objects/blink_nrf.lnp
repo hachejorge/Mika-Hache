@@ -18,6 +18,7 @@
 ".\objects\hal_ext_int_nrf.o"
 ".\objects\hal_wdt_nrf.o"
 ".\objects\hal_random_nrf.o"
+".\objects\retarget_io.o"
 ".\objects\arm_startup_nrf52840.o"
 ".\objects\system_nrf52.o"
 --library_type=microlib --strict --scatter ".\Objects\blink_nrf.sct"
