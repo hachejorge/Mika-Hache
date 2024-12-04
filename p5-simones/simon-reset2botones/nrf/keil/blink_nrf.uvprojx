@@ -593,6 +593,9 @@
           <GroupName>::CMSIS</GroupName>
         </Group>
         <Group>
+          <GroupName>::Compiler</GroupName>
+        </Group>
+        <Group>
           <GroupName>::Device</GroupName>
         </Group>
       </Groups>
@@ -1184,6 +1187,9 @@
           <GroupName>::CMSIS</GroupName>
         </Group>
         <Group>
+          <GroupName>::Compiler</GroupName>
+        </Group>
+        <Group>
           <GroupName>::Device</GroupName>
         </Group>
       </Groups>
@@ -1193,8 +1199,15 @@
   <RTE>
     <apis/>
     <components>
-      <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="5.3.0" condition="ARMv6_7_8-M Device">
-        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.6.0"/>
+      <component Cclass="CMSIS" Cgroup="CORE" Cvendor="ARM" Cversion="5.1.2" condition="ARMv6_7_8-M Device">
+        <package name="CMSIS" schemaVersion="1.3" url="http://www.keil.com/pack/" vendor="ARM" version="5.4.0"/>
+        <targetInfos>
+          <targetInfo name="nRF_Debug"/>
+          <targetInfo name="nRF_Release"/>
+        </targetInfos>
+      </component>
+      <component Cbundle="ARM Compiler" Cclass="Compiler" Cgroup="I/O" Csub="STDOUT" Cvariant="Breakpoint" Cvendor="Keil" Cversion="1.2.0" condition="ARMCC Cortex-M">
+        <package name="ARM_Compiler" schemaVersion="1.4.9" url="http://www.keil.com/pack/" vendor="Keil" version="1.6.0"/>
         <targetInfos>
           <targetInfo name="nRF_Debug"/>
           <targetInfo name="nRF_Release"/>

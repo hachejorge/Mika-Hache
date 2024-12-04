@@ -9,6 +9,7 @@
 #include "drv_SC.h"
 #include "drv_tiempo.h"
 #include "hal_WDT.h"
+#include "stdio.h"
 
 #define TAM_COLA 64
 
@@ -39,6 +40,9 @@ static uint32_t avg_tiempo_espera;
 // Máximo de tiempo esperado hasta tratar un evento
 static uint32_t max_tiempo_espera;
 
+// Tiempo de respjuesta del usuario desde que se marca la secuencia hasta que se empieza a pulsar
+static uint32_t tiempo_respuesta_usuario;
+
 void rt_FIFO_inicializar(uint32_t monitor_overflow){
     siguiente_a_tratar = 0;
     indice_cola = -1;
@@ -47,6 +51,7 @@ void rt_FIFO_inicializar(uint32_t monitor_overflow){
 		total_eventos_tratados = 0;
 		avg_tiempo_espera = 0;
 		max_tiempo_espera = 0;
+		tiempo_respuesta_usuario = 0;
 	
     for(uint8_t i = 0; i < EVENT_TYPES; i++){
         stats[i] = 0;
@@ -114,7 +119,7 @@ uint8_t rt_FIFO_extraer(EVENTO_T *ID_evento, uint32_t* auxData, Tiempo_us_t *TS)
         // Se reduce el número de eventos sin tratar
         eventos_sin_tratar--;
 			
-				// ACTUALIZACIÓN ESTÁDISTICAS
+				/**** ACTUALIZACIÓN ESTÁDISTICAS ****/
 				uint64_t tiempo_total_espera = avg_tiempo_espera * total_eventos_tratados;
 				
 				// Hacemos cast a 32 bits  ya que se supone que el tiempo de espera es muy poco en comparación al TS, o al tiempo actual
@@ -128,6 +133,17 @@ uint8_t rt_FIFO_extraer(EVENTO_T *ID_evento, uint32_t* auxData, Tiempo_us_t *TS)
 				if(max_tiempo_espera < tiempo_espera_actual){
 						max_tiempo_espera = tiempo_espera_actual;
 				}
+				// Inicia secuencia guarda el momento en el que proceso el ev_JUEGO_SEQ_JUEGO que es el que provocará que se muestre la secuencia de juego
+				uint32_t inicia_secuencia = 0;
+				if(*ID_evento == ev_JUEGO_SEQ_JUEGO){
+						inicia_secuencia = drv_tiempo_actual_us();
+				}
+				
+				// El tiempo_respuesta_usuario será la diferencia entre el tiempo en el momento en el que se produzca una reacción del usuario (ev_PULSAR_BOTON y el inicio de la secuencia)
+				if(*ID_evento == ev_PULSAR_BOTON){
+						tiempo_respuesta_usuario = drv_tiempo_actual_us() - inicia_secuencia;
+				}
+				//printf("%d",tiempo_respuesta_usuario);
 		}
 		drv_SC_salir_enable_irq();
     return eventos_sin_tratar_resultado; 

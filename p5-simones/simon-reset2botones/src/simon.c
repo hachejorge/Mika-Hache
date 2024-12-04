@@ -16,7 +16,11 @@
 #include "hal_random.h"
 #include "board.h"
 
-#define TAM_SIMON 20
+#define TAM_SIMON 10
+#define VELOCIDAD 20
+
+// dependiendo si queramos tener definida en la primera partida la secuencia para nrf(0), lpc(1) o una random(2).
+#define PRIMERA_PARTIDA 1 
 
  enum estados_simon{
 	 e_INIT,
@@ -127,14 +131,35 @@ void simon_tratar(EVENTO_T evento, uint32_t aux){
 	{
 		case e_INIT:
 			if(evento == ev_INICIAR_JUEGO){
-				// Ir�a en el main??
-				for(int i = 0; i <TAM_SIMON; i++){
-					leds_simon[i] = hal_random_generar(1,BUTTONS_NUMBER);
+				switch(PRIMERA_PARTIDA){
+					// dependiendo de la varible PRIMERA_PARTIDA se ejecutará la secuencia de leds para nrf, lpc o una random
+					case 0 :{	// nrf
+						int secuencia_temporal[TAM_SIMON] = {1, 2, 3, 4, 3, 2, 1, 2, 3, 4};
+						for(int i = 0; i <TAM_SIMON; i++){
+							leds_simon[i] = secuencia_temporal[i];
+						}
+						break;
+					}
+					case 1 :{	// lpc
+						int secuencia_temporal[TAM_SIMON] = {1, 2, 3, 2, 1, 2, 3, 2, 1, 2};
+						for(int i = 0; i <TAM_SIMON; i++){
+							leds_simon[i] = secuencia_temporal[i];
+						}
+						break;
+					}
+					case 2 :{	// random
+						for(int i = 0; i <TAM_SIMON; i++){
+							leds_simon[i] = hal_random_generar(1,BUTTONS_NUMBER);
+						}
+						break;
+					}
 				}
+				
+				
 				for(int i = 1; i <= LEDS_NUMBER; i++){
 						drv_led_apagar(i);
 				}
-				velocidad = 20;
+				velocidad = VELOCIDAD;
 				svc_alarma_activar(svc_alarma_codificar(0, 10), ev_JUEGO_SEQ_INCIAL, 0);				
 
 				estado_simon = e_SHOW_SEQUENCE;
