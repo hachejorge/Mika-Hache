@@ -87,10 +87,8 @@ Section Cross References
     drv_botones.o(i.drv_botones_iniciar) refers to drv_botones.o(i.drv_botones_tratar) for drv_botones_tratar
     drv_botones.o(i.drv_botones_tratar) refers to hal_ext_int_nrf.o(i.hal_ext_int_limpiar) for hal_ext_int_limpiar
     drv_botones.o(i.drv_botones_tratar) refers to hal_ext_int_nrf.o(i.hal_habilitar_int) for hal_habilitar_int
-    drv_botones.o(i.drv_botones_tratar) refers to drv_leds.o(i.drv_led_apagar) for drv_led_apagar
     drv_botones.o(i.drv_botones_tratar) refers to srv_alarm.o(i.svc_alarma_codificar) for svc_alarma_codificar
     drv_botones.o(i.drv_botones_tratar) refers to srv_alarm.o(i.svc_alarma_activar) for svc_alarma_activar
-    drv_botones.o(i.drv_botones_tratar) refers to drv_leds.o(i.drv_led_encender) for drv_led_encender
     drv_botones.o(i.drv_botones_tratar) refers to hal_ext_int_nrf.o(i.hal_ext_int_leer) for hal_ext_int_leer
     drv_botones.o(i.drv_botones_tratar) refers to drv_botones.o(.data) for .data
     drv_botones.o(i.f_callback_drv) refers to hal_ext_int_nrf.o(i.hal_deshabilitar_int) for hal_deshabilitar_int
@@ -136,6 +134,10 @@ Section Cross References
     srv_alarm.o(i.svc_alarma_tratar) refers to srv_alarm.o(.bss) for .bss
     drv_sc.o(i.drv_SC_entrar_disable_irq) refers to drv_sc.o(.data) for .data
     drv_sc.o(i.drv_SC_salir_enable_irq) refers to drv_sc.o(.data) for .data
+    simon.o(i.apagar_led) refers to drv_leds.o(i.drv_led_apagar) for drv_led_apagar
+    simon.o(i.encender_led) refers to drv_leds.o(i.drv_led_encender) for drv_led_encender
+    simon.o(i.encender_led) refers to srv_alarm.o(i.svc_alarma_codificar) for svc_alarma_codificar
+    simon.o(i.encender_led) refers to srv_alarm.o(i.svc_alarma_activar) for svc_alarma_activar
     simon.o(i.leds_conmutar) refers to drv_leds.o(i.drv_led_conmutar) for drv_led_conmutar
     simon.o(i.reiniciar_juego) refers to srv_alarm.o(i.svc_alarma_codificar) for svc_alarma_codificar
     simon.o(i.reiniciar_juego) refers to srv_alarm.o(i.svc_alarma_activar) for svc_alarma_activar
@@ -159,7 +161,9 @@ Section Cross References
     simon.o(i.simon_iniciar) refers to simon.o(i.simon_conmutar_leds) for simon_conmutar_leds
     simon.o(i.simon_iniciar) refers to simon.o(i.simon_mostrar_seq_juego) for simon_mostrar_seq_juego
     simon.o(i.simon_iniciar) refers to simon.o(i.simon_mostrar_seq_inicial) for simon_mostrar_seq_inicial
+    simon.o(i.simon_iniciar) refers to simon.o(i.encender_led) for encender_led
     simon.o(i.simon_iniciar) refers to simon.o(i.simon_tratar) for simon_tratar
+    simon.o(i.simon_iniciar) refers to simon.o(i.apagar_led) for apagar_led
     simon.o(i.simon_iniciar) refers to simon.o(.data) for .data
     simon.o(i.simon_mostrar_seq_inicial) refers to drv_leds.o(i.drv_led_conmutar) for drv_led_conmutar
     simon.o(i.simon_mostrar_seq_inicial) refers to srv_alarm.o(i.svc_alarma_codificar) for svc_alarma_codificar
@@ -169,7 +173,6 @@ Section Cross References
     simon.o(i.simon_mostrar_seq_juego) refers to srv_alarm.o(i.svc_alarma_activar) for svc_alarma_activar
     simon.o(i.simon_mostrar_seq_juego) refers to simon.o(.data) for .data
     simon.o(i.simon_mostrar_seq_juego) refers to simon.o(.bss) for .bss
-    simon.o(i.simon_tratar) refers to memcpya.o(.text) for __aeabi_memcpy4
     simon.o(i.simon_tratar) refers to hal_random_nrf.o(i.hal_random_generar) for hal_random_generar
     simon.o(i.simon_tratar) refers to drv_leds.o(i.drv_led_apagar) for drv_led_apagar
     simon.o(i.simon_tratar) refers to srv_alarm.o(i.svc_alarma_codificar) for svc_alarma_codificar
@@ -340,27 +343,25 @@ Image Symbol Table
 
     RESET                                    0x00000000   Section      512  arm_startup_nrf52840.o(RESET)
     ../clib/microlib/division.c              0x00000000   Number         0  uldiv.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry5.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
-    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
     ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry11a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry10a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry8b.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry9a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry7a.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry.o ABSOLUTE
+    ../clib/microlib/init/entry.s            0x00000000   Number         0  entry2.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llshl.o ABSOLUTE
     ../clib/microlib/longlong.c              0x00000000   Number         0  llushr.o ABSOLUTE
     ../clib/microlib/stdio/fputs.c           0x00000000   Number         0  fputs.o ABSOLUTE
     ../clib/microlib/stdio/fputs.c           0x00000000   Number         0  fputs_e.o ABSOLUTE
-    ../clib/microlib/stdio/streams.c         0x00000000   Number         0  stderr.o ABSOLUTE
     ../clib/microlib/stdio/streams.c         0x00000000   Number         0  stdout.o ABSOLUTE
-    ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpyb.o ABSOLUTE
-    ../clib/microlib/string/memcpy.c         0x00000000   Number         0  memcpya.o ABSOLUTE
+    ../clib/microlib/stdio/streams.c         0x00000000   Number         0  stderr.o ABSOLUTE
     ..\..\src\Counter_strike.c               0x00000000   Number         0  counter_strike.o ABSOLUTE
     ..\..\src\drv_SC.c                       0x00000000   Number         0  drv_sc.o ABSOLUTE
     ..\..\src\drv_botones.c                  0x00000000   Number         0  drv_botones.o ABSOLUTE
@@ -406,79 +407,80 @@ Image Symbol Table
     .text                                    0x00000214   Section       36  arm_startup_nrf52840.o(.text)
     $v0                                      0x00000214   Number         0  arm_startup_nrf52840.o(.text)
     .text                                    0x00000238   Section        0  uldiv.o(.text)
-    .text                                    0x0000029a   Section        0  memcpya.o(.text)
-    .text                                    0x000002be   Section        0  llshl.o(.text)
-    .text                                    0x000002dc   Section        0  llushr.o(.text)
-    .text                                    0x000002fc   Section       36  init.o(.text)
-    i.GPIOTE_IRQHandler                      0x00000320   Section        0  hal_ext_int_nrf.o(i.GPIOTE_IRQHandler)
-    i.SystemInit                             0x0000035c   Section        0  system_nrf52.o(i.SystemInit)
-    i.TIMER0_IRQHandler                      0x000005dc   Section        0  hal_tiempo_nrf.o(i.TIMER0_IRQHandler)
-    i.TIMER1_IRQHandler                      0x00000608   Section        0  hal_tiempo_nrf.o(i.TIMER1_IRQHandler)
-    i.__scatterload_copy                     0x00000630   Section       14  handlers.o(i.__scatterload_copy)
-    i.__scatterload_null                     0x0000063e   Section        2  handlers.o(i.__scatterload_null)
-    i.__scatterload_zeroinit                 0x00000640   Section       14  handlers.o(i.__scatterload_zeroinit)
-    i.drv_SC_entrar_disable_irq              0x00000650   Section        0  drv_sc.o(i.drv_SC_entrar_disable_irq)
-    i.drv_SC_salir_enable_irq                0x00000664   Section        0  drv_sc.o(i.drv_SC_salir_enable_irq)
-    i.drv_botones_iniciar                    0x00000678   Section        0  drv_botones.o(i.drv_botones_iniciar)
-    i.drv_botones_tratar                     0x000006d8   Section        0  drv_botones.o(i.drv_botones_tratar)
-    i.drv_consumo_dormir                     0x00000828   Section        0  drv_consumo.o(i.drv_consumo_dormir)
-    i.drv_consumo_esperar                    0x00000840   Section        0  drv_consumo.o(i.drv_consumo_esperar)
-    i.drv_consumo_iniciar                    0x00000888   Section        0  drv_consumo.o(i.drv_consumo_iniciar)
-    i.drv_led_apagar                         0x000008a4   Section        0  drv_leds.o(i.drv_led_apagar)
-    i.drv_led_conmutar                       0x000008c0   Section        0  drv_leds.o(i.drv_led_conmutar)
-    i.drv_led_encender                       0x000008e8   Section        0  drv_leds.o(i.drv_led_encender)
-    i.drv_leds_iniciar                       0x00000904   Section        0  drv_leds.o(i.drv_leds_iniciar)
-    i.drv_monitor_desmarcar                  0x00000934   Section        0  drv_monitor.o(i.drv_monitor_desmarcar)
-    i.drv_monitor_iniciar                    0x00000950   Section        0  drv_monitor.o(i.drv_monitor_iniciar)
-    i.drv_monitor_marcar                     0x00000954   Section        0  drv_monitor.o(i.drv_monitor_marcar)
-    i.drv_tiempo_actual_ms                   0x00000970   Section        0  drv_tiempo.o(i.drv_tiempo_actual_ms)
-    i.drv_tiempo_actual_us                   0x000009a0   Section        0  drv_tiempo.o(i.drv_tiempo_actual_us)
-    i.drv_tiempo_iniciar                     0x000009cc   Section        0  drv_tiempo.o(i.drv_tiempo_iniciar)
-    i.drv_tiempo_periodico_ms                0x000009dc   Section        0  drv_tiempo.o(i.drv_tiempo_periodico_ms)
-    i.f_callback_driver                      0x000009fc   Section        0  drv_tiempo.o(i.f_callback_driver)
-    i.f_callback_drv                         0x00000a14   Section        0  drv_botones.o(i.f_callback_drv)
-    i.hal_WDT_feed                           0x00000a6c   Section        0  hal_wdt_nrf.o(i.hal_WDT_feed)
-    i.hal_WDT_iniciar                        0x00000a88   Section        0  hal_wdt_nrf.o(i.hal_WDT_iniciar)
-    i.hal_consumo_dormir                     0x00000acc   Section        0  hal_consumo_nrf.o(i.hal_consumo_dormir)
-    i.hal_consumo_esperar                    0x00000adc   Section        0  hal_consumo_nrf.o(i.hal_consumo_esperar)
-    i.hal_consumo_iniciar                    0x00000ae0   Section        0  hal_consumo_nrf.o(i.hal_consumo_iniciar)
-    i.hal_deshabilitar_int                   0x00000ae4   Section        0  hal_ext_int_nrf.o(i.hal_deshabilitar_int)
-    i.hal_ext_int_iniciar                    0x00000b58   Section        0  hal_ext_int_nrf.o(i.hal_ext_int_iniciar)
-    i.hal_ext_int_leer                       0x00000c1c   Section        0  hal_ext_int_nrf.o(i.hal_ext_int_leer)
-    i.hal_ext_int_limpiar                    0x00000c20   Section        0  hal_ext_int_nrf.o(i.hal_ext_int_limpiar)
-    i.hal_gpio_escribir                      0x00000d04   Section        0  hal_gpio_nrf.o(i.hal_gpio_escribir)
-    i.hal_gpio_iniciar                       0x00000d20   Section        0  hal_gpio_nrf.o(i.hal_gpio_iniciar)
-    i.hal_gpio_leer                          0x00000d2c   Section        0  hal_gpio_nrf.o(i.hal_gpio_leer)
-    i.hal_gpio_sentido                       0x00000d44   Section        0  hal_gpio_nrf.o(i.hal_gpio_sentido)
-    i.hal_habilitar_int                      0x00000d5c   Section        0  hal_ext_int_nrf.o(i.hal_habilitar_int)
-    i.hal_random_generar                     0x00000e50   Section        0  hal_random_nrf.o(i.hal_random_generar)
-    i.hal_random_iniciar                     0x00000e88   Section        0  hal_random_nrf.o(i.hal_random_iniciar)
-    i.hal_tiempo_actual_tick                 0x00000ea4   Section        0  hal_tiempo_nrf.o(i.hal_tiempo_actual_tick)
-    i.hal_tiempo_iniciar_tick                0x00000ed0   Section        0  hal_tiempo_nrf.o(i.hal_tiempo_iniciar_tick)
-    i.hal_tiempo_reloj_periodico_tick        0x00000f28   Section        0  hal_tiempo_nrf.o(i.hal_tiempo_reloj_periodico_tick)
-    i.main                                   0x00000f94   Section        0  main.o(i.main)
-    i.reiniciar_juego                        0x00000fac   Section        0  simon.o(i.reiniciar_juego)
-    i.rt_FIFO_encolar                        0x00000fd0   Section        0  rt_fifo.o(i.rt_FIFO_encolar)
-    i.rt_FIFO_extraer                        0x0000105c   Section        0  rt_fifo.o(i.rt_FIFO_extraer)
-    i.rt_FIFO_inicializar                    0x000010b4   Section        0  rt_fifo.o(i.rt_FIFO_inicializar)
-    i.rt_GE_iniciar                          0x000010e8   Section        0  rt_ge.o(i.rt_GE_iniciar)
-    i.rt_GE_lanzador                         0x000011b4   Section        0  rt_ge.o(i.rt_GE_lanzador)
-    i.rt_GE_tratar                           0x00001210   Section        0  rt_ge.o(i.rt_GE_tratar)
-    i.simon_conmutar_leds                    0x00001244   Section        0  simon.o(i.simon_conmutar_leds)
-    i.simon_iniciar                          0x000012b0   Section        0  simon.o(i.simon_iniciar)
-    i.simon_mostrar_seq_inicial              0x00001358   Section        0  simon.o(i.simon_mostrar_seq_inicial)
-    i.simon_mostrar_seq_juego                0x00001394   Section        0  simon.o(i.simon_mostrar_seq_juego)
-    i.simon_tratar                           0x000013ec   Section        0  simon.o(i.simon_tratar)
-    i.svc_GE_suscribir                       0x000015b0   Section        0  rt_ge.o(i.svc_GE_suscribir)
-    i.svc_alarma_activar                     0x00001600   Section        0  srv_alarm.o(i.svc_alarma_activar)
-    i.svc_alarma_codificar                   0x00001768   Section        0  srv_alarm.o(i.svc_alarma_codificar)
-    i.svc_alarma_iniciar                     0x00001778   Section        0  srv_alarm.o(i.svc_alarma_iniciar)
-    i.svc_alarma_tratar                      0x000017c4   Section        0  srv_alarm.o(i.svc_alarma_tratar)
-    .constdata                               0x00001938   Section        4  drv_leds.o(.constdata)
-    led_list                                 0x00001938   Data           4  drv_leds.o(.constdata)
-    .constdata                               0x0000193c   Section        4  drv_monitor.o(.constdata)
-    monitors_list                            0x0000193c   Data           4  drv_monitor.o(.constdata)
-    .constdata                               0x00001940   Section       80  simon.o(.constdata)
+    .text                                    0x0000029a   Section        0  llshl.o(.text)
+    .text                                    0x000002b8   Section        0  llushr.o(.text)
+    .text                                    0x000002d8   Section       36  init.o(.text)
+    i.GPIOTE_IRQHandler                      0x000002fc   Section        0  hal_ext_int_nrf.o(i.GPIOTE_IRQHandler)
+    i.SystemInit                             0x00000338   Section        0  system_nrf52.o(i.SystemInit)
+    i.TIMER0_IRQHandler                      0x000005b8   Section        0  hal_tiempo_nrf.o(i.TIMER0_IRQHandler)
+    i.TIMER1_IRQHandler                      0x000005e4   Section        0  hal_tiempo_nrf.o(i.TIMER1_IRQHandler)
+    i.__scatterload_copy                     0x0000060c   Section       14  handlers.o(i.__scatterload_copy)
+    i.__scatterload_null                     0x0000061a   Section        2  handlers.o(i.__scatterload_null)
+    i.__scatterload_zeroinit                 0x0000061c   Section       14  handlers.o(i.__scatterload_zeroinit)
+    i.apagar_led                             0x0000062a   Section        0  simon.o(i.apagar_led)
+    i.drv_SC_entrar_disable_irq              0x00000630   Section        0  drv_sc.o(i.drv_SC_entrar_disable_irq)
+    i.drv_SC_salir_enable_irq                0x00000644   Section        0  drv_sc.o(i.drv_SC_salir_enable_irq)
+    i.drv_botones_iniciar                    0x00000658   Section        0  drv_botones.o(i.drv_botones_iniciar)
+    i.drv_botones_tratar                     0x000006b8   Section        0  drv_botones.o(i.drv_botones_tratar)
+    i.drv_consumo_dormir                     0x000007fc   Section        0  drv_consumo.o(i.drv_consumo_dormir)
+    i.drv_consumo_esperar                    0x00000814   Section        0  drv_consumo.o(i.drv_consumo_esperar)
+    i.drv_consumo_iniciar                    0x0000085c   Section        0  drv_consumo.o(i.drv_consumo_iniciar)
+    i.drv_led_apagar                         0x00000878   Section        0  drv_leds.o(i.drv_led_apagar)
+    i.drv_led_conmutar                       0x00000894   Section        0  drv_leds.o(i.drv_led_conmutar)
+    i.drv_led_encender                       0x000008bc   Section        0  drv_leds.o(i.drv_led_encender)
+    i.drv_leds_iniciar                       0x000008d8   Section        0  drv_leds.o(i.drv_leds_iniciar)
+    i.drv_monitor_desmarcar                  0x00000908   Section        0  drv_monitor.o(i.drv_monitor_desmarcar)
+    i.drv_monitor_iniciar                    0x00000924   Section        0  drv_monitor.o(i.drv_monitor_iniciar)
+    i.drv_monitor_marcar                     0x00000928   Section        0  drv_monitor.o(i.drv_monitor_marcar)
+    i.drv_tiempo_actual_ms                   0x00000944   Section        0  drv_tiempo.o(i.drv_tiempo_actual_ms)
+    i.drv_tiempo_actual_us                   0x00000974   Section        0  drv_tiempo.o(i.drv_tiempo_actual_us)
+    i.drv_tiempo_iniciar                     0x000009a0   Section        0  drv_tiempo.o(i.drv_tiempo_iniciar)
+    i.drv_tiempo_periodico_ms                0x000009b0   Section        0  drv_tiempo.o(i.drv_tiempo_periodico_ms)
+    i.encender_led                           0x000009d0   Section        0  simon.o(i.encender_led)
+    i.f_callback_driver                      0x000009f0   Section        0  drv_tiempo.o(i.f_callback_driver)
+    i.f_callback_drv                         0x00000a08   Section        0  drv_botones.o(i.f_callback_drv)
+    i.hal_WDT_feed                           0x00000a60   Section        0  hal_wdt_nrf.o(i.hal_WDT_feed)
+    i.hal_WDT_iniciar                        0x00000a7c   Section        0  hal_wdt_nrf.o(i.hal_WDT_iniciar)
+    i.hal_consumo_dormir                     0x00000ac0   Section        0  hal_consumo_nrf.o(i.hal_consumo_dormir)
+    i.hal_consumo_esperar                    0x00000ad0   Section        0  hal_consumo_nrf.o(i.hal_consumo_esperar)
+    i.hal_consumo_iniciar                    0x00000ad4   Section        0  hal_consumo_nrf.o(i.hal_consumo_iniciar)
+    i.hal_deshabilitar_int                   0x00000ad8   Section        0  hal_ext_int_nrf.o(i.hal_deshabilitar_int)
+    i.hal_ext_int_iniciar                    0x00000b4c   Section        0  hal_ext_int_nrf.o(i.hal_ext_int_iniciar)
+    i.hal_ext_int_leer                       0x00000c10   Section        0  hal_ext_int_nrf.o(i.hal_ext_int_leer)
+    i.hal_ext_int_limpiar                    0x00000c14   Section        0  hal_ext_int_nrf.o(i.hal_ext_int_limpiar)
+    i.hal_gpio_escribir                      0x00000cf8   Section        0  hal_gpio_nrf.o(i.hal_gpio_escribir)
+    i.hal_gpio_iniciar                       0x00000d14   Section        0  hal_gpio_nrf.o(i.hal_gpio_iniciar)
+    i.hal_gpio_leer                          0x00000d20   Section        0  hal_gpio_nrf.o(i.hal_gpio_leer)
+    i.hal_gpio_sentido                       0x00000d38   Section        0  hal_gpio_nrf.o(i.hal_gpio_sentido)
+    i.hal_habilitar_int                      0x00000d50   Section        0  hal_ext_int_nrf.o(i.hal_habilitar_int)
+    i.hal_random_generar                     0x00000e44   Section        0  hal_random_nrf.o(i.hal_random_generar)
+    i.hal_random_iniciar                     0x00000e7c   Section        0  hal_random_nrf.o(i.hal_random_iniciar)
+    i.hal_tiempo_actual_tick                 0x00000e98   Section        0  hal_tiempo_nrf.o(i.hal_tiempo_actual_tick)
+    i.hal_tiempo_iniciar_tick                0x00000ec4   Section        0  hal_tiempo_nrf.o(i.hal_tiempo_iniciar_tick)
+    i.hal_tiempo_reloj_periodico_tick        0x00000f1c   Section        0  hal_tiempo_nrf.o(i.hal_tiempo_reloj_periodico_tick)
+    i.main                                   0x00000f88   Section        0  main.o(i.main)
+    i.reiniciar_juego                        0x00000fa0   Section        0  simon.o(i.reiniciar_juego)
+    i.rt_FIFO_encolar                        0x00000fc4   Section        0  rt_fifo.o(i.rt_FIFO_encolar)
+    i.rt_FIFO_extraer                        0x00001050   Section        0  rt_fifo.o(i.rt_FIFO_extraer)
+    i.rt_FIFO_inicializar                    0x000010a8   Section        0  rt_fifo.o(i.rt_FIFO_inicializar)
+    i.rt_GE_iniciar                          0x000010e0   Section        0  rt_ge.o(i.rt_GE_iniciar)
+    i.rt_GE_lanzador                         0x000011ac   Section        0  rt_ge.o(i.rt_GE_lanzador)
+    i.rt_GE_tratar                           0x00001208   Section        0  rt_ge.o(i.rt_GE_tratar)
+    i.simon_conmutar_leds                    0x0000123c   Section        0  simon.o(i.simon_conmutar_leds)
+    i.simon_iniciar                          0x000012a8   Section        0  simon.o(i.simon_iniciar)
+    i.simon_mostrar_seq_inicial              0x00001368   Section        0  simon.o(i.simon_mostrar_seq_inicial)
+    i.simon_mostrar_seq_juego                0x000013a4   Section        0  simon.o(i.simon_mostrar_seq_juego)
+    i.simon_tratar                           0x000013fc   Section        0  simon.o(i.simon_tratar)
+    i.svc_GE_suscribir                       0x00001568   Section        0  rt_ge.o(i.svc_GE_suscribir)
+    i.svc_alarma_activar                     0x000015b8   Section        0  srv_alarm.o(i.svc_alarma_activar)
+    i.svc_alarma_codificar                   0x00001720   Section        0  srv_alarm.o(i.svc_alarma_codificar)
+    i.svc_alarma_iniciar                     0x00001730   Section        0  srv_alarm.o(i.svc_alarma_iniciar)
+    i.svc_alarma_tratar                      0x00001780   Section        0  srv_alarm.o(i.svc_alarma_tratar)
+    .constdata                               0x000018f4   Section        4  drv_leds.o(.constdata)
+    led_list                                 0x000018f4   Data           4  drv_leds.o(.constdata)
+    .constdata                               0x000018f8   Section        4  drv_monitor.o(.constdata)
+    monitors_list                            0x000018f8   Data           4  drv_monitor.o(.constdata)
+    .constdata                               0x000018fc   Section       40  simon.o(.constdata)
     .data                                    0x20000000   Section       16  drv_tiempo.o(.data)
     HAL_TICKS2US_T1                          0x20000000   Data           4  drv_tiempo.o(.data)
     HAL_TICKS2US_T0                          0x20000004   Data           4  drv_tiempo.o(.data)
@@ -506,31 +508,31 @@ Image Symbol Table
     num_alarmas                              0x20000054   Data           4  srv_alarm.o(.data)
     .data                                    0x20000058   Section        4  drv_sc.o(.data)
     m_in_critical_region                     0x20000058   Data           4  drv_sc.o(.data)
-    .data                                    0x2000005c   Section       20  simon.o(.data)
-    PRIMERA_PARTIDA                          0x20000060   Data           4  simon.o(.data)
-    posicion_simon                           0x20000064   Data           4  simon.o(.data)
-    posicion_pulsada                         0x20000068   Data           4  simon.o(.data)
-    velocidad                                0x2000006c   Data           4  simon.o(.data)
-    .data                                    0x20000070   Section        8  hal_tiempo_nrf.o(.data)
-    timer0_int_count                         0x20000070   Data           4  hal_tiempo_nrf.o(.data)
-    f_callback                               0x20000074   Data           4  hal_tiempo_nrf.o(.data)
-    .data                                    0x20000078   Section        8  hal_ext_int_nrf.o(.data)
-    callback_func                            0x20000078   Data           4  hal_ext_int_nrf.o(.data)
-    canales_ocupados                         0x2000007c   Data           4  hal_ext_int_nrf.o(.data)
-    .data                                    0x20000080   Section        4  system_nrf52.o(.data)
-    __tagsym$$used                           0x20000080   Number         0  system_nrf52.o(.data)
-    .bss                                     0x20000088   Section     1072  rt_fifo.o(.bss)
-    cola                                     0x20000088   Data        1024  rt_fifo.o(.bss)
-    stats                                    0x20000488   Data          48  rt_fifo.o(.bss)
-    .bss                                     0x200004b8   Section      240  rt_ge.o(.bss)
-    gestor_eventos                           0x200004b8   Data         240  rt_ge.o(.bss)
-    .bss                                     0x200005a8   Section       80  srv_alarm.o(.bss)
-    lista_alarmas                            0x200005a8   Data          80  srv_alarm.o(.bss)
-    .bss                                     0x200005f8   Section       80  simon.o(.bss)
-    leds_simon                               0x200005f8   Data          80  simon.o(.bss)
-    .bss                                     0x20000648   Section       32  hal_ext_int_nrf.o(.bss)
-    pin_a_canal                              0x20000648   Data          32  hal_ext_int_nrf.o(.bss)
-    STACK                                    0x20000668   Section    16384  arm_startup_nrf52840.o(STACK)
+    .data                                    0x2000005c   Section       16  simon.o(.data)
+    primera_vez                              0x2000005c   Data           1  simon.o(.data)
+    posicion_simon                           0x20000060   Data           4  simon.o(.data)
+    posicion_pulsada                         0x20000064   Data           4  simon.o(.data)
+    velocidad                                0x20000068   Data           4  simon.o(.data)
+    .data                                    0x2000006c   Section        8  hal_tiempo_nrf.o(.data)
+    timer0_int_count                         0x2000006c   Data           4  hal_tiempo_nrf.o(.data)
+    f_callback                               0x20000070   Data           4  hal_tiempo_nrf.o(.data)
+    .data                                    0x20000074   Section        8  hal_ext_int_nrf.o(.data)
+    callback_func                            0x20000074   Data           4  hal_ext_int_nrf.o(.data)
+    canales_ocupados                         0x20000078   Data           4  hal_ext_int_nrf.o(.data)
+    .data                                    0x2000007c   Section        4  system_nrf52.o(.data)
+    __tagsym$$used                           0x2000007c   Number         0  system_nrf52.o(.data)
+    .bss                                     0x20000080   Section     1076  rt_fifo.o(.bss)
+    cola                                     0x20000080   Data        1024  rt_fifo.o(.bss)
+    stats                                    0x20000480   Data          52  rt_fifo.o(.bss)
+    .bss                                     0x200004b4   Section      260  rt_ge.o(.bss)
+    gestor_eventos                           0x200004b4   Data         260  rt_ge.o(.bss)
+    .bss                                     0x200005b8   Section      100  srv_alarm.o(.bss)
+    lista_alarmas                            0x200005b8   Data         100  srv_alarm.o(.bss)
+    .bss                                     0x2000061c   Section       80  simon.o(.bss)
+    leds_simon                               0x2000061c   Data          80  simon.o(.bss)
+    .bss                                     0x2000066c   Section       32  hal_ext_int_nrf.o(.bss)
+    pin_a_canal                              0x2000066c   Data          32  hal_ext_int_nrf.o(.bss)
+    STACK                                    0x20000690   Section    16384  arm_startup_nrf52840.o(STACK)
 
     Global Symbols
 
@@ -606,86 +608,85 @@ Image Symbol Table
     USBD_IRQHandler                          0x0000022f   Thumb Code     0  arm_startup_nrf52840.o(.text)
     WDT_IRQHandler                           0x0000022f   Thumb Code     0  arm_startup_nrf52840.o(.text)
     __aeabi_uldivmod                         0x00000239   Thumb Code    98  uldiv.o(.text)
-    __aeabi_memcpy                           0x0000029b   Thumb Code    36  memcpya.o(.text)
-    __aeabi_memcpy4                          0x0000029b   Thumb Code     0  memcpya.o(.text)
-    __aeabi_memcpy8                          0x0000029b   Thumb Code     0  memcpya.o(.text)
-    __aeabi_llsl                             0x000002bf   Thumb Code    30  llshl.o(.text)
-    _ll_shift_l                              0x000002bf   Thumb Code     0  llshl.o(.text)
-    __aeabi_llsr                             0x000002dd   Thumb Code    32  llushr.o(.text)
-    _ll_ushift_r                             0x000002dd   Thumb Code     0  llushr.o(.text)
-    __scatterload                            0x000002fd   Thumb Code    28  init.o(.text)
-    __scatterload_rt2                        0x000002fd   Thumb Code     0  init.o(.text)
-    GPIOTE_IRQHandler                        0x00000321   Thumb Code    52  hal_ext_int_nrf.o(i.GPIOTE_IRQHandler)
-    SystemInit                               0x0000035d   Thumb Code   500  system_nrf52.o(i.SystemInit)
-    TIMER0_IRQHandler                        0x000005dd   Thumb Code    34  hal_tiempo_nrf.o(i.TIMER0_IRQHandler)
-    TIMER1_IRQHandler                        0x00000609   Thumb Code    30  hal_tiempo_nrf.o(i.TIMER1_IRQHandler)
-    __scatterload_copy                       0x00000631   Thumb Code    14  handlers.o(i.__scatterload_copy)
-    __scatterload_null                       0x0000063f   Thumb Code     2  handlers.o(i.__scatterload_null)
-    __scatterload_zeroinit                   0x00000641   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
-    drv_SC_entrar_disable_irq                0x00000651   Thumb Code    14  drv_sc.o(i.drv_SC_entrar_disable_irq)
-    drv_SC_salir_enable_irq                  0x00000665   Thumb Code    16  drv_sc.o(i.drv_SC_salir_enable_irq)
-    drv_botones_iniciar                      0x00000679   Thumb Code    82  drv_botones.o(i.drv_botones_iniciar)
-    drv_botones_tratar                       0x000006d9   Thumb Code   328  drv_botones.o(i.drv_botones_tratar)
-    drv_consumo_dormir                       0x00000829   Thumb Code    24  drv_consumo.o(i.drv_consumo_dormir)
-    drv_consumo_esperar                      0x00000841   Thumb Code    66  drv_consumo.o(i.drv_consumo_esperar)
-    drv_consumo_iniciar                      0x00000889   Thumb Code    22  drv_consumo.o(i.drv_consumo_iniciar)
-    drv_led_apagar                           0x000008a5   Thumb Code    24  drv_leds.o(i.drv_led_apagar)
-    drv_led_conmutar                         0x000008c1   Thumb Code    36  drv_leds.o(i.drv_led_conmutar)
-    drv_led_encender                         0x000008e9   Thumb Code    22  drv_leds.o(i.drv_led_encender)
-    drv_leds_iniciar                         0x00000905   Thumb Code    44  drv_leds.o(i.drv_leds_iniciar)
-    drv_monitor_desmarcar                    0x00000935   Thumb Code    24  drv_monitor.o(i.drv_monitor_desmarcar)
-    drv_monitor_iniciar                      0x00000951   Thumb Code     4  drv_monitor.o(i.drv_monitor_iniciar)
-    drv_monitor_marcar                       0x00000955   Thumb Code    22  drv_monitor.o(i.drv_monitor_marcar)
-    drv_tiempo_actual_ms                     0x00000971   Thumb Code    44  drv_tiempo.o(i.drv_tiempo_actual_ms)
-    drv_tiempo_actual_us                     0x000009a1   Thumb Code    38  drv_tiempo.o(i.drv_tiempo_actual_us)
-    drv_tiempo_iniciar                       0x000009cd   Thumb Code    12  drv_tiempo.o(i.drv_tiempo_iniciar)
-    drv_tiempo_periodico_ms                  0x000009dd   Thumb Code    22  drv_tiempo.o(i.drv_tiempo_periodico_ms)
-    f_callback_driver                        0x000009fd   Thumb Code    20  drv_tiempo.o(i.f_callback_driver)
-    f_callback_drv                           0x00000a15   Thumb Code    78  drv_botones.o(i.f_callback_drv)
-    hal_WDT_feed                             0x00000a6d   Thumb Code    20  hal_wdt_nrf.o(i.hal_WDT_feed)
-    hal_WDT_iniciar                          0x00000a89   Thumb Code    46  hal_wdt_nrf.o(i.hal_WDT_iniciar)
-    hal_consumo_dormir                       0x00000acd   Thumb Code    10  hal_consumo_nrf.o(i.hal_consumo_dormir)
-    hal_consumo_esperar                      0x00000add   Thumb Code     4  hal_consumo_nrf.o(i.hal_consumo_esperar)
-    hal_consumo_iniciar                      0x00000ae1   Thumb Code     2  hal_consumo_nrf.o(i.hal_consumo_iniciar)
-    hal_deshabilitar_int                     0x00000ae5   Thumb Code   102  hal_ext_int_nrf.o(i.hal_deshabilitar_int)
-    hal_ext_int_iniciar                      0x00000b59   Thumb Code   152  hal_ext_int_nrf.o(i.hal_ext_int_iniciar)
-    hal_ext_int_leer                         0x00000c1d   Thumb Code     4  hal_ext_int_nrf.o(i.hal_ext_int_leer)
-    hal_ext_int_limpiar                      0x00000c21   Thumb Code   182  hal_ext_int_nrf.o(i.hal_ext_int_limpiar)
-    hal_gpio_escribir                        0x00000d05   Thumb Code    20  hal_gpio_nrf.o(i.hal_gpio_escribir)
-    hal_gpio_iniciar                         0x00000d21   Thumb Code     8  hal_gpio_nrf.o(i.hal_gpio_iniciar)
-    hal_gpio_leer                            0x00000d2d   Thumb Code    18  hal_gpio_nrf.o(i.hal_gpio_leer)
-    hal_gpio_sentido                         0x00000d45   Thumb Code    20  hal_gpio_nrf.o(i.hal_gpio_sentido)
-    hal_habilitar_int                        0x00000d5d   Thumb Code   226  hal_ext_int_nrf.o(i.hal_habilitar_int)
-    hal_random_generar                       0x00000e51   Thumb Code    46  hal_random_nrf.o(i.hal_random_generar)
-    hal_random_iniciar                       0x00000e89   Thumb Code    18  hal_random_nrf.o(i.hal_random_iniciar)
-    hal_tiempo_actual_tick                   0x00000ea5   Thumb Code    30  hal_tiempo_nrf.o(i.hal_tiempo_actual_tick)
-    hal_tiempo_iniciar_tick                  0x00000ed1   Thumb Code    64  hal_tiempo_nrf.o(i.hal_tiempo_iniciar_tick)
-    hal_tiempo_reloj_periodico_tick          0x00000f29   Thumb Code    82  hal_tiempo_nrf.o(i.hal_tiempo_reloj_periodico_tick)
-    main                                     0x00000f95   Thumb Code    22  main.o(i.main)
-    reiniciar_juego                          0x00000fad   Thumb Code    32  simon.o(i.reiniciar_juego)
-    rt_FIFO_encolar                          0x00000fd1   Thumb Code   128  rt_fifo.o(i.rt_FIFO_encolar)
-    rt_FIFO_extraer                          0x0000105d   Thumb Code    78  rt_fifo.o(i.rt_FIFO_extraer)
-    rt_FIFO_inicializar                      0x000010b5   Thumb Code    44  rt_fifo.o(i.rt_FIFO_inicializar)
-    rt_GE_iniciar                            0x000010e9   Thumb Code   192  rt_ge.o(i.rt_GE_iniciar)
-    rt_GE_lanzador                           0x000011b5   Thumb Code    86  rt_ge.o(i.rt_GE_lanzador)
-    rt_GE_tratar                             0x00001211   Thumb Code    46  rt_ge.o(i.rt_GE_tratar)
-    simon_conmutar_leds                      0x00001245   Thumb Code   102  simon.o(i.simon_conmutar_leds)
-    simon_iniciar                            0x000012b1   Thumb Code   140  simon.o(i.simon_iniciar)
-    simon_mostrar_seq_inicial                0x00001359   Thumb Code    58  simon.o(i.simon_mostrar_seq_inicial)
-    simon_mostrar_seq_juego                  0x00001395   Thumb Code    78  simon.o(i.simon_mostrar_seq_juego)
-    simon_tratar                             0x000013ed   Thumb Code   438  simon.o(i.simon_tratar)
-    svc_GE_suscribir                         0x000015b1   Thumb Code    72  rt_ge.o(i.svc_GE_suscribir)
-    svc_alarma_activar                       0x00001601   Thumb Code   350  srv_alarm.o(i.svc_alarma_activar)
-    svc_alarma_codificar                     0x00001769   Thumb Code    14  srv_alarm.o(i.svc_alarma_codificar)
-    svc_alarma_iniciar                       0x00001779   Thumb Code    64  srv_alarm.o(i.svc_alarma_iniciar)
-    svc_alarma_tratar                        0x000017c5   Thumb Code   364  srv_alarm.o(i.svc_alarma_tratar)
-    Region$$Table$$Base                      0x00001990   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x000019b0   Number         0  anon$$obj.o(Region$$Table)
+    __aeabi_llsl                             0x0000029b   Thumb Code    30  llshl.o(.text)
+    _ll_shift_l                              0x0000029b   Thumb Code     0  llshl.o(.text)
+    __aeabi_llsr                             0x000002b9   Thumb Code    32  llushr.o(.text)
+    _ll_ushift_r                             0x000002b9   Thumb Code     0  llushr.o(.text)
+    __scatterload                            0x000002d9   Thumb Code    28  init.o(.text)
+    __scatterload_rt2                        0x000002d9   Thumb Code     0  init.o(.text)
+    GPIOTE_IRQHandler                        0x000002fd   Thumb Code    52  hal_ext_int_nrf.o(i.GPIOTE_IRQHandler)
+    SystemInit                               0x00000339   Thumb Code   500  system_nrf52.o(i.SystemInit)
+    TIMER0_IRQHandler                        0x000005b9   Thumb Code    34  hal_tiempo_nrf.o(i.TIMER0_IRQHandler)
+    TIMER1_IRQHandler                        0x000005e5   Thumb Code    30  hal_tiempo_nrf.o(i.TIMER1_IRQHandler)
+    __scatterload_copy                       0x0000060d   Thumb Code    14  handlers.o(i.__scatterload_copy)
+    __scatterload_null                       0x0000061b   Thumb Code     2  handlers.o(i.__scatterload_null)
+    __scatterload_zeroinit                   0x0000061d   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
+    apagar_led                               0x0000062b   Thumb Code     6  simon.o(i.apagar_led)
+    drv_SC_entrar_disable_irq                0x00000631   Thumb Code    14  drv_sc.o(i.drv_SC_entrar_disable_irq)
+    drv_SC_salir_enable_irq                  0x00000645   Thumb Code    16  drv_sc.o(i.drv_SC_salir_enable_irq)
+    drv_botones_iniciar                      0x00000659   Thumb Code    82  drv_botones.o(i.drv_botones_iniciar)
+    drv_botones_tratar                       0x000006b9   Thumb Code   316  drv_botones.o(i.drv_botones_tratar)
+    drv_consumo_dormir                       0x000007fd   Thumb Code    24  drv_consumo.o(i.drv_consumo_dormir)
+    drv_consumo_esperar                      0x00000815   Thumb Code    66  drv_consumo.o(i.drv_consumo_esperar)
+    drv_consumo_iniciar                      0x0000085d   Thumb Code    22  drv_consumo.o(i.drv_consumo_iniciar)
+    drv_led_apagar                           0x00000879   Thumb Code    24  drv_leds.o(i.drv_led_apagar)
+    drv_led_conmutar                         0x00000895   Thumb Code    36  drv_leds.o(i.drv_led_conmutar)
+    drv_led_encender                         0x000008bd   Thumb Code    22  drv_leds.o(i.drv_led_encender)
+    drv_leds_iniciar                         0x000008d9   Thumb Code    44  drv_leds.o(i.drv_leds_iniciar)
+    drv_monitor_desmarcar                    0x00000909   Thumb Code    24  drv_monitor.o(i.drv_monitor_desmarcar)
+    drv_monitor_iniciar                      0x00000925   Thumb Code     4  drv_monitor.o(i.drv_monitor_iniciar)
+    drv_monitor_marcar                       0x00000929   Thumb Code    22  drv_monitor.o(i.drv_monitor_marcar)
+    drv_tiempo_actual_ms                     0x00000945   Thumb Code    44  drv_tiempo.o(i.drv_tiempo_actual_ms)
+    drv_tiempo_actual_us                     0x00000975   Thumb Code    38  drv_tiempo.o(i.drv_tiempo_actual_us)
+    drv_tiempo_iniciar                       0x000009a1   Thumb Code    12  drv_tiempo.o(i.drv_tiempo_iniciar)
+    drv_tiempo_periodico_ms                  0x000009b1   Thumb Code    22  drv_tiempo.o(i.drv_tiempo_periodico_ms)
+    encender_led                             0x000009d1   Thumb Code    32  simon.o(i.encender_led)
+    f_callback_driver                        0x000009f1   Thumb Code    20  drv_tiempo.o(i.f_callback_driver)
+    f_callback_drv                           0x00000a09   Thumb Code    78  drv_botones.o(i.f_callback_drv)
+    hal_WDT_feed                             0x00000a61   Thumb Code    20  hal_wdt_nrf.o(i.hal_WDT_feed)
+    hal_WDT_iniciar                          0x00000a7d   Thumb Code    46  hal_wdt_nrf.o(i.hal_WDT_iniciar)
+    hal_consumo_dormir                       0x00000ac1   Thumb Code    10  hal_consumo_nrf.o(i.hal_consumo_dormir)
+    hal_consumo_esperar                      0x00000ad1   Thumb Code     4  hal_consumo_nrf.o(i.hal_consumo_esperar)
+    hal_consumo_iniciar                      0x00000ad5   Thumb Code     2  hal_consumo_nrf.o(i.hal_consumo_iniciar)
+    hal_deshabilitar_int                     0x00000ad9   Thumb Code   102  hal_ext_int_nrf.o(i.hal_deshabilitar_int)
+    hal_ext_int_iniciar                      0x00000b4d   Thumb Code   152  hal_ext_int_nrf.o(i.hal_ext_int_iniciar)
+    hal_ext_int_leer                         0x00000c11   Thumb Code     4  hal_ext_int_nrf.o(i.hal_ext_int_leer)
+    hal_ext_int_limpiar                      0x00000c15   Thumb Code   182  hal_ext_int_nrf.o(i.hal_ext_int_limpiar)
+    hal_gpio_escribir                        0x00000cf9   Thumb Code    20  hal_gpio_nrf.o(i.hal_gpio_escribir)
+    hal_gpio_iniciar                         0x00000d15   Thumb Code     8  hal_gpio_nrf.o(i.hal_gpio_iniciar)
+    hal_gpio_leer                            0x00000d21   Thumb Code    18  hal_gpio_nrf.o(i.hal_gpio_leer)
+    hal_gpio_sentido                         0x00000d39   Thumb Code    20  hal_gpio_nrf.o(i.hal_gpio_sentido)
+    hal_habilitar_int                        0x00000d51   Thumb Code   226  hal_ext_int_nrf.o(i.hal_habilitar_int)
+    hal_random_generar                       0x00000e45   Thumb Code    46  hal_random_nrf.o(i.hal_random_generar)
+    hal_random_iniciar                       0x00000e7d   Thumb Code    18  hal_random_nrf.o(i.hal_random_iniciar)
+    hal_tiempo_actual_tick                   0x00000e99   Thumb Code    30  hal_tiempo_nrf.o(i.hal_tiempo_actual_tick)
+    hal_tiempo_iniciar_tick                  0x00000ec5   Thumb Code    64  hal_tiempo_nrf.o(i.hal_tiempo_iniciar_tick)
+    hal_tiempo_reloj_periodico_tick          0x00000f1d   Thumb Code    82  hal_tiempo_nrf.o(i.hal_tiempo_reloj_periodico_tick)
+    main                                     0x00000f89   Thumb Code    22  main.o(i.main)
+    reiniciar_juego                          0x00000fa1   Thumb Code    32  simon.o(i.reiniciar_juego)
+    rt_FIFO_encolar                          0x00000fc5   Thumb Code   128  rt_fifo.o(i.rt_FIFO_encolar)
+    rt_FIFO_extraer                          0x00001051   Thumb Code    78  rt_fifo.o(i.rt_FIFO_extraer)
+    rt_FIFO_inicializar                      0x000010a9   Thumb Code    46  rt_fifo.o(i.rt_FIFO_inicializar)
+    rt_GE_iniciar                            0x000010e1   Thumb Code   192  rt_ge.o(i.rt_GE_iniciar)
+    rt_GE_lanzador                           0x000011ad   Thumb Code    86  rt_ge.o(i.rt_GE_lanzador)
+    rt_GE_tratar                             0x00001209   Thumb Code    46  rt_ge.o(i.rt_GE_tratar)
+    simon_conmutar_leds                      0x0000123d   Thumb Code   102  simon.o(i.simon_conmutar_leds)
+    simon_iniciar                            0x000012a9   Thumb Code   156  simon.o(i.simon_iniciar)
+    simon_mostrar_seq_inicial                0x00001369   Thumb Code    58  simon.o(i.simon_mostrar_seq_inicial)
+    simon_mostrar_seq_juego                  0x000013a5   Thumb Code    78  simon.o(i.simon_mostrar_seq_juego)
+    simon_tratar                             0x000013fd   Thumb Code   350  simon.o(i.simon_tratar)
+    svc_GE_suscribir                         0x00001569   Thumb Code    72  rt_ge.o(i.svc_GE_suscribir)
+    svc_alarma_activar                       0x000015b9   Thumb Code   350  srv_alarm.o(i.svc_alarma_activar)
+    svc_alarma_codificar                     0x00001721   Thumb Code    14  srv_alarm.o(i.svc_alarma_codificar)
+    svc_alarma_iniciar                       0x00001731   Thumb Code    66  srv_alarm.o(i.svc_alarma_iniciar)
+    svc_alarma_tratar                        0x00001781   Thumb Code   364  srv_alarm.o(i.svc_alarma_tratar)
+    Region$$Table$$Base                      0x00001924   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x00001944   Number         0  anon$$obj.o(Region$$Table)
     estado_actual                            0x20000029   Data           1  drv_botones.o(.data)
     evs_USUARIO                              0x20000044   Data           1  rt_ge.o(.data)
-    estado_simon                             0x2000005c   Data           1  simon.o(.data)
-    SystemCoreClock                          0x20000080   Data           4  system_nrf52.o(.data)
-    __initial_sp                             0x20004668   Data           0  arm_startup_nrf52840.o(STACK)
+    estado_simon                             0x2000005d   Data           1  simon.o(.data)
+    SystemCoreClock                          0x2000007c   Data           4  system_nrf52.o(.data)
+    __initial_sp                             0x20004690   Data           0  arm_startup_nrf52840.o(STACK)
 
 
 
@@ -695,125 +696,125 @@ Memory Map of the image
 
   Image Entry point : 0x00000201
 
-  Load Region LR_IROM1 (Base: 0x00000000, Size: 0x00001a34, Max: 0x00100000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x00000000, Size: 0x000019c4, Max: 0x00100000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x000019b0, Max: 0x00100000, ABSOLUTE)
-
-    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
-
-    0x00000000   0x00000000   0x00000200   Data   RO          935    RESET               arm_startup_nrf52840.o
-    0x00000200   0x00000200   0x00000000   Code   RO         1005  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
-    0x00000200   0x00000200   0x00000004   Code   RO         1020    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
-    0x00000204   0x00000204   0x00000004   Code   RO         1023    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
-    0x00000208   0x00000208   0x00000000   Code   RO         1025    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
-    0x00000208   0x00000208   0x00000000   Code   RO         1027    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
-    0x00000208   0x00000208   0x00000008   Code   RO         1028    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
-    0x00000210   0x00000210   0x00000000   Code   RO         1030    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
-    0x00000210   0x00000210   0x00000000   Code   RO         1032    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
-    0x00000210   0x00000210   0x00000004   Code   RO         1021    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
-    0x00000214   0x00000214   0x00000024   Code   RO          936    .text               arm_startup_nrf52840.o
-    0x00000238   0x00000238   0x00000062   Code   RO         1014    .text               mc_w.l(uldiv.o)
-    0x0000029a   0x0000029a   0x00000024   Code   RO         1016    .text               mc_w.l(memcpya.o)
-    0x000002be   0x000002be   0x0000001e   Code   RO         1034    .text               mc_w.l(llshl.o)
-    0x000002dc   0x000002dc   0x00000020   Code   RO         1036    .text               mc_w.l(llushr.o)
-    0x000002fc   0x000002fc   0x00000024   Code   RO         1038    .text               mc_w.l(init.o)
-    0x00000320   0x00000320   0x0000003c   Code   RO          719    i.GPIOTE_IRQHandler  hal_ext_int_nrf.o
-    0x0000035c   0x0000035c   0x00000280   Code   RO          944    i.SystemInit        system_nrf52.o
-    0x000005dc   0x000005dc   0x0000002c   Code   RO          626    i.TIMER0_IRQHandler  hal_tiempo_nrf.o
-    0x00000608   0x00000608   0x00000028   Code   RO          627    i.TIMER1_IRQHandler  hal_tiempo_nrf.o
-    0x00000630   0x00000630   0x0000000e   Code   RO         1042    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x0000063e   0x0000063e   0x00000002   Code   RO         1043    i.__scatterload_null  mc_w.l(handlers.o)
-    0x00000640   0x00000640   0x0000000e   Code   RO         1044    i.__scatterload_zeroinit  mc_w.l(handlers.o)
-    0x0000064e   0x0000064e   0x00000002   PAD
-    0x00000650   0x00000650   0x00000014   Code   RO          383    i.drv_SC_entrar_disable_irq  drv_sc.o
-    0x00000664   0x00000664   0x00000014   Code   RO          384    i.drv_SC_salir_enable_irq  drv_sc.o
-    0x00000678   0x00000678   0x00000060   Code   RO          250    i.drv_botones_iniciar  drv_botones.o
-    0x000006d8   0x000006d8   0x00000150   Code   RO          251    i.drv_botones_tratar  drv_botones.o
-    0x00000828   0x00000828   0x00000018   Code   RO          129    i.drv_consumo_dormir  drv_consumo.o
-    0x00000840   0x00000840   0x00000048   Code   RO          130    i.drv_consumo_esperar  drv_consumo.o
-    0x00000888   0x00000888   0x0000001c   Code   RO          131    i.drv_consumo_iniciar  drv_consumo.o
-    0x000008a4   0x000008a4   0x0000001c   Code   RO           39    i.drv_led_apagar    drv_leds.o
-    0x000008c0   0x000008c0   0x00000028   Code   RO           40    i.drv_led_conmutar  drv_leds.o
-    0x000008e8   0x000008e8   0x0000001c   Code   RO           41    i.drv_led_encender  drv_leds.o
-    0x00000904   0x00000904   0x00000030   Code   RO           42    i.drv_leds_iniciar  drv_leds.o
-    0x00000934   0x00000934   0x0000001c   Code   RO          221    i.drv_monitor_desmarcar  drv_monitor.o
-    0x00000950   0x00000950   0x00000004   Code   RO          222    i.drv_monitor_iniciar  drv_monitor.o
-    0x00000954   0x00000954   0x0000001c   Code   RO          223    i.drv_monitor_marcar  drv_monitor.o
-    0x00000970   0x00000970   0x00000030   Code   RO           77    i.drv_tiempo_actual_ms  drv_tiempo.o
-    0x000009a0   0x000009a0   0x0000002c   Code   RO           78    i.drv_tiempo_actual_us  drv_tiempo.o
-    0x000009cc   0x000009cc   0x00000010   Code   RO           81    i.drv_tiempo_iniciar  drv_tiempo.o
-    0x000009dc   0x000009dc   0x00000020   Code   RO           82    i.drv_tiempo_periodico_ms  drv_tiempo.o
-    0x000009fc   0x000009fc   0x00000018   Code   RO           83    i.f_callback_driver  drv_tiempo.o
-    0x00000a14   0x00000a14   0x00000058   Code   RO          252    i.f_callback_drv    drv_botones.o
-    0x00000a6c   0x00000a6c   0x0000001c   Code   RO          811    i.hal_WDT_feed      hal_wdt_nrf.o
-    0x00000a88   0x00000a88   0x00000044   Code   RO          812    i.hal_WDT_iniciar   hal_wdt_nrf.o
-    0x00000acc   0x00000acc   0x00000010   Code   RO          680    i.hal_consumo_dormir  hal_consumo_nrf.o
-    0x00000adc   0x00000adc   0x00000004   Code   RO          681    i.hal_consumo_esperar  hal_consumo_nrf.o
-    0x00000ae0   0x00000ae0   0x00000002   Code   RO          682    i.hal_consumo_iniciar  hal_consumo_nrf.o
-    0x00000ae2   0x00000ae2   0x00000002   PAD
-    0x00000ae4   0x00000ae4   0x00000074   Code   RO          723    i.hal_deshabilitar_int  hal_ext_int_nrf.o
-    0x00000b58   0x00000b58   0x000000c4   Code   RO          724    i.hal_ext_int_iniciar  hal_ext_int_nrf.o
-    0x00000c1c   0x00000c1c   0x00000004   Code   RO          725    i.hal_ext_int_leer  hal_ext_int_nrf.o
-    0x00000c20   0x00000c20   0x000000e4   Code   RO          726    i.hal_ext_int_limpiar  hal_ext_int_nrf.o
-    0x00000d04   0x00000d04   0x0000001c   Code   RO          524    i.hal_gpio_escribir  hal_gpio_nrf.o
-    0x00000d20   0x00000d20   0x0000000c   Code   RO          526    i.hal_gpio_iniciar  hal_gpio_nrf.o
-    0x00000d2c   0x00000d2c   0x00000018   Code   RO          527    i.hal_gpio_leer     hal_gpio_nrf.o
-    0x00000d44   0x00000d44   0x00000018   Code   RO          529    i.hal_gpio_sentido  hal_gpio_nrf.o
-    0x00000d5c   0x00000d5c   0x000000f4   Code   RO          728    i.hal_habilitar_int  hal_ext_int_nrf.o
-    0x00000e50   0x00000e50   0x00000038   Code   RO          847    i.hal_random_generar  hal_random_nrf.o
-    0x00000e88   0x00000e88   0x0000001c   Code   RO          848    i.hal_random_iniciar  hal_random_nrf.o
-    0x00000ea4   0x00000ea4   0x0000002c   Code   RO          628    i.hal_tiempo_actual_tick  hal_tiempo_nrf.o
-    0x00000ed0   0x00000ed0   0x00000058   Code   RO          629    i.hal_tiempo_iniciar_tick  hal_tiempo_nrf.o
-    0x00000f28   0x00000f28   0x0000006c   Code   RO          630    i.hal_tiempo_reloj_periodico_tick  hal_tiempo_nrf.o
-    0x00000f94   0x00000f94   0x00000016   Code   RO            1    i.main              main.o
-    0x00000faa   0x00000faa   0x00000002   PAD
-    0x00000fac   0x00000fac   0x00000024   Code   RO          404    i.reiniciar_juego   simon.o
-    0x00000fd0   0x00000fd0   0x0000008c   Code   RO          164    i.rt_FIFO_encolar   rt_fifo.o
-    0x0000105c   0x0000105c   0x00000058   Code   RO          166    i.rt_FIFO_extraer   rt_fifo.o
-    0x000010b4   0x000010b4   0x00000034   Code   RO          167    i.rt_FIFO_inicializar  rt_fifo.o
-    0x000010e8   0x000010e8   0x000000cc   Code   RO          306    i.rt_GE_iniciar     rt_ge.o
-    0x000011b4   0x000011b4   0x0000005c   Code   RO          307    i.rt_GE_lanzador    rt_ge.o
-    0x00001210   0x00001210   0x00000034   Code   RO          308    i.rt_GE_tratar      rt_ge.o
-    0x00001244   0x00001244   0x0000006c   Code   RO          405    i.simon_conmutar_leds  simon.o
-    0x000012b0   0x000012b0   0x000000a8   Code   RO          406    i.simon_iniciar     simon.o
-    0x00001358   0x00001358   0x0000003a   Code   RO          407    i.simon_mostrar_seq_inicial  simon.o
-    0x00001392   0x00001392   0x00000002   PAD
-    0x00001394   0x00001394   0x00000058   Code   RO          408    i.simon_mostrar_seq_juego  simon.o
-    0x000013ec   0x000013ec   0x000001c4   Code   RO          409    i.simon_tratar      simon.o
-    0x000015b0   0x000015b0   0x00000050   Code   RO          310    i.svc_GE_suscribir  rt_ge.o
-    0x00001600   0x00001600   0x00000168   Code   RO          350    i.svc_alarma_activar  srv_alarm.o
-    0x00001768   0x00001768   0x0000000e   Code   RO          351    i.svc_alarma_codificar  srv_alarm.o
-    0x00001776   0x00001776   0x00000002   PAD
-    0x00001778   0x00001778   0x0000004c   Code   RO          352    i.svc_alarma_iniciar  srv_alarm.o
-    0x000017c4   0x000017c4   0x00000174   Code   RO          353    i.svc_alarma_tratar  srv_alarm.o
-    0x00001938   0x00001938   0x00000004   Data   RO           43    .constdata          drv_leds.o
-    0x0000193c   0x0000193c   0x00000004   Data   RO          224    .constdata          drv_monitor.o
-    0x00001940   0x00001940   0x00000050   Data   RO          411    .constdata          simon.o
-    0x00001990   0x00001990   0x00000020   Data   RO         1040    Region$$Table       anon$$obj.o
-
-
-    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x000019b0, Size: 0x00004668, Max: 0x00040000, ABSOLUTE)
+    Execution Region ER_IROM1 (Exec base: 0x00000000, Load base: 0x00000000, Size: 0x00001944, Max: 0x00100000, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x000019b0   0x00000010   Data   RW           84    .data               drv_tiempo.o
-    0x20000010   0x000019c0   0x0000000c   Data   RW          132    .data               drv_consumo.o
-    0x2000001c   0x000019cc   0x0000000c   Data   RW          171    .data               rt_fifo.o
-    0x20000028   0x000019d8   0x0000001c   Data   RW          253    .data               drv_botones.o
-    0x20000044   0x000019f4   0x00000008   Data   RW          312    .data               rt_ge.o
-    0x2000004c   0x000019fc   0x0000000c   Data   RW          355    .data               srv_alarm.o
-    0x20000058   0x00001a08   0x00000004   Data   RW          385    .data               drv_sc.o
-    0x2000005c   0x00001a0c   0x00000014   Data   RW          412    .data               simon.o
-    0x20000070   0x00001a20   0x00000008   Data   RW          631    .data               hal_tiempo_nrf.o
-    0x20000078   0x00001a28   0x00000008   Data   RW          730    .data               hal_ext_int_nrf.o
-    0x20000080   0x00001a30   0x00000004   Data   RW          947    .data               system_nrf52.o
-    0x20000084   0x00001a34   0x00000004   PAD
-    0x20000088        -       0x00000430   Zero   RW          170    .bss                rt_fifo.o
-    0x200004b8        -       0x000000f0   Zero   RW          311    .bss                rt_ge.o
-    0x200005a8        -       0x00000050   Zero   RW          354    .bss                srv_alarm.o
-    0x200005f8        -       0x00000050   Zero   RW          410    .bss                simon.o
-    0x20000648        -       0x00000020   Zero   RW          729    .bss                hal_ext_int_nrf.o
-    0x20000668        -       0x00004000   Zero   RW          933    STACK               arm_startup_nrf52840.o
+    0x00000000   0x00000000   0x00000200   Data   RO          947    RESET               arm_startup_nrf52840.o
+    0x00000200   0x00000200   0x00000000   Code   RO         1017  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
+    0x00000200   0x00000200   0x00000004   Code   RO         1028    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
+    0x00000204   0x00000204   0x00000004   Code   RO         1031    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
+    0x00000208   0x00000208   0x00000000   Code   RO         1033    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
+    0x00000208   0x00000208   0x00000000   Code   RO         1035    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
+    0x00000208   0x00000208   0x00000008   Code   RO         1036    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
+    0x00000210   0x00000210   0x00000000   Code   RO         1038    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
+    0x00000210   0x00000210   0x00000000   Code   RO         1040    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
+    0x00000210   0x00000210   0x00000004   Code   RO         1029    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
+    0x00000214   0x00000214   0x00000024   Code   RO          948    .text               arm_startup_nrf52840.o
+    0x00000238   0x00000238   0x00000062   Code   RO         1026    .text               mc_w.l(uldiv.o)
+    0x0000029a   0x0000029a   0x0000001e   Code   RO         1042    .text               mc_w.l(llshl.o)
+    0x000002b8   0x000002b8   0x00000020   Code   RO         1044    .text               mc_w.l(llushr.o)
+    0x000002d8   0x000002d8   0x00000024   Code   RO         1046    .text               mc_w.l(init.o)
+    0x000002fc   0x000002fc   0x0000003c   Code   RO          731    i.GPIOTE_IRQHandler  hal_ext_int_nrf.o
+    0x00000338   0x00000338   0x00000280   Code   RO          956    i.SystemInit        system_nrf52.o
+    0x000005b8   0x000005b8   0x0000002c   Code   RO          638    i.TIMER0_IRQHandler  hal_tiempo_nrf.o
+    0x000005e4   0x000005e4   0x00000028   Code   RO          639    i.TIMER1_IRQHandler  hal_tiempo_nrf.o
+    0x0000060c   0x0000060c   0x0000000e   Code   RO         1050    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x0000061a   0x0000061a   0x00000002   Code   RO         1051    i.__scatterload_null  mc_w.l(handlers.o)
+    0x0000061c   0x0000061c   0x0000000e   Code   RO         1052    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x0000062a   0x0000062a   0x00000006   Code   RO          403    i.apagar_led        simon.o
+    0x00000630   0x00000630   0x00000014   Code   RO          383    i.drv_SC_entrar_disable_irq  drv_sc.o
+    0x00000644   0x00000644   0x00000014   Code   RO          384    i.drv_SC_salir_enable_irq  drv_sc.o
+    0x00000658   0x00000658   0x00000060   Code   RO          250    i.drv_botones_iniciar  drv_botones.o
+    0x000006b8   0x000006b8   0x00000144   Code   RO          251    i.drv_botones_tratar  drv_botones.o
+    0x000007fc   0x000007fc   0x00000018   Code   RO          129    i.drv_consumo_dormir  drv_consumo.o
+    0x00000814   0x00000814   0x00000048   Code   RO          130    i.drv_consumo_esperar  drv_consumo.o
+    0x0000085c   0x0000085c   0x0000001c   Code   RO          131    i.drv_consumo_iniciar  drv_consumo.o
+    0x00000878   0x00000878   0x0000001c   Code   RO           39    i.drv_led_apagar    drv_leds.o
+    0x00000894   0x00000894   0x00000028   Code   RO           40    i.drv_led_conmutar  drv_leds.o
+    0x000008bc   0x000008bc   0x0000001c   Code   RO           41    i.drv_led_encender  drv_leds.o
+    0x000008d8   0x000008d8   0x00000030   Code   RO           42    i.drv_leds_iniciar  drv_leds.o
+    0x00000908   0x00000908   0x0000001c   Code   RO          221    i.drv_monitor_desmarcar  drv_monitor.o
+    0x00000924   0x00000924   0x00000004   Code   RO          222    i.drv_monitor_iniciar  drv_monitor.o
+    0x00000928   0x00000928   0x0000001c   Code   RO          223    i.drv_monitor_marcar  drv_monitor.o
+    0x00000944   0x00000944   0x00000030   Code   RO           77    i.drv_tiempo_actual_ms  drv_tiempo.o
+    0x00000974   0x00000974   0x0000002c   Code   RO           78    i.drv_tiempo_actual_us  drv_tiempo.o
+    0x000009a0   0x000009a0   0x00000010   Code   RO           81    i.drv_tiempo_iniciar  drv_tiempo.o
+    0x000009b0   0x000009b0   0x00000020   Code   RO           82    i.drv_tiempo_periodico_ms  drv_tiempo.o
+    0x000009d0   0x000009d0   0x00000020   Code   RO          404    i.encender_led      simon.o
+    0x000009f0   0x000009f0   0x00000018   Code   RO           83    i.f_callback_driver  drv_tiempo.o
+    0x00000a08   0x00000a08   0x00000058   Code   RO          252    i.f_callback_drv    drv_botones.o
+    0x00000a60   0x00000a60   0x0000001c   Code   RO          823    i.hal_WDT_feed      hal_wdt_nrf.o
+    0x00000a7c   0x00000a7c   0x00000044   Code   RO          824    i.hal_WDT_iniciar   hal_wdt_nrf.o
+    0x00000ac0   0x00000ac0   0x00000010   Code   RO          692    i.hal_consumo_dormir  hal_consumo_nrf.o
+    0x00000ad0   0x00000ad0   0x00000004   Code   RO          693    i.hal_consumo_esperar  hal_consumo_nrf.o
+    0x00000ad4   0x00000ad4   0x00000002   Code   RO          694    i.hal_consumo_iniciar  hal_consumo_nrf.o
+    0x00000ad6   0x00000ad6   0x00000002   PAD
+    0x00000ad8   0x00000ad8   0x00000074   Code   RO          735    i.hal_deshabilitar_int  hal_ext_int_nrf.o
+    0x00000b4c   0x00000b4c   0x000000c4   Code   RO          736    i.hal_ext_int_iniciar  hal_ext_int_nrf.o
+    0x00000c10   0x00000c10   0x00000004   Code   RO          737    i.hal_ext_int_leer  hal_ext_int_nrf.o
+    0x00000c14   0x00000c14   0x000000e4   Code   RO          738    i.hal_ext_int_limpiar  hal_ext_int_nrf.o
+    0x00000cf8   0x00000cf8   0x0000001c   Code   RO          536    i.hal_gpio_escribir  hal_gpio_nrf.o
+    0x00000d14   0x00000d14   0x0000000c   Code   RO          538    i.hal_gpio_iniciar  hal_gpio_nrf.o
+    0x00000d20   0x00000d20   0x00000018   Code   RO          539    i.hal_gpio_leer     hal_gpio_nrf.o
+    0x00000d38   0x00000d38   0x00000018   Code   RO          541    i.hal_gpio_sentido  hal_gpio_nrf.o
+    0x00000d50   0x00000d50   0x000000f4   Code   RO          740    i.hal_habilitar_int  hal_ext_int_nrf.o
+    0x00000e44   0x00000e44   0x00000038   Code   RO          859    i.hal_random_generar  hal_random_nrf.o
+    0x00000e7c   0x00000e7c   0x0000001c   Code   RO          860    i.hal_random_iniciar  hal_random_nrf.o
+    0x00000e98   0x00000e98   0x0000002c   Code   RO          640    i.hal_tiempo_actual_tick  hal_tiempo_nrf.o
+    0x00000ec4   0x00000ec4   0x00000058   Code   RO          641    i.hal_tiempo_iniciar_tick  hal_tiempo_nrf.o
+    0x00000f1c   0x00000f1c   0x0000006c   Code   RO          642    i.hal_tiempo_reloj_periodico_tick  hal_tiempo_nrf.o
+    0x00000f88   0x00000f88   0x00000016   Code   RO            1    i.main              main.o
+    0x00000f9e   0x00000f9e   0x00000002   PAD
+    0x00000fa0   0x00000fa0   0x00000024   Code   RO          406    i.reiniciar_juego   simon.o
+    0x00000fc4   0x00000fc4   0x0000008c   Code   RO          164    i.rt_FIFO_encolar   rt_fifo.o
+    0x00001050   0x00001050   0x00000058   Code   RO          166    i.rt_FIFO_extraer   rt_fifo.o
+    0x000010a8   0x000010a8   0x00000038   Code   RO          167    i.rt_FIFO_inicializar  rt_fifo.o
+    0x000010e0   0x000010e0   0x000000cc   Code   RO          306    i.rt_GE_iniciar     rt_ge.o
+    0x000011ac   0x000011ac   0x0000005c   Code   RO          307    i.rt_GE_lanzador    rt_ge.o
+    0x00001208   0x00001208   0x00000034   Code   RO          308    i.rt_GE_tratar      rt_ge.o
+    0x0000123c   0x0000123c   0x0000006c   Code   RO          407    i.simon_conmutar_leds  simon.o
+    0x000012a8   0x000012a8   0x000000c0   Code   RO          408    i.simon_iniciar     simon.o
+    0x00001368   0x00001368   0x0000003a   Code   RO          409    i.simon_mostrar_seq_inicial  simon.o
+    0x000013a2   0x000013a2   0x00000002   PAD
+    0x000013a4   0x000013a4   0x00000058   Code   RO          410    i.simon_mostrar_seq_juego  simon.o
+    0x000013fc   0x000013fc   0x0000016c   Code   RO          411    i.simon_tratar      simon.o
+    0x00001568   0x00001568   0x00000050   Code   RO          310    i.svc_GE_suscribir  rt_ge.o
+    0x000015b8   0x000015b8   0x00000168   Code   RO          350    i.svc_alarma_activar  srv_alarm.o
+    0x00001720   0x00001720   0x0000000e   Code   RO          351    i.svc_alarma_codificar  srv_alarm.o
+    0x0000172e   0x0000172e   0x00000002   PAD
+    0x00001730   0x00001730   0x00000050   Code   RO          352    i.svc_alarma_iniciar  srv_alarm.o
+    0x00001780   0x00001780   0x00000174   Code   RO          353    i.svc_alarma_tratar  srv_alarm.o
+    0x000018f4   0x000018f4   0x00000004   Data   RO           43    .constdata          drv_leds.o
+    0x000018f8   0x000018f8   0x00000004   Data   RO          224    .constdata          drv_monitor.o
+    0x000018fc   0x000018fc   0x00000028   Data   RO          413    .constdata          simon.o
+    0x00001924   0x00001924   0x00000020   Data   RO         1048    Region$$Table       anon$$obj.o
+
+
+    Execution Region RW_IRAM1 (Exec base: 0x20000000, Load base: 0x00001944, Size: 0x00004690, Max: 0x00040000, ABSOLUTE)
+
+    Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x20000000   0x00001944   0x00000010   Data   RW           84    .data               drv_tiempo.o
+    0x20000010   0x00001954   0x0000000c   Data   RW          132    .data               drv_consumo.o
+    0x2000001c   0x00001960   0x0000000c   Data   RW          171    .data               rt_fifo.o
+    0x20000028   0x0000196c   0x0000001c   Data   RW          253    .data               drv_botones.o
+    0x20000044   0x00001988   0x00000008   Data   RW          312    .data               rt_ge.o
+    0x2000004c   0x00001990   0x0000000c   Data   RW          355    .data               srv_alarm.o
+    0x20000058   0x0000199c   0x00000004   Data   RW          385    .data               drv_sc.o
+    0x2000005c   0x000019a0   0x00000010   Data   RW          414    .data               simon.o
+    0x2000006c   0x000019b0   0x00000008   Data   RW          643    .data               hal_tiempo_nrf.o
+    0x20000074   0x000019b8   0x00000008   Data   RW          742    .data               hal_ext_int_nrf.o
+    0x2000007c   0x000019c0   0x00000004   Data   RW          959    .data               system_nrf52.o
+    0x20000080        -       0x00000434   Zero   RW          170    .bss                rt_fifo.o
+    0x200004b4        -       0x00000104   Zero   RW          311    .bss                rt_ge.o
+    0x200005b8        -       0x00000064   Zero   RW          354    .bss                srv_alarm.o
+    0x2000061c        -       0x00000050   Zero   RW          412    .bss                simon.o
+    0x2000066c        -       0x00000020   Zero   RW          741    .bss                hal_ext_int_nrf.o
+    0x2000068c   0x000019c4   0x00000004   PAD
+    0x20000690        -       0x00004000   Zero   RW          945    STACK               arm_startup_nrf52840.o
 
 
 ==============================================================================
@@ -823,28 +824,28 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-        36          8        512          0      16384        872   arm_startup_nrf52840.o
-       520         32          0         28          0       4600   drv_botones.o
-       124         12          0         12          0       2469   drv_consumo.o
-       144         18          4          0          0       2862   drv_leds.o
-        60         10          4          0          0       2183   drv_monitor.o
-        40         10          0          4          0       1206   drv_sc.o
-       164         28          0         16          0       3791   drv_tiempo.o
-        22          6          0          0          0       1461   hal_consumo_nrf.o
-       848        130          0          8         32       5900   hal_ext_int_nrf.o
-        88         22          0          0          0      37642   hal_gpio_nrf.o
-        84         20          0          0          0       1190   hal_random_nrf.o
-       324         84          0          8          0      34236   hal_tiempo_nrf.o
-        96         30          0          0          0       1637   hal_wdt_nrf.o
-        22          0          0          0          0       5943   main.o
-       280         30          0         12       1072       3419   rt_fifo.o
-       428         32          0          8        240       4257   rt_ge.o
-       910         68         80         20         80       5962   simon.o
-       822         30          0         12         80       5793   srv_alarm.o
-       640        140          0          4          0      61596   system_nrf52.o
+        36          8        512          0      16384        900   arm_startup_nrf52840.o
+       508         32          0         28          0       4740   drv_botones.o
+       124         12          0         12          0       2593   drv_consumo.o
+       144         18          4          0          0       3014   drv_leds.o
+        60         10          4          0          0       2307   drv_monitor.o
+        40         10          0          4          0       1282   drv_sc.o
+       164         28          0         16          0       3959   drv_tiempo.o
+        22          6          0          0          0       1533   hal_consumo_nrf.o
+       848        130          0          8         32       6132   hal_ext_int_nrf.o
+        88         22          0          0          0      37766   hal_gpio_nrf.o
+        84         20          0          0          0       1242   hal_random_nrf.o
+       324         84          0          8          0      34404   hal_tiempo_nrf.o
+        96         30          0          0          0       1709   hal_wdt_nrf.o
+        22          0          0          0          0       6031   main.o
+       284         32          0         12       1076       3579   rt_fifo.o
+       428         32          0          8        260       4417   rt_ge.o
+       884         76         40         16         80       6978   simon.o
+       826         32          0         12        100       5957   srv_alarm.o
+       640        140          0          4          0      61668   system_nrf52.o
 
     ----------------------------------------------------------------------
-      5660        710        632        132      17892     187019   Object Totals
+      5630        722        592        128      17936     190211   Object Totals
          0          0         32          0          0          0   (incl. Generated)
          8          0          0          0          4          0   (incl. Padding)
 
@@ -864,21 +865,20 @@ Image component sizes
         36          8          0          0          0         68   init.o
         30          0          0          0          0         68   llshl.o
         32          0          0          0          0         68   llushr.o
-        36          0          0          0          0         68   memcpya.o
         98          0          0          0          0         92   uldiv.o
 
     ----------------------------------------------------------------------
-       284         16          0          0          0        364   Library Totals
-         2          0          0          0          0          0   (incl. Padding)
+       246         16          0          0          0        296   Library Totals
+         0          0          0          0          0          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Library Name
 
-       282         16          0          0          0        364   mc_w.l
+       246         16          0          0          0        296   mc_w.l
 
     ----------------------------------------------------------------------
-       284         16          0          0          0        364   Library Totals
+       246         16          0          0          0        296   Library Totals
 
     ----------------------------------------------------------------------
 
@@ -887,15 +887,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-      5944        726        632        132      17892     182083   Grand Totals
-      5944        726        632        132      17892     182083   ELF Image Totals
-      5944        726        632        132          0          0   ROM Totals
+      5876        738        592        128      17936     185059   Grand Totals
+      5876        738        592        128      17936     185059   ELF Image Totals
+      5876        738        592        128          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 6576 (   6.42kB)
-    Total RW  Size (RW Data + ZI Data)             18024 (  17.60kB)
-    Total ROM Size (Code + RO Data + RW Data)       6708 (   6.55kB)
+    Total RO  Size (Code + RO Data)                 6468 (   6.32kB)
+    Total RW  Size (RW Data + ZI Data)             18064 (  17.64kB)
+    Total ROM Size (Code + RO Data + RW Data)       6596 (   6.44kB)
 
 ==============================================================================
 

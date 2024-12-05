@@ -7,7 +7,7 @@
 #include "drv_tiempo.h"
 #include "hal_tiempo.h"
 
-static volatile uint32_t HAL_TICKS2US_T0;	// factor de conversión para transformar el número de ticks a milisegundos		
+static volatile uint32_t HAL_TICKS2US_T0;	// factor de conversión para transformar el número de ticks a microsegundos		
 static volatile uint32_t HAL_TICKS2US_T1 = 16;	// factor de conversión para transformar el número de ticks a milisegundos						
 #define US2MS	1000						// constante de microsegundos a milisegundos
 

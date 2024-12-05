@@ -6,10 +6,13 @@
 #ifndef BOARD
 #define BOARD
 
+
 #if defined (LPC2105_simulador)
 	#include "board_lpc.h"
+	 #define PRIMERA_PARTIDA 1
 #elif defined(BOARD_PCA10056)
 	#include "board_nrf52840dk.h"
+	 #define PRIMERA_PARTIDA 0
 #elif defined(BOARD_PCA10059)
   #include "board_nrf52840_dongle.h"	
 #else

@@ -43,8 +43,7 @@ void hal_gpio_iniciar(void);
  * Los bits indicados se configuran como
  * entrada o salida segun la direccion.
  */
-void hal_gpio_sentido_n(HAL_GPIO_PIN_T gpio_inicial, 
-			uint8_t num_bits, hal_gpio_pin_dir_t direccion);
+void hal_gpio_sentido_n(HAL_GPIO_PIN_T gpio_inicial, uint8_t num_bits, hal_gpio_pin_dir_t direccion);
  
 /**
  * La funci�n devuelve un entero con el valor de los bits indicados.
@@ -61,8 +60,7 @@ uint32_t hal_gpio_leer_n(HAL_GPIO_PIN_T gpio_inicial, uint8_t num_bits);
  * (si valor no puede representarse en los bits indicados,
  *  se escribira los num_bits menos significativos a partir del inicial).
  */
-void hal_gpio_escribir_n(HAL_GPIO_PIN_T bit_inicial, 
-			uint8_t num_bits, uint32_t valor);
+void hal_gpio_escribir_n(HAL_GPIO_PIN_T bit_inicial, uint8_t num_bits, uint32_t valor);
 
 /* *****************************************************************************
  * Acceso a los GPIOs 

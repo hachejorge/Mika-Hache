@@ -24,6 +24,9 @@ bool esEventoUsuario(EVENTO_T id_evento){
     return false;
 }
 
+// Inicializar sus estructuras (estáticas)
+// suscribir EVs usuario (lista rt_evento_t)
+// activa alarma ev_INACTIVIDAD
 void rt_GE_iniciar(uint32_t monitor) {
     monitor_overflow = monitor;
     drv_consumo_iniciar(3,4);
@@ -33,8 +36,8 @@ void rt_GE_iniciar(uint32_t monitor) {
             gestor_eventos[i].callbacks[j] = NULL;
         }
     }
-	svc_GE_suscribir(ev_PULSAR_BOTON, rt_GE_tratar);
-	svc_GE_suscribir(ev_INACTIVIDAD, rt_GE_tratar);
+	svc_GE_suscribir(ev_PULSAR_BOTON, rt_GE_tratar); // suscribe ev_PULSAR_BOTON a rt_GE_tratar
+	svc_GE_suscribir(ev_INACTIVIDAD, rt_GE_tratar); // suscribe ev_INACTIVIDAD a rt_GE_tratar
 }
 
 void rt_GE_lanzador(){
@@ -82,7 +85,7 @@ void svc_GE_suscribir(EVENTO_T evento, void(*f_callback)(EVENTO_T id, uint32_t a
         bool evento_suscrito = false;
         for(int i = 0; i < rt_GE_MAX_SUSCRITOS && !evento_suscrito; i++) { // recorremos el vector de eventos suscritos
             if(gestor_eventos[evento].callbacks[i] == NULL) { // si esa componente del vector está vacía, suscribimos un nuevo evento
-                gestor_eventos[evento].callbacks[i] = f_callback; // habría que jacer aquí svc_GE_candelar?????
+                gestor_eventos[evento].callbacks[i] = f_callback; 
                 evento_suscrito = true;                       // el evento está suscrito
                 gestor_eventos[evento].callbacks_usados++;    // aumentamos el número de callbacks en ese evento
             }
@@ -105,9 +108,9 @@ void svc_GE_cancelar(EVENTO_T evento, void(*f_callback)(EVENTO_T id, uint32_t au
 
 void rt_GE_tratar(EVENTO_T evento, uint32_t auxiliar){
     if(esEventoUsuario(evento)){
-        svc_alarma_activar(svc_alarma_codificar(0, 20*1000),ev_INACTIVIDAD,0);
+        svc_alarma_activar(svc_alarma_codificar(0, 20*1000),ev_INACTIVIDAD,0); // programamos una alarma a los 20 segundos
     }
     else if(evento == ev_INACTIVIDAD){
-        drv_consumo_dormir();
+        drv_consumo_dormir();	// dormimos el procesador
     }
 }

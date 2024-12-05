@@ -103,6 +103,7 @@ void rt_FIFO_encolar(EVENTO_T ID_evento, uint32_t auxData){
 // Función que devuelve el número de eventos por procesar (incluyendo el propio evento extraido), y que pasa por los parámetros
 // ID_evento, auxData, TS las variables relacionadas con el primer evento a tratar
 uint8_t rt_FIFO_extraer(EVENTO_T *ID_evento, uint32_t* auxData, Tiempo_us_t *TS){
+		
 		drv_SC_entrar_disable_irq();
 		
 		// Se asignan los eventos sin tratar totales, incluyendo el posible a extraer 
@@ -183,11 +184,11 @@ int verificar_insertar_extraer_en_cola(){
 		int resultado = 1;
 	
 		for(int i = 0; i < eventos1; i++){
-				rt_FIFO_encolar(ev_T_PERIODICO, i);
+				rt_FIFO_encolar(ev_T_PERIODICO, i); // encolamos 10 veces el ev_T_PERIODICO
 		}
 		
 		for(int i = 0; i < eventos2; i++){
-				rt_FIFO_encolar(ev_PULSAR_BOTON, i);
+				rt_FIFO_encolar(ev_PULSAR_BOTON, i); // encolamos 10 veces el ev_PULSAR_BOTON
 		}
 		
 		EVENTO_T id_evento;
@@ -195,14 +196,14 @@ int verificar_insertar_extraer_en_cola(){
 		Tiempo_us_t time;
 		
 		for(int i = 0; i < eventos1; i++) {
-				rt_FIFO_extraer(&id_evento, &auxData, &time);
+				rt_FIFO_extraer(&id_evento, &auxData, &time); // extraemos 10 veces el ev_T_PERODICO, verificando que sea correcto
 				if( id_evento != ev_T_PERIODICO || auxData != i ){
 						resultado = 0;
 				}
 		}
 		
 		for(int i = 0; i < eventos2; i++) {
-				rt_FIFO_extraer(&id_evento, &auxData, &time);
+				rt_FIFO_extraer(&id_evento, &auxData, &time); // extraemos 10 veces el ev_PULSAR_BOTON, verificando que sea correcto
 				if( id_evento != ev_PULSAR_BOTON || auxData != i ){
 						resultado = 0;
 				}
@@ -212,5 +213,5 @@ int verificar_insertar_extraer_en_cola(){
 				resultado = 0;
 		}
 		
-		return resultado;
+		return resultado; // en caso de que haya algún error devolverá 0
 }

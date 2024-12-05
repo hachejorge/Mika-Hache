@@ -17,6 +17,7 @@ typedef struct{
 	Tiempo_us_t TS;
 }EVENTO;
 
+//Iniciamos la estructura de la cola FIFO y las estadísticas
 void rt_FIFO_inicializar(uint32_t monitor_overflow);
 
 // Función que encola el evento dado al que le añade el timestamp, en caso de haber overflow lo marca mediante MON_OVERFLOW y se queda en bucle

@@ -35,7 +35,7 @@ uint32_t drv_leds_iniciar(){
 }
 
 /**
- * enciende el led id, si id es cero ... no enciende ninguno?, todos? decidis vosotros
+ * enciende el led id, si id es cero ... no enciende ninguno
  */
 void drv_led_encender(uint32_t id){
 	#if LEDS_NUMBER > 0
